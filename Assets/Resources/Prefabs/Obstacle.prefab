@@ -27,6 +27,7 @@ GameObject:
   - 33: {fileID: 3349340}
   - 65: {fileID: 6516916}
   - 23: {fileID: 2368842}
+  - 114: {fileID: 11435104}
   m_Layer: 0
   m_Name: Obstacle
   m_TagString: Untagged
@@ -134,6 +135,17 @@ Light:
   m_ShadowRadius: 0
   m_ShadowAngle: 0
   m_AreaSize: {x: 1, y: 1}
+--- !u!114 &11435104
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 131274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67e2ca1e2eb7848a4a220794b39911bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - platform
   - marble
+  - barrel
   layers:
   - Default
   - TransparentFX

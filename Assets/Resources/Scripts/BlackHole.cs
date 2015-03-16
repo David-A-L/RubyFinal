@@ -37,7 +37,7 @@ public class BlackHole : MonoBehaviour {
 	void applyForce(GameObject ball) {
 		if(ball.GetComponent<Rigidbody>() != null){
 			Vector3 force = determineForce(ball);
-			print ("Appplied force "+force);
+			//print ("Appplied force "+force);
 			ball.GetComponent<Rigidbody>().AddForce(force);
 		}
 	}
