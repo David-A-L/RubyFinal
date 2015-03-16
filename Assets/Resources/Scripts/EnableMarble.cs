@@ -10,7 +10,8 @@ public class EnableMarble : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKey(KeyCode.A)) {
+		Rigidbody mRigid = this.gameObject.GetComponent<Rigidbody>();
+		if (Input.GetKey(KeyCode.A) && mRigid == null) {
 			gameObject.AddComponent<Rigidbody> ();
 		}
 	}
