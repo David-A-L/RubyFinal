@@ -44,14 +44,16 @@ public class BlackHole : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		applyForce(ball);
-		if (Input.GetKey(KeyCode.O)) {
-			if (maxForce > 0)
-				maxForce -=1;
+		if(ball != null) {
+			applyForce(ball);
+			if (Input.GetKey(KeyCode.O)) {
+				if (maxForce > 0)
+					maxForce -=1;
+			}
+			if (Input.GetKey(KeyCode.P)) {
+				if (maxForce < 20)
+					maxForce +=1;
+			} 
 		}
-		if (Input.GetKey(KeyCode.P)) {
-			if (maxForce < 20)
-				maxForce +=1;
-		} 
 	}
 }
