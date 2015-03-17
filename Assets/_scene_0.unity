@@ -481,7 +481,8 @@ MonoBehaviour:
   minYrange: -4.5
   maxYrange: 3.5
   minDist: 1
-  numGenerate: 4
+  numGenericGenerate: 0
+  numBlackHoles: 0
   safeZone: {fileID: 477221919}
 --- !u!114 &700976068
 MonoBehaviour:
@@ -881,6 +882,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d59213ff890c646678418e425c064833, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myMaterial: {fileID: 0}
 --- !u!1 &1633280313
 GameObject:
   m_ObjectHideFlags: 0

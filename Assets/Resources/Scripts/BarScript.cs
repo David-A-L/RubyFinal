@@ -17,7 +17,6 @@ public class BarScript : MonoBehaviour {
 		xMax = transform.localScale.x;
 		curVal = baseVal;
 		unitsPerPerc = xMax / baseVal;
-		print(unitsPerPerc);
 		lockedVal = baseVal;
 	}
 

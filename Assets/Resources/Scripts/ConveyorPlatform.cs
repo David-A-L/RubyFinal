@@ -23,7 +23,7 @@ public class ConveyorPlatform : MonoBehaviour {
 	
 	void OnTriggerStay(Collider coll) {
 		if(coll.gameObject.tag == "marble") {
-			Vector3 marbleBody = coll.gameObject.transform.position;
+		
 			Vector3 newMarblePos = coll.gameObject.transform.position;
 			
 			float platformAdv = Time.deltaTime * slideVel;

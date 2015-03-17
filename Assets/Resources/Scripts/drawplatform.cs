@@ -8,19 +8,21 @@ public class drawplatform : MonoBehaviour {
 	Vector3 lastPoint = Vector3.one;
 
 	public Transform progressBar;
-	public Transform line;
 	public Material gray;
 	public Material red;
 	public Material blue;
+	public Material yellow;
+	public Material green;
 
-	private Transform cube;
+	private string lastPfrmType;
+	private GameObject pfrm;
 	private Vector3 newPoint;
 	private Vector3 newSize;
 	private bool validLine = true;
 	private bool first = true;
 	// Use this for initialization
 	void Start () {
-	
+		lastPfrmType = null;
 	}
 	
 	// Update is called once per frame
@@ -30,18 +32,26 @@ public class drawplatform : MonoBehaviour {
 			lastPoint = Vector3.one;
 			newPoint = Vector3.zero;
 			newSize = Vector3.zero;
-			GameObject.Destroy(cube.gameObject);
+			GameObject.Destroy(pfrm.gameObject);
 			progressBar.GetComponent<BarScript>().revertToLocked();
 		}
+		bool inputFlag = false;
 		if(Input.GetMouseButtonUp(0)) {
-			if(validLine) {
-				drawPlatform();
-			}
+			lastPfrmType = "line";
+			inputFlag = true;
+		} else if(Input.GetKeyUp(KeyCode.C)) {
+			lastPfrmType = "cnvrPfrm"; 
+			inputFlag = true;
 		}
-		if(lastPoint.z != 1) transformLine();
+		
+		if(validLine && inputFlag){
+			drawPlatform(lastPfrmType);
+		}
+		
+		if(lastPoint.z != 1) transformLine(lastPfrmType);
 	}
 
-	void transformLine() {
+	void transformLine(string pfrmType) {
 
 		// Endpoint
 		newPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -51,7 +61,7 @@ public class drawplatform : MonoBehaviour {
 		if(lastPoint.z == 1) lastPoint = newPoint;
 
 		// Put line center between endpoints
-		cube.transform.position = (lastPoint + newPoint) / 2;
+		pfrm.transform.position = (lastPoint + newPoint) / 2;
 
 		// Get line length
 		Vector3 difference = lastPoint - newPoint;
@@ -74,28 +84,50 @@ public class drawplatform : MonoBehaviour {
 		// Set line color
 		if(oldValidStatus != validLine) {
 			if(validLine) {
-				cube.GetComponent<Renderer>().GetComponent<Renderer>().material = gray;
+				switch(pfrmType) {
+				case "line":
+					pfrm.GetComponent<Renderer>().GetComponent<Renderer>().material = gray;
+					break;
+				case "cnvrPfrm":
+					pfrm.GetComponent<Renderer>().GetComponent<Renderer>().material = yellow;
+					break;
+				}
 			}
 			else {
-				cube.GetComponent<Renderer>().GetComponent<Renderer>().material = red;
+				pfrm.GetComponent<Renderer>().GetComponent<Renderer>().material = red;
 			}
 		}
 		// Update line object size and rotation
-		cube.transform.localScale = newSize;	
+		pfrm.transform.localScale = newSize;	
 		float angle = Mathf.Atan2(lastPoint.y - newPoint.y, lastPoint.x - newPoint.x) * Mathf.Rad2Deg;
-		cube.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+		pfrm.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 	}
 
-	void drawPlatform()
+	void drawPlatform(string pfrmType)
 	{
 		newSize = Vector3.zero;
 		if (!first) {
-			cube.gameObject.AddComponent<BoxCollider>();
-			cube.GetComponent<Renderer>().GetComponent<Renderer>().material = blue;
+			pfrm.AddComponent<BoxCollider>();
+			switch(pfrmType) {
+			case "line":
+				pfrm.GetComponent<Renderer>().GetComponent<Renderer>().material = blue;
+				break;
+			case "cnvrPfrm":
+				pfrm.GetComponent<Renderer>().GetComponent<Renderer>().material = green;
+				break;
+			}
+			
 		}
 		first = false;
-		cube = Instantiate(line);
-		transformLine();
+		switch(pfrmType) {
+			case "line":
+			pfrm = (GameObject)Instantiate (Resources.Load ("Prefabs/line"));
+			break;
+			case "cnvrPfrm":
+				pfrm = (GameObject)Instantiate (Resources.Load ("Prefabs/cnvrPfrm"));
+			break;
+		}
+		transformLine(lastPfrmType);
 		lastPoint = newPoint;
 		progressBar.GetComponent<BarScript>().lockVal();
 	}
