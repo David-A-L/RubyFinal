@@ -12,7 +12,7 @@ public class GameManager {
 	public bool seedRand;
 
 	private static GameManager instance = new GameManager();
-	
+
 	// initialize game manager here. Do not reference GameObjects here (i.e. GameObject.Find etc.)
 	// because the game manager will be created before the objects
 	private GameManager() {

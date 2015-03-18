@@ -29,6 +29,11 @@ public class drawplatform : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		//TODO put this in the right place
+		if (Input.GetKey (KeyCode.Backspace)) {
+			Application.LoadLevel("_scene_main_menu");
+		}
+
 		if(Input.GetKeyUp(KeyCode.Escape)){
 			first = true;
 			lastPoint = Vector3.one;
