@@ -53,7 +53,7 @@ public class GameManager {
 	//If the player has no lives left, then the call to resetLevel
 	//never actually go through and so there's nothing to worry about
 	public void die(List<Vector3> obstPositions){
-		++numDeaths;
+		++numDeaths; 
 		if (numDeaths == numLives) {
 			resetGame ();
 			return;
