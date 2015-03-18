@@ -12,6 +12,13 @@ public class BlackHole : MonoBehaviour {
 		ball = GameObject.Find("Marble");
 	}
 	
+	bool inSphereOfInfluence() {
+		if(ball != null) {
+			return Vector3.Distance(ball.transform.position,this.transform.position) < 10f;
+		}
+		return false;
+	}
+	
 	Vector3 determineForce(GameObject ball){
 		float ballMass = ball.GetComponent<Rigidbody>().mass;
 		float bHoleMass = this.GetComponent<Rigidbody>().mass;
@@ -36,9 +43,10 @@ public class BlackHole : MonoBehaviour {
 	
 	void applyForce(GameObject ball) {
 		if(ball.GetComponent<Rigidbody>() != null){
-			Vector3 force = determineForce(ball);
-			//print ("Appplied force "+force);
-			ball.GetComponent<Rigidbody>().AddForce(force);
+			if(inSphereOfInfluence()) {
+				Vector3 force = determineForce(ball);
+				ball.GetComponent<Rigidbody>().AddForce(force);
+			}
 		}
 	}
 	
