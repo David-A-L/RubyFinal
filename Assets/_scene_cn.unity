@@ -523,8 +523,8 @@ MonoBehaviour:
   minYrange: -4.5
   maxYrange: 3.5
   minDist: 1
-  numGenericGenerate: 0
-  numBlackHoles: 0
+  numGenericGenerate: 15
+  numBlackHoles: 1
   safeZone: {fileID: 477221919}
 --- !u!114 &700976068
 MonoBehaviour:
@@ -542,7 +542,7 @@ MonoBehaviour:
   gray: {fileID: 2100000, guid: 54557ee8f91244f22a49b0ec51239cbe, type: 2}
   red: {fileID: 2100000, guid: 7fb48c019c26548e8a018a9e3c63855f, type: 2}
   blue: {fileID: 2100000, guid: 8d2e51334be5b4f859005bffcdbf9715, type: 2}
-  yellow: {fileID: 0}
+  yellow: {fileID: 2100000, guid: 3159b8099c3b0449c982ae0a2c0b3bbf, type: 2}
   green: {fileID: 0}
 --- !u!1001 &764598183
 Prefab:

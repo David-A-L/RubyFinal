@@ -32,7 +32,7 @@ public class ObstacleGenerator : MonoBehaviour {
 		}
 		
 		for(int i = 0; i < numGenericGenerate; ++i) {
-			genObstacle("cube");
+			genObstacle("obstacle");
 		}
 		for(int i = 0; i < numBlackHoles; ++i) {
 			genObstacle("blackHole");
@@ -49,8 +49,8 @@ public class ObstacleGenerator : MonoBehaviour {
 		} while (!validLocation(potLoc));
 		
 		switch(objType) {
-		case "cube":
-			newObst = ((GameObject)Instantiate (Resources.Load ("Prefabs/genCube")));
+		case "obstacle":
+			newObst = ((GameObject)Instantiate (Resources.Load ("Prefabs/Obstacle")));
 			break;
 		case "blackHole":
 			newObst = ((GameObject)Instantiate (Resources.Load ("Prefabs/bHole")));
@@ -104,16 +104,6 @@ public class ObstacleGenerator : MonoBehaviour {
 		if (Input.GetKeyUp (KeyCode.S)) {
 			GameManager.Instance.resetLevel (obstaclePos);
 			Application.LoadLevel (0);
-		}
-		if (Input.GetKeyUp (KeyCode.K)) {
-			if (numBlackHoles > 0) {
-				--numBlackHoles;
-			}
-		}
-		if (Input.GetKeyUp (KeyCode.L)) {
-			if (numGenericGenerate > 1) {
-				++numGenericGenerate;
-			}
 		}
 	}
 }
