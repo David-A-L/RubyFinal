@@ -586,6 +586,7 @@ MonoBehaviour:
   blue: {fileID: 2100000, guid: 8d2e51334be5b4f859005bffcdbf9715, type: 2}
   yellow: {fileID: 0}
   green: {fileID: 0}
+  conveyorEnabled: 1
 --- !u!1001 &764598183
 Prefab:
   m_ObjectHideFlags: 0

@@ -13,6 +13,8 @@ public class drawplatform : MonoBehaviour {
 	public Material blue;
 	public Material yellow;
 	public Material green;
+	
+	public bool conveyorEnabled;
 
 	private string lastPfrmType;
 	private GameObject pfrm;
@@ -39,7 +41,7 @@ public class drawplatform : MonoBehaviour {
 		if(Input.GetMouseButtonUp(0)) {
 			lastPfrmType = "line";
 			inputFlag = true;
-		} else if(Input.GetKeyUp(KeyCode.C)) {
+		} else if(Input.GetKeyUp(KeyCode.C) && conveyorEnabled) {
 			lastPfrmType = "cnvrPfrm"; 
 			inputFlag = true;
 		}

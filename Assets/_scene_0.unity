@@ -379,7 +379,6 @@ GameObject:
   - 92: {fileID: 700976064}
   - 124: {fileID: 700976063}
   - 81: {fileID: 700976062}
-  - 114: {fileID: 700976061}
   - 114: {fileID: 700976067}
   - 114: {fileID: 700976068}
   m_Layer: 0
@@ -389,17 +388,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &700976061
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 700976060}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1906888b658c14214931e547f4c798e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!81 &700976062
 AudioListener:
   m_ObjectHideFlags: 0
@@ -497,10 +485,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   difficulty: 5
   progressBar: {fileID: 1093222153}
-  line: {fileID: 497554, guid: 226ec460883104b7e8c94d06a2cbd303, type: 2}
   gray: {fileID: 2100000, guid: 54557ee8f91244f22a49b0ec51239cbe, type: 2}
   red: {fileID: 2100000, guid: 7fb48c019c26548e8a018a9e3c63855f, type: 2}
   blue: {fileID: 2100000, guid: 8d2e51334be5b4f859005bffcdbf9715, type: 2}
+  yellow: {fileID: 0}
+  green: {fileID: 0}
+  conveyorEnabled: 0
 --- !u!1001 &702420594
 Prefab:
   m_ObjectHideFlags: 0
