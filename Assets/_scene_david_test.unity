@@ -87,6 +87,52 @@ NavMeshSettings:
     cellSize: .166666657
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &129275851
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 411946, guid: 571fd2d8e59864ea8acf33ff1ddb9f59, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: .0500000007
+      objectReference: {fileID: 0}
+    - target: {fileID: 411946, guid: 571fd2d8e59864ea8acf33ff1ddb9f59, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 1.42999995
+      objectReference: {fileID: 0}
+    - target: {fileID: 411946, guid: 571fd2d8e59864ea8acf33ff1ddb9f59, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 411946, guid: 571fd2d8e59864ea8acf33ff1ddb9f59, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 411946, guid: 571fd2d8e59864ea8acf33ff1ddb9f59, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 411946, guid: 571fd2d8e59864ea8acf33ff1ddb9f59, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 411946, guid: 571fd2d8e59864ea8acf33ff1ddb9f59, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 411946, guid: 571fd2d8e59864ea8acf33ff1ddb9f59, type: 2}
+      propertyPath: m_RootOrder
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 2309900, guid: 571fd2d8e59864ea8acf33ff1ddb9f59, type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f5787d80b207a495da082c186b3e11d4, type: 2}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 571fd2d8e59864ea8acf33ff1ddb9f59, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &334734032
 GameObject:
   m_ObjectHideFlags: 0
@@ -469,7 +515,8 @@ MonoBehaviour:
   minYrange: -4.5
   maxYrange: 3.5
   minDist: 1
-  numGenerate: 4
+  numGenericGenerate: 0
+  numBlackHoles: 0
   safeZone: {fileID: 477221919}
 --- !u!114 &700976068
 MonoBehaviour:
@@ -484,10 +531,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   difficulty: 5
   progressBar: {fileID: 1093222153}
-  line: {fileID: 497554, guid: 226ec460883104b7e8c94d06a2cbd303, type: 2}
   gray: {fileID: 2100000, guid: 54557ee8f91244f22a49b0ec51239cbe, type: 2}
   red: {fileID: 2100000, guid: 7fb48c019c26548e8a018a9e3c63855f, type: 2}
   blue: {fileID: 2100000, guid: 8d2e51334be5b4f859005bffcdbf9715, type: 2}
+  yellow: {fileID: 0}
+  green: {fileID: 0}
 --- !u!1001 &702420594
 Prefab:
   m_ObjectHideFlags: 0
@@ -584,6 +632,10 @@ Prefab:
     - target: {fileID: 438564, guid: 9d70057a4000f554db686377f986041c, type: 2}
       propertyPath: m_RootOrder
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 190012, guid: 9d70057a4000f554db686377f986041c, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9d70057a4000f554db686377f986041c, type: 2}
@@ -716,7 +768,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 414790, guid: 9708d0492b87f41e78b139312ee34dea, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -4
+      value: -8.89999962
       objectReference: {fileID: 0}
     - target: {fileID: 414790, guid: 9708d0492b87f41e78b139312ee34dea, type: 2}
       propertyPath: m_LocalPosition.y
@@ -891,6 +943,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 198650, guid: 2fe0e99effc49cb4bbd27da07dce3939, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2fe0e99effc49cb4bbd27da07dce3939, type: 2}
   m_IsPrefabParent: 0
@@ -995,6 +1051,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d59213ff890c646678418e425c064833, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myMaterial: {fileID: 0}
 --- !u!1 &1633280313
 GameObject:
   m_ObjectHideFlags: 0
