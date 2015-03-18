@@ -5,6 +5,8 @@ using System.Collections.Generic;
 public class GameManager {
 
 	public int completedLevels;
+	private int currentLevel;
+	private int numLevels = 6;
 	private int numLives;
 	private int numDeaths; //when death == lives, game restarts from beginning
 
@@ -30,7 +32,10 @@ public class GameManager {
 	//Call this when you finish a level
 	public void finishLevel(){
 		++completedLevels;
-		Application.LoadLevel (0);
+		currentLevel = Application.loadedLevel;
+		++currentLevel;
+		if (currentLevel == numLevels){--currentLevel;}
+		Application.LoadLevel (currentLevel);
 	}
 
 	//Call this when the player wishes to restart the level

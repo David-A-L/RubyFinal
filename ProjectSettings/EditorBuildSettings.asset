@@ -8,10 +8,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_scene_main_menu.unity
   - enabled: 1
-    path: Assets/_scene_Nick_full.unity
+    path: Assets/_scene_0.unity
+  - enabled: 1
+    path: Assets/_scene_cn.unity
   - enabled: 1
     path: Assets/_scene_Nick_tutorial.unity
   - enabled: 1
-    path: Assets/_scene_cn.unity
+    path: Assets/_scene_Nick_full.unity
   - enabled: 1
     path: Assets/_scene_david_full.unity
