@@ -3,18 +3,28 @@ using System.Collections;
 
 public class FinishScript : MonoBehaviour {
 	public Material myMaterial;
+	public int lives = 0; // Number of marbles to hit the platform before it disappears
 	// Use this for initialization
 	void Start () {
-	
+		GameObject[] marbles = GameObject.FindGameObjectsWithTag("marble");
+		foreach (GameObject marble in marbles) {
+			if (marble.GetComponent<Renderer> ().material.color == GetComponent<Renderer> ().material.color) {
+				lives++;
+			}
+		}
+		if (lives == 0) {
+			lives = 1;
+		}
 	}
 
-	void OnTriggerEnter(Collider coll){
-		if (coll.gameObject.tag == "marble") {
+	void OnCollisionEnter(Collision coll){
+		if (coll.collider.gameObject.tag == "marble") {
 			print ("Collision");
-			if(coll.GetComponent<Renderer>().material.color == GetComponent<Renderer>().material.color) {
+			if(coll.collider.GetComponent<Renderer>().material.color == GetComponent<Renderer>().material.color) {
 				Object[] marbles = GameObject.FindGameObjectsWithTag("marble");
-				Destroy(gameObject);
-				Destroy (coll.gameObject);
+				lives--;
+				if(lives == 0) Destroy(gameObject);
+				Destroy (coll.collider.gameObject);
 				if(marbles.Length <= 1) {
 					print ("Done");
 					GameManager.Instance.finishLevel();
