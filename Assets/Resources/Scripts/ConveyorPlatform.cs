@@ -6,6 +6,8 @@ public class ConveyorPlatform : MonoBehaviour {
 	public float slideVel;
 	public float exitVelFraction;
 	private bool facingRight;
+	//TODO CHANGE CLASS TO WORK W/ MULTIPLE BALLS/GRAVITY
+	//SHOULD THE CONVEYOR ADD A FORCE IN THE DIRECTION IT IS CREATED (transform.right?)?
 	
 	void OnTriggerEnter(Collider coll) {
 		if(coll.gameObject.tag == "marble") {

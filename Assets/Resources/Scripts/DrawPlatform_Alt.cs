@@ -62,7 +62,7 @@ public class DrawPlatform_Alt : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		//TODO put this in the right place
+		//TODO put this in the right place (GAME MANAGER)
 		if (Input.GetKey (KeyCode.Backspace)) {
 			Application.LoadLevel("_scene_main_menu");
 		}
@@ -71,6 +71,7 @@ public class DrawPlatform_Alt : MonoBehaviour {
 			curState = DrawState.DRAWING;
 			lastPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			lastPoint.z = 0;
+			//TODO: Set standard line size (0,.25,.25)?
 			pfrm = (GameObject)Instantiate (PlatPrfbDict [curPlatType]);
 			progressBar.GetComponent<BarScript>().lockVal();
 		}

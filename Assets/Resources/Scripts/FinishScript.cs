@@ -4,6 +4,7 @@ using System.Collections;
 public class FinishScript : MonoBehaviour {
 	public Material myMaterial;
 	public int lives = 0; // Number of marbles to hit the platform before it disappears
+	//TODO MOVE FINISH/LIFE CONTROL TO THE LEVEL MANAGER
 	// Use this for initialization
 	void Start () {
 		GameObject[] marbles = GameObject.FindGameObjectsWithTag("marble");

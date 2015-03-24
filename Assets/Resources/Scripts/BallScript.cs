@@ -15,7 +15,8 @@ public class BallScript : MonoBehaviour {
 	void Update () {
 	
 	}
-	
+
+	//maybe switch to on collision?
 	void OnTriggerEnter(Collider ballColl) {
 		handleMeld(ballColl);
 	}

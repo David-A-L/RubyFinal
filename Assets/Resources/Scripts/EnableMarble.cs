@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+//TODO: MOVE THIS BALL MANAGEMENT/ LEVEL STARTING TO LEVEL MANAGER
 public class EnableMarble : MonoBehaviour {
 
 	// Use this for initialization

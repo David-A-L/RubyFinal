@@ -14,6 +14,10 @@ public class BounceScript : MonoBehaviour {
 	
 	void OnTriggerEnter (Collider coll){
 		if (coll.gameObject.tag == "marble") {
+			//TODO: FIX? 
+			//(SHOULD THIS ADD ONLY UPWARD FORCE?
+			//"transform.up" FORCE?
+			//BALL-RELATIVE UP?)
 			coll.attachedRigidbody.AddForce (Vector3.up * 700f);
 			rend = this.gameObject.GetComponent<ParticleRenderer> ();
 			rend.enabled = true;

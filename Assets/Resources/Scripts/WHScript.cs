@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class WHScript : MonoBehaviour {
+	//TODO: MAKE THIS A TWO WAY PORTAL?
 	//Transform enter;
 	Transform exit;
 	// sets enter and exit points for the wormhole

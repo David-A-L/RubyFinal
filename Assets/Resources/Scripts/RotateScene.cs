@@ -9,7 +9,8 @@ public class RotateScene : MonoBehaviour {
 	public GameObject marble;
 	public float artifGravity;
 	
-	
+	//TODO: SHOULD THIS FUNCTIONALITY BE IN LEVEL MANAGER?
+	// IT HAS ACCESS 
 	void Start() {
 		if(rotateSpeed != 0) {
 			Physics.gravity = Vector3.zero;
@@ -34,7 +35,8 @@ public class RotateScene : MonoBehaviour {
 			ApplyGravity();
 		}
 	}
-	
+
+	//TODO: HANDLE THIS IN LEVEL MANAGER/LEVEL PHYSICS DRIVER?
 	void ApplyGravity() {
 		Rigidbody mRigid = marble.gameObject.GetComponent<Rigidbody>();
 		if(mRigid != null) {
