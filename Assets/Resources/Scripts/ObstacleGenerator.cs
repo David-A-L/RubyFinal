@@ -103,7 +103,7 @@ public class ObstacleGenerator : MonoBehaviour {
 	void Update () {
 		if (Input.GetKeyUp (KeyCode.S)) {
 			GameManager.Instance.resetLevel (obstaclePos);
-			Application.LoadLevel (0);
+			Application.LoadLevel (Application.loadedLevel);
 		}
 	}
 }

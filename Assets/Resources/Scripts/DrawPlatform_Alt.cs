@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class DrawPlatform_Alt : MonoBehaviour {
-	
+
+	private LevelManager levelManager;
 	public enum PlatformType{DEFAULT, CONVEYOR};
 	enum DrawState{NONE, DRAWING};
 
@@ -53,6 +54,7 @@ public class DrawPlatform_Alt : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		//Adding enabled and disabled for platform types for this level
+		levelManager = GameObject.Find ("Main Camera").GetComponent<LevelManager> ();
 		EnabledDict.Add (PlatformType.DEFAULT, true);
 		EnabledDict.Add (PlatformType.CONVEYOR, conveyorEnabled);
 
@@ -164,8 +166,9 @@ public class DrawPlatform_Alt : MonoBehaviour {
 	
 	void drawPlatform(){
 		//TODO manage the newly created line
-		pfrm.AddComponent<BoxCollider>();
-		pfrm = null;
+		pfrm.AddComponent<BoxCollider>(); 
+		levelManager.AddPlatform (pfrm, curPlatType);
+//		pfrm = null;
 		curState = DrawState.NONE;
 	}
 }

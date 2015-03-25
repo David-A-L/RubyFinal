@@ -5,11 +5,11 @@ using System.Collections.Generic;
 public class GameManager {
 
 	public int completedLevels;
-	private int currentLevel;
+	public int currentLevel;
 	private int numLevels = 6;
 	private int numLives;
 	private int numDeaths; //when death == lives, game restarts from beginning
-
+	 
 	private List<Vector3> obstaclePos;
 	public bool seedRand;
 
