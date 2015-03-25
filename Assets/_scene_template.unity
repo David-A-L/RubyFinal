@@ -476,8 +476,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 840733183f9dcf848a6036faf2a2466e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  thickness: .25
   conveyorEnabled: 1
-  difficulty: 5
   red: {fileID: 0}
   progressBar: {fileID: 1093222153}
 --- !u!114 &700976068
@@ -574,7 +574,7 @@ GameObject:
   - 114: {fileID: 1093222154}
   m_Layer: 5
   m_Name: Power
-  m_TagString: Untagged
+  m_TagString: pool_default
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

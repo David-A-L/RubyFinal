@@ -12,7 +12,7 @@ public class DrawPlatform_Alt : MonoBehaviour {
 
 	static Dictionary<PlatformType, GameObject> PlatPrfbDict;
 	
-	public static Dictionary<PlatformType, BarScript> PoolDict;
+	public static Dictionary<PlatformType, BarScript> PoolDict = new Dictionary<PlatformType, BarScript> ();
 	Dictionary<PlatformType, bool> EnabledDict = new Dictionary<PlatformType, bool> ();
 	
 	//flags for enabling 
@@ -46,12 +46,17 @@ public class DrawPlatform_Alt : MonoBehaviour {
 	[RuntimeInitializeOnLoadMethod]
 	static void OnRuntimeMethodLoad ()
 	{
+		PoolDict = new Dictionary<PlatformType, BarScript> ();
 		Debug.Log("Filling Platform Dictionary");
 		PlatPrfbDict = new Dictionary<PlatformType, GameObject>();
 		PlatPrfbDict.Add (PlatformType.DEFAULT, (GameObject)Resources.Load ("Prefabs/line"));
 		PlatPrfbDict.Add (PlatformType.CONVEYOR, (GameObject)Resources.Load("Prefabs/cnvrPfrm"));
 	}
-	
+
+	void Awake(){
+		PoolDict = new Dictionary<PlatformType, BarScript> ();
+	}
+
 	// Use this for initialization
 	void Start () {
 		//Adding enabled and disabled for platform types for this level
@@ -61,8 +66,9 @@ public class DrawPlatform_Alt : MonoBehaviour {
 		EnabledDict.Add (PlatformType.CONVEYOR, conveyorEnabled);
 		
 		//TODO: gameObject.find() correct resource pool scripts on the gui and add to PoolDict
-		PoolDict = new Dictionary<PlatformType, BarScript> ();
-		PoolDict.Add (PlatformType.DEFAULT, GameObject.FindGameObjectWithTag ("pool_default").GetComponent<BarScript> ());
+//		PoolDict = new Dictionary<PlatformType, BarScript> ();
+//		PoolDict.Add (PlatformType.DEFAULT, GameObject.FindGameObjectWithTag ("pool_default").GetComponent<BarScript> ());
+//		PoolDict.Add (PlatformType.CONVEYOR, GameObject.FindGameObjectWithTag ("pool_default").GetComponent<BarScript> ());
 	}
 	
 	// Update is called once per frame

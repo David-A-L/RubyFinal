@@ -49,7 +49,8 @@ public partial class LevelManager : MonoBehaviour {
 		if (platforms.Count == 0) {return;}
 		platformState undoPlatform = platforms[platforms.Count - 1];
 		undoPlatform.gameObj.SetActive(false);
-		DrawPlatform_Alt.PoolDict [undoPlatform.platformType].changeSize (DrawPlatform_Alt.difficulty * undoPlatform.gameObj.transform.localScale.x);
+		//DrawPlatform_Alt.PoolDict [undoPlatform.platformType].changeSize (DrawPlatform_Alt.difficulty * undoPlatform.gameObj.transform.localScale.x);
+		GameObject.FindGameObjectWithTag("pool_default").GetComponent<BarScript>().changeSize (DrawPlatform_Alt.difficulty * undoPlatform.gameObj.transform.localScale.x);
 		undoList.Add (undoPlatform);
 		platforms.RemoveAt (platforms.Count - 1);
 		//INSTANTIATE/RETURN CALL
@@ -60,7 +61,8 @@ public partial class LevelManager : MonoBehaviour {
 		platformState redoPlatform = undoList[undoList.Count - 1];
 		undoList.RemoveAt (undoList.Count - 1);
 		redoPlatform.gameObj.SetActive (true);
-		DrawPlatform_Alt.PoolDict [redoPlatform.platformType].changeSize (DrawPlatform_Alt.difficulty * -redoPlatform.gameObj.transform.localScale.x);
+		//DrawPlatform_Alt.PoolDict [redoPlatform.platformType].changeSize (DrawPlatform_Alt.difficulty * -redoPlatform.gameObj.transform.localScale.x);
+		GameObject.FindGameObjectWithTag("pool_default").GetComponent<BarScript>().changeSize (DrawPlatform_Alt.difficulty * -redoPlatform.gameObj.transform.localScale.x);
 		platforms.Add (redoPlatform);
 		//INSTANTIATE/RETURN CALL
 	}
