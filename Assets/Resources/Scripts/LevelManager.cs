@@ -68,7 +68,6 @@ public partial class LevelManager : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-<<<<<<< Updated upstream
 		if (DrawPlatform_Alt.curState == DrawPlatform_Alt.DrawState.NONE) {
 			if (Input.GetButton ("ctrl") && Input.GetButton ("shift") && Input.GetKeyDown (KeyCode.Z)) {
 				RedoDrawPlatform ();
@@ -77,9 +76,6 @@ public partial class LevelManager : MonoBehaviour {
 				undoDrawPlatform ();
 			}
 		}
-=======
-		if (Input.GetButton("ctrl") &&  Input.GetButton("shift") && Input.GetKeyDown(KeyCode.Z) ){RedoDrawPlatform();}
-		else if (Input.GetButton("ctrl") && Input.GetKeyDown(KeyCode.Z)){undoDrawPlatform();}
 		if (Input.GetKeyUp (KeyCode.S)) {ResetLevel();}
 	}
 
@@ -96,6 +92,5 @@ public partial class LevelManager : MonoBehaviour {
 	public void endLevel(){
 		if (Application.loadedLevel == GameManager.Instance.numLevels-1) {Application.LoadLevel(0);}
 		Application.LoadLevel(Application.loadedLevel + 1);
->>>>>>> Stashed changes
 	}
 }
