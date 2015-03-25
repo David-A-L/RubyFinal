@@ -7,7 +7,7 @@ public class DrawPlatform_Alt : MonoBehaviour {
 	private LevelManager levelManager;
 	public enum PlatformType{DEFAULT, CONVEYOR};
 	enum DrawState{NONE, DRAWING};
-
+	public float thickness = .25f;
 
 	static Dictionary<PlatformType, GameObject> PlatPrfbDict;
 
@@ -75,6 +75,7 @@ public class DrawPlatform_Alt : MonoBehaviour {
 			lastPoint.z = 0;
 			//TODO: Set standard line size (0,.25,.25)?
 			pfrm = (GameObject)Instantiate (PlatPrfbDict [curPlatType]);
+			pfrm.transform.localScale = new Vector3 (0,thickness,1);
 			progressBar.GetComponent<BarScript>().lockVal();
 		}
 
@@ -168,7 +169,7 @@ public class DrawPlatform_Alt : MonoBehaviour {
 		//TODO manage the newly created line
 		pfrm.AddComponent<BoxCollider>(); 
 		levelManager.AddPlatform (pfrm, curPlatType);
-//		pfrm = null;
+		pfrm = null;
 		curState = DrawState.NONE;
 	}
 }
