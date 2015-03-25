@@ -6,22 +6,22 @@ public class DrawPlatform_Alt : MonoBehaviour {
 	
 	private LevelManager levelManager;
 	public enum PlatformType{DEFAULT, CONVEYOR};
-	enum DrawState{NONE, DRAWING};
+	public enum DrawState{NONE, DRAWING};
 
 	public float thickness = .25f;
 
 	static Dictionary<PlatformType, GameObject> PlatPrfbDict;
 	
-	Dictionary<PlatformType, BarScript> PoolDict = new Dictionary<PlatformType, BarScript> ();
+	public static Dictionary<PlatformType, BarScript> PoolDict;
 	Dictionary<PlatformType, bool> EnabledDict = new Dictionary<PlatformType, bool> ();
 	
 	//flags for enabling 
 	public bool conveyorEnabled;
 	
 	PlatformType curPlatType = PlatformType.DEFAULT;
-	DrawState curState = DrawState.NONE;
+	public static DrawState curState;
 	
-	public float difficulty = 5f; // Max 100;
+	public static float difficulty = 5f; // Max 100;
 	
 	Vector3 lastPoint = Vector3.zero;
 	
@@ -55,12 +55,14 @@ public class DrawPlatform_Alt : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		//Adding enabled and disabled for platform types for this level
+		curState = DrawState.NONE;
 		levelManager = GameObject.Find ("Main Camera").GetComponent<LevelManager> ();
 		EnabledDict.Add (PlatformType.DEFAULT, true);
 		EnabledDict.Add (PlatformType.CONVEYOR, conveyorEnabled);
 		
 		//TODO: gameObject.find() correct resource pool scripts on the gui and add to PoolDict
-		
+		PoolDict = new Dictionary<PlatformType, BarScript> ();
+		PoolDict.Add (PlatformType.DEFAULT, GameObject.FindGameObjectWithTag ("pool_default").GetComponent<BarScript> ());
 	}
 	
 	// Update is called once per frame
@@ -74,7 +76,6 @@ public class DrawPlatform_Alt : MonoBehaviour {
 			curState = DrawState.DRAWING;
 			lastPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			lastPoint.z = 0;
-			//TODO: Set standard line size (0,.25,.25)?
 			pfrm = (GameObject)Instantiate (PlatPrfbDict [curPlatType]);
 			pfrm.transform.localScale = new Vector3 (0,thickness,1);
 			progressBar.GetComponent<BarScript>().lockVal();
