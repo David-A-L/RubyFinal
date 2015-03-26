@@ -10,7 +10,6 @@ public class BlackHole : MonoBehaviour {
 	void OnTriggerStay(Collider other){
 		if (other.tag != "marble")
 			return;
-		Debug.Log ("Blackhole adding foce");
 		Vector3 dir = this.transform.position - other.transform.position;
 		float pow = Gconstant * this.GetComponent<Rigidbody> ().mass * other.attachedRigidbody.mass / (dir.sqrMagnitude);
 		if (pow < maxForce)

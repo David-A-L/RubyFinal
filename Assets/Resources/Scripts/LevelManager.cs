@@ -99,6 +99,10 @@ public partial class LevelManager : MonoBehaviour {
 
 		if (Input.GetKeyUp(KeyCode.A)){ActivateLevel();}
 
+		if (Input.GetKey (KeyCode.Backspace)) {
+			Application.LoadLevel("_scene_main_menu");
+		}
+		
 	}
 
 	void ActivateLevel(){

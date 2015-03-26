@@ -64,20 +64,15 @@ public class DrawPlatform_Alt : MonoBehaviour {
 		levelManager = GameObject.Find ("Main Camera").GetComponent<LevelManager> ();
 		EnabledDict.Add (PlatformType.DEFAULT, true);
 		EnabledDict.Add (PlatformType.CONVEYOR, conveyorEnabled);
-		
-		//TODO: gameObject.find() correct resource pool scripts on the gui and add to PoolDict
+
 		PoolDict = new Dictionary<PlatformType, BarScript> ();
 		PoolDict.Add (PlatformType.DEFAULT, GameObject.FindGameObjectWithTag ("pool_default").GetComponent<BarScript> ());
-		//FIXME
-		PoolDict.Add (PlatformType.CONVEYOR, GameObject.FindGameObjectWithTag ("pool_default").GetComponent<BarScript> ());
+		if (conveyorEnabled)
+			PoolDict.Add (PlatformType.CONVEYOR, GameObject.FindGameObjectWithTag ("pool_conveyor").GetComponent<BarScript> ());
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		//TODO put this in the right place (GAME MANAGER)
-		if (Input.GetKey (KeyCode.Backspace)) {
-			Application.LoadLevel("_scene_main_menu");
-		}
 		
 		if (Input.GetMouseButtonDown(0)) {
 			curState = DrawState.DRAWING;
@@ -90,28 +85,8 @@ public class DrawPlatform_Alt : MonoBehaviour {
 		
 		//Press C if enabled to toggle type
 		//this could be generalized in a "Switch platform" function
-		if (Input.GetKeyUp (KeyCode.C) && EnabledDict[PlatformType.CONVEYOR]
-		    && curState != DrawState.DRAWING) {
-			Debug.Log("Conveyor Toggle");
-			if (curPlatType == PlatformType.DEFAULT){
-				curPlatType = PlatformType.CONVEYOR;
-			}
-			else {
-				curPlatType = PlatformType.DEFAULT;
-			}
-			
-			//Could be possible to switch on the fly, disabled for now
-			/*if (curState == DrawState.DRAWING){
-				Vector3 tempP = pfrm.transform.position;
-				Quaternion tempR = pfrm.transform.rotation;
-				Vector3 tempS = pfrm.transform.localScale;
-
-				pfrm = PlatPrfbDict[curPlatType];
-
-				pfrm.transform.position = tempP;
-				pfrm.transform.rotation = tempR;
-				pfrm.transform.localScale = tempS;
-			}*/
+		if (Input.GetKeyUp (KeyCode.C)) {
+			TogglePlatformType(PlatformType.CONVEYOR);
 		}
 		
 		if (curState == DrawState.DRAWING) {
@@ -134,6 +109,16 @@ public class DrawPlatform_Alt : MonoBehaviour {
 		}
 	}
 
+	void TogglePlatformType(PlatformType pt){
+		if (EnabledDict [pt] && curState != DrawState.DRAWING) {
+			if (curPlatType != pt) {
+				curPlatType = pt;
+			} else {
+				curPlatType = PlatformType.DEFAULT;
+			}
+		}
+	}
+	
 	void transformLine() {
 		
 		// Endpoint
@@ -171,7 +156,6 @@ public class DrawPlatform_Alt : MonoBehaviour {
 	}
 	
 	void drawPlatform(){
-		//TODO manage the newly created line
 		pfrm.AddComponent<BoxCollider>(); 
 		levelManager.AddPlatform (pfrm, curPlatType);
 		pfrm = null;
