@@ -14,10 +14,14 @@ public class platformState{
 
 
 public partial class LevelManager : MonoBehaviour {
-	
+	//paused/playing should go in gamemanager?
+	public enum LevelState{PAUSED, PLANNING, RUNNING};
+	public static LevelState curLevelState = LevelState.PLANNING;
+
 	static private List<platformState> platforms;
 	static private List<platformState> undoList;
-	
+	 List<GameObject> ballList = new List<GameObject> ();
+
 	[RuntimeInitializeOnLoadMethod]
 	static void OnRuntimeMethodLoad (){
 		platforms = new List<platformState>();
@@ -32,7 +36,15 @@ public partial class LevelManager : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		//		physicsDriver = new LevelPhysicsDriver (this);
+		GameObject[] ballArr = GameObject.FindGameObjectsWithTag("marble");
+		foreach (GameObject b in ballArr) {
+			ballList.Add(b);
+		}
+
+		//Have to add the script as a Component to the current gameObject (unity sucks)
+		physicsDriver = gameObject.AddComponent<LevelPhysicsDriver> ();
+		physicsDriver.myParent = this;
+		physicsDriver.enabled = false;
 	}
 	
 	//CALL THIS WHEN YOU'RE DONE DRAWING AND SETTING A NEW PLATFORM
@@ -41,6 +53,11 @@ public partial class LevelManager : MonoBehaviour {
 		newPlatform.gameObj = platform;
 		newPlatform.platformType = ptype;
 		platforms.Add (newPlatform);
+
+		//Cleaning up
+		foreach (platformState p in undoList){
+			GameObject.Destroy(p.gameObj);
+		}
 		undoList.Clear ();
 	}
 	
@@ -49,8 +66,8 @@ public partial class LevelManager : MonoBehaviour {
 		if (platforms.Count == 0) {return;}
 		platformState undoPlatform = platforms[platforms.Count - 1];
 		undoPlatform.gameObj.SetActive(false);
-		//DrawPlatform_Alt.PoolDict [undoPlatform.platformType].changeSize (DrawPlatform_Alt.difficulty * undoPlatform.gameObj.transform.localScale.x);
-		GameObject.FindGameObjectWithTag("pool_default").GetComponent<BarScript>().changeSize (DrawPlatform_Alt.difficulty * undoPlatform.gameObj.transform.localScale.x);
+		DrawPlatform_Alt.PoolDict [undoPlatform.platformType].changeSize (DrawPlatform_Alt.difficulty * undoPlatform.gameObj.transform.localScale.x);
+		//GameObject.FindGameObjectWithTag("pool_default").GetComponent<BarScript>().changeSize (DrawPlatform_Alt.difficulty * undoPlatform.gameObj.transform.localScale.x);
 		undoList.Add (undoPlatform);
 		platforms.RemoveAt (platforms.Count - 1);
 		//INSTANTIATE/RETURN CALL
@@ -61,8 +78,8 @@ public partial class LevelManager : MonoBehaviour {
 		platformState redoPlatform = undoList[undoList.Count - 1];
 		undoList.RemoveAt (undoList.Count - 1);
 		redoPlatform.gameObj.SetActive (true);
-		//DrawPlatform_Alt.PoolDict [redoPlatform.platformType].changeSize (DrawPlatform_Alt.difficulty * -redoPlatform.gameObj.transform.localScale.x);
-		GameObject.FindGameObjectWithTag("pool_default").GetComponent<BarScript>().changeSize (DrawPlatform_Alt.difficulty * -redoPlatform.gameObj.transform.localScale.x);
+		DrawPlatform_Alt.PoolDict [redoPlatform.platformType].changeSize (DrawPlatform_Alt.difficulty * -redoPlatform.gameObj.transform.localScale.x);
+		//GameObject.FindGameObjectWithTag("pool_default").GetComponent<BarScript>().changeSize (DrawPlatform_Alt.difficulty * -redoPlatform.gameObj.transform.localScale.x);
 		platforms.Add (redoPlatform);
 		//INSTANTIATE/RETURN CALL
 	}
@@ -79,6 +96,24 @@ public partial class LevelManager : MonoBehaviour {
 			}
 		}
 		if (Input.GetKeyUp (KeyCode.S)) {ResetLevel();}
+
+		if (Input.GetKeyUp(KeyCode.A)){ActivateLevel();}
+
+	}
+
+	void ActivateLevel(){
+
+		/*foreach (GameObject ball in ballList) {
+			Rigidbody mRigid = ball.GetComponent<Rigidbody> ();
+			if (mRigid == null) {
+				mRigid = ball.AddComponent<Rigidbody> ();
+				mRigid.useGravity = false;
+			}
+			else {
+				mRigid.useGravity = false;
+			}
+		}*/
+		physicsDriver.enabled = true;
 	}
 	
 	public void ResetLevel(){

@@ -3,18 +3,21 @@ using System.Collections;
 
 public class BallScript : MonoBehaviour {
 
-	private Vector3 ballGravity;
+	public Vector3 ballGravDir;
+	public float gravStr = 9.8f;
+	public string gravityGroup = "grav_dir_red";
 	public bool isMeldable;
 	public static float baseSphereVolume;
 
 	// Use this for initialization
 	void Start () {
 		baseSphereVolume = volumeSphere(0.5f);
+		ballGravDir = GameObject.FindGameObjectWithTag (gravityGroup).transform.up;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
+		Debug.DrawRay (transform.position, ballGravDir);
 	}
 
 	//maybe switch to on collision?

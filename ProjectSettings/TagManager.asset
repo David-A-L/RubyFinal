@@ -9,6 +9,7 @@ TagManager:
   - barrel
   - pool_default
   - pool_conveyor
+  - grav_dir_red
   layers:
   - Default
   - TransparentFX

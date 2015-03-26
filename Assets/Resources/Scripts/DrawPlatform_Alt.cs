@@ -28,7 +28,7 @@ public class DrawPlatform_Alt : MonoBehaviour {
 	GameObject pfrm;
 	
 	public Material red;
-	public Transform progressBar;
+	//public Transform progressBar;
 	/*	public Material gray;
 
 	public Material blue;
@@ -66,9 +66,10 @@ public class DrawPlatform_Alt : MonoBehaviour {
 		EnabledDict.Add (PlatformType.CONVEYOR, conveyorEnabled);
 		
 		//TODO: gameObject.find() correct resource pool scripts on the gui and add to PoolDict
-//		PoolDict = new Dictionary<PlatformType, BarScript> ();
-//		PoolDict.Add (PlatformType.DEFAULT, GameObject.FindGameObjectWithTag ("pool_default").GetComponent<BarScript> ());
-//		PoolDict.Add (PlatformType.CONVEYOR, GameObject.FindGameObjectWithTag ("pool_default").GetComponent<BarScript> ());
+		PoolDict = new Dictionary<PlatformType, BarScript> ();
+		PoolDict.Add (PlatformType.DEFAULT, GameObject.FindGameObjectWithTag ("pool_default").GetComponent<BarScript> ());
+		//FIXME
+		PoolDict.Add (PlatformType.CONVEYOR, GameObject.FindGameObjectWithTag ("pool_default").GetComponent<BarScript> ());
 	}
 	
 	// Update is called once per frame
@@ -84,7 +85,7 @@ public class DrawPlatform_Alt : MonoBehaviour {
 			lastPoint.z = 0;
 			pfrm = (GameObject)Instantiate (PlatPrfbDict [curPlatType]);
 			pfrm.transform.localScale = new Vector3 (0,thickness,1);
-			progressBar.GetComponent<BarScript>().lockVal();
+			PoolDict[curPlatType].lockVal();
 		}
 		
 		//Press C if enabled to toggle type
@@ -116,18 +117,14 @@ public class DrawPlatform_Alt : MonoBehaviour {
 		if (curState == DrawState.DRAWING) {
 			//if right clicked (or x) while drawing a platform, cancel
 			if (Input.GetMouseButton(2)||Input.GetKeyDown(KeyCode.X)) {
-				//first = true;
-				Debug.Log("Cancel Placement");
-				lastPoint = Vector3.one;
-				newPoint = Vector3.zero;
-				//				newSize = Vector3.zero;
-				GameObject.Destroy (pfrm);
-				progressBar.GetComponent<BarScript> ().revertToLocked ();
-				curState = DrawState.NONE;
+				CancelLine();
 			}
 			//else if released mouse button and valid platform
-			else if (Input.GetMouseButtonUp (0) && validLine) {
-				drawPlatform ();
+			else if (Input.GetMouseButtonUp (0)) {
+				if (validLine)
+					drawPlatform ();
+				else 
+					CancelLine();
 			} 
 			//else you are still modifying the line
 			else {
@@ -136,7 +133,7 @@ public class DrawPlatform_Alt : MonoBehaviour {
 			
 		}
 	}
-	
+
 	void transformLine() {
 		
 		// Endpoint
@@ -160,7 +157,7 @@ public class DrawPlatform_Alt : MonoBehaviour {
 		
 		pfrm.transform.right = dir.normalized;
 		
-		validLine = progressBar.GetComponent<BarScript>().changeSize(difficulty * -delta);
+		validLine = PoolDict[curPlatType].changeSize(difficulty * -delta);
 		
 		// Set line color
 		if (!validLine) {
@@ -178,6 +175,15 @@ public class DrawPlatform_Alt : MonoBehaviour {
 		pfrm.AddComponent<BoxCollider>(); 
 		levelManager.AddPlatform (pfrm, curPlatType);
 		pfrm = null;
+		curState = DrawState.NONE;
+	}
+
+	void CancelLine(){
+		Debug.Log("Cancel Placement");
+		lastPoint = Vector3.one;
+		newPoint = Vector3.zero;
+		GameObject.Destroy (pfrm);
+		PoolDict[curPlatType].revertToLocked ();
 		curState = DrawState.NONE;
 	}
 }
