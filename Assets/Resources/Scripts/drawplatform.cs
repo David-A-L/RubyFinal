@@ -7,6 +7,7 @@ public class drawplatform : MonoBehaviour {
 
 	Vector3 lastPoint = Vector3.one;
 
+	public int player;
 	public Transform progressBar;
 	public Material gray;
 	public Material red;

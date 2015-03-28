@@ -3,7 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class GameManager {
-
+	
+	public List<Player> players;
+	public Material[] playerMaterials = new Material[4];
+	public int numPlayers = 2;
 	public int completedLevels;
 	public int currentLevel;
 	public int numLevels = 20;
@@ -18,6 +21,14 @@ public class GameManager {
 	// initialize game manager here. Do not reference GameObjects here (i.e. GameObject.Find etc.)
 	// because the game manager will be created before the objects
 	private GameManager() {
+
+		playerMaterials[0] = (Material)Resources.Load ("UX/SimpleMaterials/player1");
+		playerMaterials[1] = (Material)Resources.Load ("UX/SimpleMaterials/player2");
+		playerMaterials[2] = (Material)Resources.Load ("UX/SimpleMaterials/player3");
+		playerMaterials[3] = (Material)Resources.Load ("UX/SimpleMaterials/player4");
+
+		Player player1 = new Player (playerMaterials[0]);
+
 		numLives = 4;
 		numDeaths = 0;
 		completedLevels = 0;

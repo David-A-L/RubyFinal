@@ -430,6 +430,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   difficulty: 5
+  player: 0
   progressBar: {fileID: 0}
   gray: {fileID: 2100000, guid: 54557ee8f91244f22a49b0ec51239cbe, type: 2}
   red: {fileID: 2100000, guid: 7fb48c019c26548e8a018a9e3c63855f, type: 2}
