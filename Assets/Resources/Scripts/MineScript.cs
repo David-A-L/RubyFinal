@@ -17,6 +17,7 @@ public class MineScript : MonoBehaviour {
 		Collider[] colliders = Physics.OverlapSphere(explosionPos, explodeRadius);
 		foreach (Collider hit in colliders) {
 			if (hit && hit.GetComponent<Rigidbody>() && hit.tag == "marble"){
+				//We might be over-thinking this...
 				float ex = hit.attachedRigidbody.velocity.x;
 				Vector3 vel = Vector3.zero;
 				hit.attachedRigidbody.velocity = vel;

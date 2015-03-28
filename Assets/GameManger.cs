@@ -5,11 +5,11 @@ using System.Collections.Generic;
 public class GameManager {
 
 	public int completedLevels;
-	private int currentLevel;
-	private int numLevels = 6;
+	public int currentLevel;
+	public int numLevels = 20;
 	private int numLives;
 	private int numDeaths; //when death == lives, game restarts from beginning
-
+	 
 	private List<Vector3> obstaclePos;
 	public bool seedRand;
 
@@ -44,6 +44,8 @@ public class GameManager {
 		seedRand = false;
 	}
 
+	public bool newLevel = true;
+	
 	//Call this when randomly generating a level to see if the level is a repeat
 	//if so, skip random generation, and simply use the values returned
 	public List<Vector3> levelRepeat(){

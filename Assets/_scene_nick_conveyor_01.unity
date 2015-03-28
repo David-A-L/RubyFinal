@@ -435,6 +435,8 @@ GameObject:
   - 81: {fileID: 700976062}
   - 114: {fileID: 700976067}
   - 114: {fileID: 700976068}
+  - 114: {fileID: 700976061}
+  - 114: {fileID: 700976069}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -442,6 +444,17 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &700976061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 700976060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53dc37067687d7b40883c8aa30679754, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!81 &700976062
 AudioListener:
   m_ObjectHideFlags: 0
@@ -513,7 +526,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 700976060}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a1313b4b5b1c44544922ccb3ffebf0db, type: 3}
   m_Name: 
@@ -532,7 +545,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 700976060}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: da6dbbb33c33a49e6b686417436ad069, type: 3}
   m_Name: 
@@ -545,6 +558,21 @@ MonoBehaviour:
   yellow: {fileID: 0}
   green: {fileID: 0}
   conveyorEnabled: 1
+--- !u!114 &700976069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 700976060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 840733183f9dcf848a6036faf2a2466e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  conveyorEnabled: 0
+  difficulty: 5
+  red: {fileID: 0}
+  progressBar: {fileID: 0}
 --- !u!1001 &971565822
 Prefab:
   m_ObjectHideFlags: 0

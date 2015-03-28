@@ -6,7 +6,7 @@ public class MoveObstacle : MonoBehaviour {
 	float speed;
 	float frequencyFactor;
 	int timeOffset;
-
+	//TODO GENERALIZE THIS TO ANY AXIS OF MOTION (NOT JUST X)?
 	// Use this for initialization
 	void Start () {
 		frequencyFactor = Random.value * 3f;

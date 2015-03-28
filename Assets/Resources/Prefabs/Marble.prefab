@@ -11,11 +11,12 @@ GameObject:
   - 33: {fileID: 3370718}
   - 135: {fileID: 13554898}
   - 23: {fileID: 2337454}
-  - 114: {fileID: 11496446}
   - 96: {fileID: 9617336}
+  - 54: {fileID: 5427084}
+  - 114: {fileID: 11453576}
   m_Layer: 0
   m_Name: Marble
-  m_TagString: Untagged
+  m_TagString: marble
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27,7 +28,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 104288}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.8599999, y: 3.94000006, z: 0}
+  m_LocalPosition: {x: -4, y: 4, z: 0}
   m_LocalScale: {x: .5, y: .5, z: .5}
   m_Children: []
   m_Father: {fileID: 0}
@@ -63,6 +64,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 104288}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &5427084
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 104288}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!96 &9617336
 TrailRenderer:
   m_ObjectHideFlags: 1
@@ -88,8 +104,8 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_Time: .5
-  m_StartWidth: .200000003
-  m_EndWidth: .0500000007
+  m_StartWidth: .100000001
+  m_EndWidth: .0299999993
   m_Colors:
     m_Color[0]:
       serializedVersion: 2
@@ -108,7 +124,7 @@ TrailRenderer:
       rgba: 16777215
   m_MinVertexDistance: .00999999978
   m_Autodestruct: 1
---- !u!114 &11496446
+--- !u!114 &11453576
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -116,9 +132,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 104288}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a947f61940a5b46beabb879b8e86c247, type: 3}
+  m_Script: {fileID: 11500000, guid: 2f9d29507d1ce4410b6980fd69946e62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ballGravDir: {x: 0, y: 0, z: 0}
+  gravStr: 9.80000019
+  gravityGroup: grav_dir_red
+  isMeldable: 0
 --- !u!135 &13554898
 SphereCollider:
   m_ObjectHideFlags: 1

@@ -5,63 +5,14 @@ public class BlackHole : MonoBehaviour {
 
 	public float Gconstant;
 	public float maxForce;
-	private GameObject ball;
 
-	// Use this for initialization
-	void Start () {
-		ball = GameObject.Find("Marble");
-	}
-	
-	bool inSphereOfInfluence() {
-		if(ball != null) {
-			return Vector3.Distance(ball.transform.position,this.transform.position) < 10f;
-		}
-		return false;
-	}
-	
-	Vector3 determineForce(GameObject ball){
-		float ballMass = ball.GetComponent<Rigidbody>().mass;
-		float bHoleMass = this.GetComponent<Rigidbody>().mass;
-		
-		Vector3 direction = ball.transform.position - this.transform.position;
-		Debug.DrawRay(this.transform.position,direction,Color.red);
-		
-		float xForce = Gconstant * (ballMass * bHoleMass) / Mathf.Pow(direction.x,2f);
-		float yForce = Gconstant * (ballMass * bHoleMass) / Mathf.Pow(direction.y,2f);
-		xForce = Mathf.Min (xForce,maxForce*ballMass);
-		yForce = Mathf.Min (yForce,maxForce*ballMass);
-		
-		if(this.transform.position.x < ball.transform.position.x) {
-			xForce *= -1;
-		} 
-		if(this.transform.position.y < ball.transform.position.y) {
-			yForce *= -1;
-		} 
-		
-		return new Vector3(xForce,yForce,0f);
-	}
-	
-	void applyForce(GameObject ball) {
-		if(ball.GetComponent<Rigidbody>() != null){
-			if(inSphereOfInfluence()) {
-				Vector3 force = determineForce(ball);
-				ball.GetComponent<Rigidbody>().AddForce(force);
-			}
-		}
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		if(ball != null) {
-			applyForce(ball);
-			if (Input.GetKey(KeyCode.O)) {
-				if (maxForce > 0)
-					maxForce -=1;
-			}
-			if (Input.GetKey(KeyCode.P)) {
-				if (maxForce < 20)
-					maxForce +=1;
-			} 
-		}
+	//Might want to enable this script on level run (so it doesn't pull newly spawned balls)
+	void OnTriggerStay(Collider other){
+		if (other.tag != "marble")
+			return;
+		Vector3 dir = this.transform.position - other.transform.position;
+		float pow = Gconstant * this.GetComponent<Rigidbody> ().mass * other.attachedRigidbody.mass / (dir.sqrMagnitude);
+		if (pow < maxForce)
+			other.attachedRigidbody.AddForce (pow * dir.normalized);
 	}
 }

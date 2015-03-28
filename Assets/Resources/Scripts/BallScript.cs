@@ -3,19 +3,24 @@ using System.Collections;
 
 public class BallScript : MonoBehaviour {
 
-	private Vector3 ballGravity;
+	public Vector3 ballGravDir;
+	public float gravStr = 9.8f;
+	public string gravityGroup = "grav_dir_red";
 	public bool isMeldable;
+	public static float baseSphereVolume;
 
 	// Use this for initialization
 	void Start () {
-	
+		baseSphereVolume = volumeSphere(0.5f);
+		ballGravDir = GameObject.FindGameObjectWithTag (gravityGroup).transform.up;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
+		Debug.DrawRay (transform.position, ballGravDir);
 	}
-	
+
+	//maybe switch to on collision?
 	void OnTriggerEnter(Collider ballColl) {
 		handleMeld(ballColl);
 	}
@@ -34,14 +39,15 @@ public class BallScript : MonoBehaviour {
 				//"this" will become the larger ball, the other will be destroyed
 				if((volBallThis == volBallTwo && thisColl.GetInstanceID() < ballTwoColl.GetInstanceID())
 				   || volBallThis > volBallTwo) {
-					this.gameObject.transform.localScale = new Vector3(newBallRadius,newBallRadius,newBallRadius);
-					
+				   
+					this.gameObject.transform.localScale = new Vector3(newBallRadius,newBallRadius,newBallRadius);	
 					SphereCollider[] sColls = GetComponents<SphereCollider>();
 					foreach(SphereCollider nxt in sColls) {
 						nxt.radius = newBallRadius;
 					}
 					
 					ballTwoColl.gameObject.SetActive(false);
+					print ("Destroying ball with id" + ballTwoColl.GetInstanceID());
 					Destroy(ballTwoColl.gameObject);
 				}
 			}
@@ -49,11 +55,21 @@ public class BallScript : MonoBehaviour {
 	}
 	
 	
-	float volumeSphere(SphereCollider ball) {
+	static float volumeSphere(SphereCollider ball) {
 		return (4f/3f) * Mathf.PI * Mathf.Pow(ball.radius,3);
 	}
-	float radiusSphere(float volume) {
+	static float volumeSphere(float rad) {
+		return (4f/3f) * Mathf.PI * Mathf.Pow(rad,3);
+	}
+	
+	static float radiusSphere(float volume) {
 		return Mathf.Pow ((3f*volume)/(4f*Mathf.PI),1f/3f);
+	}
+	static float multipleScoreMeldedSphere(SphereCollider ball) {
+		float volBall = volumeSphere(ball);
+		float ratio = volBall / baseSphereVolume;
+		return Mathf.Pow (2f,ratio-1f);
+		
 	}
 	
 }
