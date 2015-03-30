@@ -128,6 +128,10 @@ public partial class LevelManager : MonoBehaviour {
 	public void preservePlatforms(){
 		platforms.ForEach (delegate(platformState ps){Object.DontDestroyOnLoad(ps.gameObj);});
 		undoList.ForEach (delegate(platformState ps){Object.DontDestroyOnLoad(ps.gameObj);});
+
+		Object.DontDestroyOnLoad(GameObject.Find("LevelCanvas"));
+		LevelCanvasManager.instance = GameObject.Find("LevelCanvas").GetComponent<LevelCanvasManager>();
+
 	}
 	
 	public void endLevel(){

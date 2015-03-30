@@ -98,8 +98,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad9e07bd2a9c24db58b4754264050c2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slideVel: 10
-  exitVelFraction: .5
+  power: 20
+  maxSpeed: 100
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
