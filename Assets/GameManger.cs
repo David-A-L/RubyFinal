@@ -27,12 +27,13 @@ public class GameManager {
 		playerMaterials[2] = (Material)Resources.Load ("UX/SimpleMaterials/player3");
 		playerMaterials[3] = (Material)Resources.Load ("UX/SimpleMaterials/player4");
 
-		Player player1 = new Player (playerMaterials[0]);
+		Player player1 = new Player(playerMaterials[0]);
 
 		numLives = 4;
 		numDeaths = 0;
 		completedLevels = 0;
 		seedRand = true;
+
 	}    
 
 	//call GameManager.Instance.<Function to Call>() to communicate with game mngr

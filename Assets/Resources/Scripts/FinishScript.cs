@@ -29,6 +29,7 @@ public class FinishScript : MonoBehaviour {
 				Object[] marbles = GameObject.FindGameObjectsWithTag("marble");
 				marbleCount--;
 				if(marbleCount == 0) Destroy(gameObject);
+				levelManager.ballList.Remove(coll.collider.gameObject);
 				Destroy (coll.collider.gameObject);
 				if(marbles.Length <= 1) {
 					print ("Done");

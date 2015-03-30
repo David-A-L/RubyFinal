@@ -20,7 +20,7 @@ public partial class LevelManager : MonoBehaviour {
 
 	static private List<platformState> platforms;
 	static private List<platformState> undoList;
-	 List<GameObject> ballList = new List<GameObject> ();
+	public List<GameObject> ballList = new List<GameObject> ();
 
 	[RuntimeInitializeOnLoadMethod]
 	static void OnRuntimeMethodLoad (){

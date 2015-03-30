@@ -15,7 +15,7 @@ GameObject:
   - 54: {fileID: 5427084}
   - 114: {fileID: 11453576}
   m_Layer: 8
-  m_Name: Marble
+  m_Name: MarblePlayer1
   m_TagString: marble
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,7 +43,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 7fb48c019c26548e8a018a9e3c63855f, type: 2}
+  - {fileID: 2100000, guid: b5fb50da47a7c4a578133552d45548e2, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1

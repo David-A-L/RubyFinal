@@ -19,14 +19,14 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - player1marble
+  - player2marble
+  - player3marble
+  - player4marble
+  - player1platform
+  - player2platform
+  - player3platform
+  - player4platform
   - 
   - 
   - 

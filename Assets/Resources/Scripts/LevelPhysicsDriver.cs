@@ -22,9 +22,14 @@ public partial class LevelManager : MonoBehaviour {
 		void FixedUpdate () {
 			//Could switch on antigravity, zero gravity, etc...
 			foreach (GameObject ball_GO in myParent.ballList){
-				BallScript bs = ball_GO.GetComponent<BallScript>();
-				Rigidbody br = ball_GO.GetComponent<Rigidbody>();
-				br.AddForce(bs.ballGravDir * bs.gravStr);
+				if(ball_GO == null) {
+					myParent.ballList.Remove(ball_GO);
+				}
+				else {
+					BallScript bs = ball_GO.GetComponent<BallScript>();
+					Rigidbody br = ball_GO.GetComponent<Rigidbody>();
+					br.AddForce(bs.ballGravDir * bs.gravStr);
+				}
 			}
 		}
 
