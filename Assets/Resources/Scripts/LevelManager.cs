@@ -20,19 +20,19 @@ public partial class LevelManager : MonoBehaviour {
 
 	static private List<platformState> platforms;
 	static private List<platformState> undoList;
-	 List<GameObject> ballList = new List<GameObject> ();
+	List<GameObject> ballList = new List<GameObject> ();
+
+	Transform gravTransform;
+
+	LevelPhysicsDriver physicsDriver;
+
 
 	[RuntimeInitializeOnLoadMethod]
 	static void OnRuntimeMethodLoad (){
 		platforms = new List<platformState>();
 		undoList = new List<platformState>();
 	}
-	
-	
-	//all balls in level, updated and maintained solely by level manager
-	//
-	//public ArrayList<>
-	LevelPhysicsDriver physicsDriver;
+
 	
 	// Use this for initialization
 	void Start () {
@@ -45,6 +45,8 @@ public partial class LevelManager : MonoBehaviour {
 		physicsDriver = gameObject.AddComponent<LevelPhysicsDriver> ();
 		physicsDriver.myParent = this;
 		physicsDriver.enabled = false;
+
+		gravTransform = GameObject.FindGameObjectWithTag ("grav_dir_red").transform;
 	}
 	
 	//CALL THIS WHEN YOU'RE DONE DRAWING AND SETTING A NEW PLATFORM
@@ -104,6 +106,23 @@ public partial class LevelManager : MonoBehaviour {
 		}
 		
 	}
+
+	void FixedUpdate(){
+		//CHANGE GRAVITY, could also use key inputs\
+		//might want to slow the rate at which the gravtransform rotates to prevent juggling
+		Vector3 mousePos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
+		mousePos.z = gravTransform.position.z;
+		gravTransform.up = mousePos - gravTransform.position;
+	}
+
+	//HACK should probably implement a way to remove deleted balls in constant time
+	/*public static void CleanBalls(){
+		foreach (GameObject ball in ballList){
+			if (ball == null){
+				ballList.Remove(ball);
+			}
+		}
+	}*/
 
 	void ActivateLevel(){
 

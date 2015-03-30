@@ -8,16 +8,19 @@ public class BallScript : MonoBehaviour {
 	public string gravityGroup = "grav_dir_red";
 	public bool isMeldable;
 	public static float baseSphereVolume;
+	Transform gravTransform;
 
 	// Use this for initialization
 	void Start () {
 		baseSphereVolume = volumeSphere(0.5f);
-		ballGravDir = GameObject.FindGameObjectWithTag (gravityGroup).transform.up;
+		gravTransform = GameObject.FindGameObjectWithTag (gravityGroup).transform;
+		ballGravDir = gravTransform.up;
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		Debug.DrawRay (transform.position, ballGravDir);
+		ballGravDir = gravTransform.up;
 	}
 
 	//maybe switch to on collision?

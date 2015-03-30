@@ -22,9 +22,13 @@ public partial class LevelManager : MonoBehaviour {
 		void FixedUpdate () {
 			//Could switch on antigravity, zero gravity, etc...
 			foreach (GameObject ball_GO in myParent.ballList){
-				BallScript bs = ball_GO.GetComponent<BallScript>();
-				Rigidbody br = ball_GO.GetComponent<Rigidbody>();
-				br.AddForce(bs.ballGravDir * bs.gravStr);
+				try {
+					BallScript bs = ball_GO.GetComponent<BallScript>();
+					Rigidbody br = ball_GO.GetComponent<Rigidbody>();
+					br.AddForce(bs.ballGravDir * bs.gravStr);
+				} catch(MissingReferenceException ex){
+					Debug.Log("Dead ball in ball list");
+				}
 			}
 		}
 
