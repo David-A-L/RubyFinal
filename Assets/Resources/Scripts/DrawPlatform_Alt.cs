@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class DrawPlatform_Alt : MonoBehaviour {
 	
 	private LevelManager levelManager;
-	public enum PlatformType{DEFAULT, CONVEYOR};
+	public enum PlatformType{PLAYER1, PLAYER2, PLAYER3, PLAYER4, CONVEYOR};
 	public enum DrawState{NONE, DRAWING};
 
 	public float thickness = .25f;
@@ -18,7 +18,7 @@ public class DrawPlatform_Alt : MonoBehaviour {
 	//flags for enabling 
 	public bool conveyorEnabled;
 	
-	PlatformType curPlatType = PlatformType.DEFAULT;
+	PlatformType curPlatType = PlatformType.PLAYER1;
 	public static DrawState curState;
 	
 	public static float difficulty = 5f; // Max 100;
@@ -39,7 +39,9 @@ public class DrawPlatform_Alt : MonoBehaviour {
 	//private Vector3 newSize;
 	private bool validLine = true;
 	private bool first = true;
-	
+
+	private string playerNum = "1";
+
 	/// <summary>
 	/// Raises the runtime method load event.
 	/// </summary>
@@ -49,7 +51,10 @@ public class DrawPlatform_Alt : MonoBehaviour {
 		PoolDict = new Dictionary<PlatformType, BarScript> ();
 		Debug.Log("Filling Platform Dictionary");
 		PlatPrfbDict = new Dictionary<PlatformType, GameObject>();
-		PlatPrfbDict.Add (PlatformType.DEFAULT, (GameObject)Resources.Load ("Prefabs/line"));
+		PlatPrfbDict.Add (PlatformType.PLAYER1, (GameObject)Resources.Load ("Prefabs/linePlayer1"));
+		PlatPrfbDict.Add (PlatformType.PLAYER2, (GameObject)Resources.Load ("Prefabs/linePlayer2"));
+		PlatPrfbDict.Add (PlatformType.PLAYER3, (GameObject)Resources.Load ("Prefabs/linePlayer3"));
+		PlatPrfbDict.Add (PlatformType.PLAYER4, (GameObject)Resources.Load ("Prefabs/linePlayer4"));
 		PlatPrfbDict.Add (PlatformType.CONVEYOR, (GameObject)Resources.Load("Prefabs/cnvrPfrm"));
 	}
 
@@ -62,11 +67,11 @@ public class DrawPlatform_Alt : MonoBehaviour {
 		//Adding enabled and disabled for platform types for this level
 		curState = DrawState.NONE;
 		levelManager = GameObject.Find ("Main Camera").GetComponent<LevelManager> ();
-		EnabledDict.Add (PlatformType.DEFAULT, true);
+		EnabledDict.Add (PlatformType.PLAYER1, true);
 		EnabledDict.Add (PlatformType.CONVEYOR, conveyorEnabled);
 
 		PoolDict = new Dictionary<PlatformType, BarScript> ();
-		PoolDict.Add (PlatformType.DEFAULT, GameObject.FindGameObjectWithTag ("pool_default").GetComponent<BarScript> ());
+		PoolDict.Add (PlatformType.PLAYER1, GameObject.FindGameObjectWithTag ("pool_default").GetComponent<BarScript> ());
 		if (conveyorEnabled)
 			PoolDict.Add (PlatformType.CONVEYOR, GameObject.FindGameObjectWithTag ("pool_conveyor").GetComponent<BarScript> ());
 	}
@@ -114,7 +119,7 @@ public class DrawPlatform_Alt : MonoBehaviour {
 			if (curPlatType != pt) {
 				curPlatType = pt;
 			} else {
-				curPlatType = PlatformType.DEFAULT;
+				curPlatType = PlatformType.PLAYER1;
 			}
 		}
 	}
@@ -156,7 +161,12 @@ public class DrawPlatform_Alt : MonoBehaviour {
 	}
 	
 	void drawPlatform(){
-		pfrm.AddComponent<BoxCollider>(); 
+		pfrm.AddComponent<BoxCollider>();
+		if (curPlatType == PlatformType.PLAYER1) {
+			curPlatType = PlatformType.PLAYER2;
+		} else {
+			curPlatType = PlatformType.PLAYER1;
+		}
 		levelManager.AddPlatform (pfrm, curPlatType);
 		pfrm = null;
 		curState = DrawState.NONE;
