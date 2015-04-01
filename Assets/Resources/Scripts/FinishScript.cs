@@ -35,9 +35,4 @@ public class FinishScript : MonoBehaviour {
 			Destroy (coll.collider.gameObject);
 		}
 	}
-
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }

@@ -162,8 +162,8 @@ public partial class LevelManager : MonoBehaviour {
 	}
 
 	public void updatePlayerScore(GameObject marble) {
-		int pointsGained = marble.GetComponent<BallScript>().reward * scoreMultiplier;
-		GameManager.Instance.players [mapMaterialToBuilder (marble.GetComponent<Material> ())].levelScore += pointsGained;
+		int pointsGained = (int)(marble.GetComponent<BallScript>().reward * scoreMultiplier);
+		GameManager.Instance.players [(int)mapMaterialToBuilder (marble.GetComponent<Material>())].levelScore += pointsGained;
 	}
 
 	private BuilderID mapMaterialToBuilder(Material mat){
