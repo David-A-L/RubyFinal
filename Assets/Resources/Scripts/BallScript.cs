@@ -14,7 +14,7 @@ public class BallScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		baseSphereVolume = volumeSphere(0.5f);
-		//ballGravDir = GameObject.FindGameObjectWithTag (gravityGroup).transform.up;
+		ballGravDir = GameObject.FindGameObjectWithTag (gravityGroup).transform.up;
 		rewardMult = 1.5f;
 		reward = 1f;
 	}
