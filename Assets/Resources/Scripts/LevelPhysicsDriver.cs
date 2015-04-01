@@ -21,7 +21,8 @@ public partial class LevelManager : MonoBehaviour {
 
 		void FixedUpdate () {
 			//Could switch on antigravity, zero gravity, etc...
-			foreach (GameObject ball_GO in myParent.ballList){
+			for(int i = 0; i < myParent.ballList.Count; ++i){
+				GameObject ball_GO = myParent.ballList[i];
 				if(ball_GO == null) {
 					myParent.ballList.Remove(ball_GO);
 				}
