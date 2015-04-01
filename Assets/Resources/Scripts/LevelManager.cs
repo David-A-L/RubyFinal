@@ -58,6 +58,8 @@ public partial class LevelManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		//Add each ball to the ball list. 
+		getCurrentPlayer().getCurrentPowerBar ().SetActive (true);
+
 		GameObject[] ballArr = GameObject.FindGameObjectsWithTag("marble");
 		foreach (GameObject b in ballArr) {ballList.Add(b);}
 
@@ -135,7 +137,11 @@ public partial class LevelManager : MonoBehaviour {
 		}
 		if (Input.GetKeyUp (KeyCode.S)) {ResetLevel();}
 		if (Input.GetKeyUp(KeyCode.A)){ActivateLevel();}
-		if (Input.GetKey (KeyCode.Backspace)) {Application.LoadLevel("_scene_main_menu");}
+		if (Input.GetKey (KeyCode.Backspace)) {
+			GameManager.Instance.disableAllBars();
+			GameManager.Instance.resetAllBars();
+			Application.LoadLevel("_scene_main_menu");
+		}
 	}
 
 	void ActivateLevel(){
@@ -154,9 +160,19 @@ public partial class LevelManager : MonoBehaviour {
 			individual_player.platformsUndid.ForEach(delegate(GameObject platform){UnityEngine.Object.DontDestroyOnLoad(platform);});
 		});
 	}
+
+	static public void deleteAllPlatforms(){
+		allPlayers.ForEach(delegate (playerInLevel individual_player){
+			individual_player.platformsLaid.ForEach(delegate(GameObject platform){UnityEngine.Object.Destroy(platform);});
+			individual_player.platformsUndid.ForEach(delegate(GameObject platform){UnityEngine.Object.Destroy(platform);});
+		});
+	}
 	
 	public void endLevel(){
 		currentTurn = 0;
+		deleteAllPlatforms();
+		GameManager.Instance.disableAllBars ();
+		GameManager.Instance.resetAllBars ();
 		if (Application.loadedLevel == GameManager.Instance.numLevels-1) {Application.LoadLevel(0);}
 		Application.LoadLevel(Application.loadedLevel + 1);
 	}

@@ -10,6 +10,7 @@ public class MainMenuScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	public void SelectLevel(string scene_name){
+		LevelManager.deleteAllPlatforms ();
 		Application.LoadLevel (scene_name);
 	}
 }
