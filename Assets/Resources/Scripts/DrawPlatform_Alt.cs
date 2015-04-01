@@ -21,9 +21,17 @@ public class DrawPlatform_Alt : MonoBehaviour {
 
 	//TWEAKING PARAMETERS
 	public static float difficulty = 5f; // Max 100;
+<<<<<<< HEAD
 	public float thickness = .25f;
 
 	//MATERIALS
+=======
+	
+	Vector3 lastPoint = Vector3.zero;
+	
+	public GameObject pfrm;
+	
+>>>>>>> origin/multiplayer
 	public Material red;
 
 	//UPDATE VARIABLES (CONSTANTLY USED/CHANGED IN PROCESS OF DRAWING)
