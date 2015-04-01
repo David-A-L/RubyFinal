@@ -13,7 +13,7 @@ public class GameManager {
 	GameObject levelCanvas;
 
 	public Material[] playerMaterials = new Material[4];
-	public int numPlayers = 3; //make sure to call set up Players with right number
+	public int numPlayers = 2; //make sure to call set up Players with right number
 	public int completedLevels;
 	public int currentLevel;
 	public int numLevels = 20;
@@ -62,11 +62,19 @@ public class GameManager {
 
 	public void disableAllBars(){
 		players.ForEach(delegate (Player player){
-				player.playerPowerBars.ForEach(delegate (GameObject powerBar) {powerBar.SetActive(false);});
+				player.playerPowerBars.ForEach(delegate (GameObject powerBar) {
+					powerBar.SetActive(false);
+				});
+		});
+	}
+
+	public void resetAllBars(){
+		players.ForEach (delegate (Player player) {
+			player.playerPowerBarScripts.ForEach (delegate (BarScript bs) {bs.ResetBar ();});
 		});
 	}
 	
-
+	
 	//Call this when you finish a level
 	public void finishLevel(){
 		++completedLevels;
