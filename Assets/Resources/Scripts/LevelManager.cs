@@ -168,6 +168,7 @@ public partial class LevelManager : MonoBehaviour {
 	
 	public void ResetLevel(){ //this will generally be used in a single player context, consider a separate multi-player reset
 		currentTurn = 0;
+		resetPlayerScores();
 		preservePlatforms ();
 		Application.LoadLevel (Application.loadedLevel);
 	}
@@ -185,12 +186,19 @@ public partial class LevelManager : MonoBehaviour {
 			individual_player.platformsUndid.ForEach(delegate(platformState ps){UnityEngine.Object.Destroy(ps.platObj);});
 		});
 	}
+	private void resetPlayerScores() {
+		for(int i = 0; i < GameManager.Instance.players.Count; ++i) {
+			GameManager.Instance.players[i].levelScore = 0;
+		}
+	}
 	
 	public void endLevel(){
 		currentTurn = 0;
 		deleteAllPlatforms();
 		GameManager.Instance.disableAllBars ();
 		GameManager.Instance.resetAllBars ();
+		resetPlayerScores();
+		
 		if (Application.loadedLevel == GameManager.Instance.numLevels-1) {Application.LoadLevel(0);}
 		Application.LoadLevel(Application.loadedLevel + 1);
 	}
