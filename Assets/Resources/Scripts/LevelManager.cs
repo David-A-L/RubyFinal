@@ -162,7 +162,7 @@ public partial class LevelManager : MonoBehaviour {
 	}
 
 	public void updatePlayerScore(GameObject marble) {
-		int pointsGained = BallScript.multipleMeldedSphere (marble) * scoreMultiplier;
+		int pointsGained = marble.GetComponent<BallScript>().reward * scoreMultiplier;
 		GameManager.Instance.players [mapMaterialToBuilder (marble.GetComponent<Material> ())].levelScore += pointsGained;
 	}
 
@@ -170,8 +170,9 @@ public partial class LevelManager : MonoBehaviour {
 		for (int i = 0; i < GameManager.Instance.numPlayers; ++i) {
 			if(GameManager.Instance.players[i].material == mat){
 				return (BuilderID)i;
+			}
 		}
+		Debug.Log ("Error mapping marble material to player");
 		return (BuilderID)0;
-
 	}
 }
