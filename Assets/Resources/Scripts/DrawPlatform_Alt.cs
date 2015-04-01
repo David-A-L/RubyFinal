@@ -11,6 +11,7 @@ public class DrawPlatform_Alt : MonoBehaviour {
 	private LevelManager levelManager;
 
 	//ENUMS AND CLASSES FOR STATE INVOLVED WITH DRAWING
+	public List <GameObject> allPossibleLines = new List<GameObject> ();
 	public enum DrawState{NONE, DRAWING};
 		
 		//INSTANCES FOR ENUMS
@@ -25,7 +26,9 @@ public class DrawPlatform_Alt : MonoBehaviour {
 
 	//MATERIALS
 	public Material red;
+	private Material revalidation_material;
 
+	
 	//UPDATE VARIABLES (CONSTANTLY USED/CHANGED IN PROCESS OF DRAWING)
 		
 		//GAME OBJ FOR LINE
@@ -53,31 +56,25 @@ public class DrawPlatform_Alt : MonoBehaviour {
 		if (Input.GetMouseButtonDown(0)) {
 			curState = DrawState.DRAWING;
 			lastPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-			lastPoint.z = 0;
+			lastPoint.z = 0; //bring to forefront
 
-			switch (levelManager.getCurrentPlayer().currentPlatformType){
-				case PlatformType.CONVEYOR:
-					pfrm = Instantiate(levelManager.getCurrentPlayer().conveyorLine);
-				break;
-				case PlatformType.DEFAULT:
-					pfrm = Instantiate(levelManager.getCurrentPlayer().defaultLine);
-				break;
-				default:
-					pfrm = null;
-					Debug.LogError("Can't draw platform, invalid platform type");
-					return;
-			}
-
+			pfrm = getPlatformFromType(levelManager.getCurrentPlayer().currentPlatformType);
 			pfrm.transform.localScale = new Vector3 (0,thickness,1);
 
-			levelManager.getCurrentPlayer().getCurrentPowerBar().lockVal();
+//			levelManager.getCurrentPlayer().getCurrentPowerBarScript().lockVal();
+
+			revalidation_material = pfrm.GetComponent<Renderer> ().material;
 		}
 		
 		//Press C if enabled to toggle type
-		if (Input.GetKeyUp (KeyCode.C) && curState != DrawState.DRAWING) {
+		if (Input.GetKeyUp (KeyCode.C)) {
+
 			Player curPlayer = levelManager.getCurrentPlayer();
 			PlatformType pt = levelManager.nextValidPlatformType(curPlayer.currentPlatformType);
 			curPlayer.changeToNextPlatformType(pt);
+			if (pfrm != null){
+				changePlatformBeingDrawnToNewType();
+			}
 		}
 		
 		if (curState == DrawState.DRAWING) { 
@@ -87,6 +84,40 @@ public class DrawPlatform_Alt : MonoBehaviour {
 		}
 	}
 
+	private void changePlatformBeingDrawnToNewType(){
+		Player curPlayer = levelManager.getCurrentPlayer();
+//		levelManager.getCurrentPlayer().getCurrentPowerBarScript().revertToLocked ();
+		GameObject temp = getPlatformFromType (curPlayer.currentPlatformType);
+
+		temp.transform.position = pfrm.transform.position;
+		temp.transform.localScale = pfrm.transform.localScale;
+		temp.transform.right = pfrm.transform.right;
+		revalidation_material = temp.GetComponent<Renderer> ().material;
+
+		GameObject.Destroy (pfrm);
+		pfrm = temp;
+		GameManager.Instance.disableAllBars ();
+		curPlayer.getCurrentPowerBar ().SetActive (true);
+		transformLine ();
+	}
+
+	GameObject getPlatformFromType (PlatformType pt){
+		GameObject platformToBuild;
+		switch (pt) {
+			case PlatformType.CONVEYOR:
+				platformToBuild = Instantiate (levelManager.getCurrentPlayer ().conveyorLine);
+				break;
+			case PlatformType.DEFAULT:
+				platformToBuild = Instantiate (levelManager.getCurrentPlayer ().defaultLine);
+				break;
+			default:
+				platformToBuild = null;
+				Debug.LogError ("Can't draw platform, invalid platform type");
+				break;
+			}
+		return platformToBuild;
+	}
+	
 	void transformLine() {
 		
 		// Endpoint
@@ -108,11 +139,14 @@ public class DrawPlatform_Alt : MonoBehaviour {
 		pfrm.transform.right = dir.normalized;
 
 		//bar script
-		validLine = levelManager.getCurrentPlayer().getCurrentPowerBar().changeSize(difficulty * -delta);
-		
+		validLine = levelManager.getCurrentPlayer().getCurrentPowerBarScript().changeSize(difficulty * -delta);
+
+
+
 		// Set line color
 		if (!validLine) {pfrm.GetComponent<Renderer>().material = red;}
-		else { pfrm.GetComponent<Renderer> ().material = levelManager.getCurrentPlayer().material;}
+		else{pfrm.GetComponent<Renderer>().material = revalidation_material;}
+
 	}
 	
 	void drawPlatform(){
@@ -123,10 +157,12 @@ public class DrawPlatform_Alt : MonoBehaviour {
 
 	void CancelLine(){
 		Debug.Log("Cancel Placement");
-		lastPoint = Vector3.one;
+
+		//lastPoint = Vector3.one; //problem, forget lastPoint
+
 		newPoint = Vector3.zero;
 		GameObject.Destroy (pfrm);
-		levelManager.getCurrentPlayer().getCurrentPowerBar().revertToLocked ();
+		levelManager.getCurrentPlayer().getCurrentPowerBarScript().revertToLocked ();
 		curState = DrawState.NONE;
 	}
 

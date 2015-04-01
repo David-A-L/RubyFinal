@@ -8,6 +8,8 @@ public class BarScript : MonoBehaviour {
 	public float lockedVal;
 	public float baseVal = 100f;
 	public float curVal;
+	public float lastDelta;
+
 	float xMax;
 	float unitsPerPerc;
 	public Text displayText;
@@ -55,6 +57,8 @@ public class BarScript : MonoBehaviour {
 	public bool changeSize(float delta) {
 
 		curVal += delta;
+		lastDelta = delta;
+
 		if(curVal < 0) {
 			//curVal = 0;
 			Vector3 tmp = transform.localScale;
@@ -62,6 +66,12 @@ public class BarScript : MonoBehaviour {
 			transform.localScale = tmp;
 			return false;
 		}
+
+		if (curVal > baseVal) {
+			curVal = baseVal;
+			return false;
+		}
+
 		Vector3 temp = transform.localScale;
 		temp.x += delta * unitsPerPerc;
 		transform.localScale = temp;

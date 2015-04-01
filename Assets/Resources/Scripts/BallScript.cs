@@ -8,7 +8,6 @@ public class BallScript : MonoBehaviour {
 	public string gravityGroup = "grav_dir_red";
 	public bool isMeldable;
 	public static float baseSphereVolume;
-	public int playerID;
 	
 	// Use this for initialization
 	void Start () {
@@ -39,7 +38,7 @@ public class BallScript : MonoBehaviour {
 				float volBallCold = volumeSphere(colidingBall);
 				float newBallRadius = radiusSphere(volBallThis + volBallCold);
 				
-				bool samePlayer = playerID == colBallScpt.playerID;
+				bool samePlayer = thisBall.GetComponent<Renderer>().material.color == coll.gameObject.GetComponent<Renderer>().material.color;
 				bool sameVol = volBallThis == volBallCold;
 				bool lowerInstanceID = GetInstanceID() < colBallScpt.GetInstanceID();
 				bool largerVol = volBallThis > volBallCold;
@@ -69,8 +68,10 @@ public class BallScript : MonoBehaviour {
 	static float radiusSphere(float volume) {
 		return Mathf.Pow ((3f*volume)/(4f*Mathf.PI),1f/3f);
 	}
-	public static int multipleMeldedSphere(SphereCollider ball) {
-		return (int)(volumeSphere(ball) / baseSphereVolume);
+
+	public static int multipleMeldedSphere(GameObject marble) {
+		SphereCollider sColl = marble.GetComponent<SphereCollider> ();
+		return (int)(volumeSphere (sColl) / baseSphereVolume);
 	}
 	
 }

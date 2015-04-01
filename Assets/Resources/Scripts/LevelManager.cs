@@ -27,10 +27,9 @@ public partial class LevelManager : MonoBehaviour {
 	public void tick(){
 		++currentTurn;
 		GameManager.Instance.disableAllBars ();
-		GameManager.Instance.allPlayersPowerBars[getCurrentPlayerNum()][(int) getCurrentPlayer().currentPlatformType].SetActive(true);
+		getCurrentPlayer().getCurrentPowerBar ().SetActive (true);
+		//Query Gm Mngr, get list of all power bars, index on curPlayNum, index further on platType (player history for plat type), and activate
 	}
-
-
 
 	public Player getCurrentPlayer(){return GameManager.Instance.players [getCurrentPlayerNum ()];}
 	public int getCurrentPlayerNum(){return (currentTurn % GameManager.Instance.numPlayers);}
@@ -43,7 +42,11 @@ public partial class LevelManager : MonoBehaviour {
 	public enum LevelState{PAUSED, PLANNING, RUNNING};
 	public static LevelState curLevelState = LevelState.PLANNING;
 
+	//Container for all balls on level
 	public List<GameObject> ballList = new List<GameObject> ();
+
+	//Scoring
+	static int scoreMultiplier = 10; 
 
 
 	//ONCE, ADD MANAGEMENT INSTANCES FOR EACH PLAYER
@@ -64,6 +67,10 @@ public partial class LevelManager : MonoBehaviour {
 		}
 		
 		//Have to add the script as a Component to the current gameObject (unity sucks)
+		//Hack
+		EnabledDict [PlatformType.DEFAULT] = true;
+		EnabledDict [PlatformType.CONVEYOR] = true;
+
 		physicsDriver = gameObject.AddComponent<LevelPhysicsDriver> ();
 		physicsDriver.myParent = this;
 		physicsDriver.enabled = false;
@@ -100,10 +107,10 @@ public partial class LevelManager : MonoBehaviour {
 
 		GameObject platformToUndo = allPlayers[curPlayerID].platformsLaid[num_platforms_laid - 1];
 		platformToUndo.SetActive(false);
-		getCurrentPlayer().getCurrentPowerBar().changeSize (DrawPlatform_Alt.difficulty * platformToUndo.transform.localScale.x);
+		getCurrentPlayer().getCurrentPowerBarScript().changeSize (DrawPlatform_Alt.difficulty * platformToUndo.transform.localScale.x);
 
 		allPlayers[curPlayerID].platformsUndid.Add (platformToUndo);
-		allPlayers[curPlayerID].platformsLaid.RemoveAt (num_platforms_laid);
+		allPlayers[curPlayerID].platformsLaid.RemoveAt (num_platforms_laid-1);
 	}
 	
 	public void RedoDrawPlatform (){
@@ -113,7 +120,7 @@ public partial class LevelManager : MonoBehaviour {
 
 		GameObject platformToRedo = allPlayers[curPlayerID].platformsUndid[num_platforms_undid - 1];
 		platformToRedo.SetActive (true);
-		getCurrentPlayer().getCurrentPowerBar().changeSize (DrawPlatform_Alt.difficulty * -platformToRedo.transform.localScale.x);
+		getCurrentPlayer().getCurrentPowerBarScript().changeSize (DrawPlatform_Alt.difficulty * -platformToRedo.transform.localScale.x);
 
 		allPlayers[curPlayerID].platformsLaid.Add (platformToRedo);
 		allPlayers[curPlayerID].platformsUndid.RemoveAt (num_platforms_undid - 1);
@@ -153,19 +160,18 @@ public partial class LevelManager : MonoBehaviour {
 		if (Application.loadedLevel == GameManager.Instance.numLevels-1) {Application.LoadLevel(0);}
 		Application.LoadLevel(Application.loadedLevel + 1);
 	}
+
+	public void updatePlayerScore(GameObject marble) {
+		int pointsGained = BallScript.multipleMeldedSphere (marble) * scoreMultiplier;
+		GameManager.Instance.players [mapMaterialToBuilder (marble.GetComponent<Material> ())].levelScore += pointsGained;
+	}
+
+	private BuilderID mapMaterialToBuilder(Material mat){
+		for (int i = 0; i < GameManager.Instance.numPlayers; ++i) {
+			if(GameManager.Instance.players[i].material == mat){
+				return (BuilderID)i;
+		}
+		return (BuilderID)0;
+
+	}
 }
-
-/* GARBAGE CODE (COMMENTED OUT)
-foreach (GameObject ball in ballList) {
-			Rigidbody mRigid = ball.GetComponent<Rigidbody> ();
-			if (mRigid == null) {
-				mRigid = ball.AddComponent<Rigidbody> ();
-				mRigid.useGravity = false;
-			}
-			else {
-				mRigid.useGravity = false;
-			}
-});
-
- */
-

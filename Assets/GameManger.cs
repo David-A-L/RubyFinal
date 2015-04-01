@@ -6,12 +6,14 @@ using System.Collections.Generic;
 public class GameManager {
 	
 	public List<Player> players = new List<Player> ();
+
+	//List[playerID][playerPowerBars] to Game Objects, holds instances of UI power bars
 	public List<List<GameObject> > allPlayersPowerBars = new List<List<GameObject>>();
 
 	GameObject levelCanvas;
 
 	public Material[] playerMaterials = new Material[4];
-	public int numPlayers = 2;
+	public int numPlayers = 3; //make sure to call set up Players with right number
 	public int completedLevels;
 	public int currentLevel;
 	public int numLevels = 20;
@@ -24,8 +26,10 @@ public class GameManager {
 		completedLevels = 0;
 		levelCanvas = UnityEngine.Object.Instantiate(Resources.Load("Prefabs/LevelCanvas", typeof(GameObject))) as GameObject;
 //		levelCanvas = (GameObject) Resources.Load ("Prefabs/LevelCanvas");
+
 		//HACK
-		setUpPlayers (2);
+		setUpPlayers (numPlayers);
+
 		UnityEngine.Object.DontDestroyOnLoad (levelCanvas);
 	}    
 
@@ -37,35 +41,32 @@ public class GameManager {
 	private void setUpPlayers(int totPlayers){
 		numPlayers = totPlayers;
 		for (int i = 0; i < numPlayers; ++i) {
-			Player playerToAdd = new Player(i);
+			Player playerToAdd = new Player((BuilderID)i);
 			List<GameObject> listForPlayer = new List<GameObject> ();//for each player, make a new list to hold each power bar
 
 			for (int j = 0; j < Enum.GetValues (typeof(PlatformType)).Length; ++j){	//for each type of power bar
 				GameObject powBar = UnityEngine.Object.Instantiate(Resources.Load("Prefabs/PowerBar", typeof(GameObject))) as GameObject;
-//				powBar = (GameObject) Resources.Load ("Prefabs/PowerBar");	//instantiate the power bar
-				if (powBar == null){ Debug.Log("clara poops");}
-				BarScript[] barScriptArr = powBar.gameObject.GetComponentsInChildren<BarScript>();//get the barScript handle for it
-				if (barScriptArr.Length == 0){ Debug.Log("poop1");}
-				if (barScriptArr[0] == null){ Debug.Log("poop2");}
 
-				BarScript barScript = barScriptArr[0];
+				BarScript barScript = powBar.gameObject.GetComponentsInChildren<BarScript>()[0];//get the barScript handle for it
+
 				barScript.personalizeToPlayer(playerToAdd,(PlatformType)j);	//personalize it for the player
-				playerToAdd.playerPowerBars.Add(barScript);	//give the player a handle to the script
+				playerToAdd.playerPowerBarScripts.Add(barScript);	//give the player a handle to the script
 				listForPlayer.Add(powBar);	//keep a handle to the actual power bar in the list of power bars for the player
 				powBar.transform.SetParent(levelCanvas.transform);
 			}
 
-			allPlayersPowerBars.Add(listForPlayer);//add this list for each player
+			playerToAdd.playerPowerBars = listForPlayer;//add this list for each player
 			players.Add(playerToAdd);//add the fully furnished handle to the player to the list of players
 		}
 	}
 
 	public void disableAllBars(){
-		allPlayersPowerBars.ForEach(delegate (List<GameObject> onePlayersPowerBars){
-			onePlayersPowerBars.ForEach(delegate (GameObject powerBar) {powerBar.SetActive(false);});
+		players.ForEach(delegate (Player player){
+				player.playerPowerBars.ForEach(delegate (GameObject powerBar) {powerBar.SetActive(false);});
 		});
 	}
 	
+
 	//Call this when you finish a level
 	public void finishLevel(){
 		++completedLevels;

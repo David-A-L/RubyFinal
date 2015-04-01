@@ -4,11 +4,13 @@ using System.Collections.Generic;
 
 public class Player {
 	public PlatformType currentPlatformType; //to keep history of player's platform type
-	public List <BarScript> playerPowerBars = new List<BarScript>();
+	public List <BarScript> playerPowerBarScripts = new List<BarScript>();
+	public List <GameObject> playerPowerBars = new List<GameObject>();
+
 	public Material material;
 	public GameObject defaultLine;
 	public GameObject conveyorLine;
-	public int ID;
+	public BuilderID ID;
 	public int gameScore;
 	public int levelScore;
 	public DrawPlatform_Alt platformDrawer;
@@ -22,13 +24,13 @@ public class Player {
 	//public int lives;
 
 	//ID MUST BE 1-4
-	public Player(int _ID) {
+	public Player(BuilderID _ID) {
 		ID = _ID;
 		gameScore = 0;
 		levelScore = 0;
 		resourceHelper ();
 		currentPlatformType = PlatformType.DEFAULT;
-		platformDrawer = Camera.main.gameObject.AddComponent<DrawPlatform_Alt>();
+//		platformDrawer = Camera.main.gameObject.AddComponent<DrawPlatform_Alt>();
 	}
 
 	private void resourceHelper(){
@@ -36,27 +38,35 @@ public class Player {
 		conveyorLine = (GameObject)Resources.Load ("Prefabs/cnvrPfrm");
 
 		switch (ID) {
-			case 0: 
+			case BuilderID.PLAYER1: 
 				material = (Material)Resources.Load ("UX/SimpleMaterials/player1");
 				defaultLine = (GameObject)Resources.Load ("Prefabs/linePlayer1");
 				break;
-			case 1:
+
+				case BuilderID.PLAYER2:
 				material = (Material)Resources.Load ("UX/SimpleMaterials/player2");
 				defaultLine = (GameObject)Resources.Load ("Prefabs/linePlayer2");
 				break;
-			case 2: 
+
+				case BuilderID.PLAYER3: 
 				material = (Material)Resources.Load ("UX/SimpleMaterials/player3");
 				defaultLine = (GameObject)Resources.Load ("Prefabs/linePlayer3");
 				break;
-			case 3:
+
+				case BuilderID.PLAYER4:
 				material = (Material)Resources.Load ("UX/SimpleMaterials/player4");
 				defaultLine = (GameObject)Resources.Load ("Prefabs/linePlayer4");
 				break;
 		}
 	}
+	
 
-	public BarScript getCurrentPowerBar (){
-		return playerPowerBars [(int)currentPlatformType];
+	public BarScript getCurrentPowerBarScript (){
+		return playerPowerBarScripts [(int)currentPlatformType];
+	}
+
+	public GameObject getCurrentPowerBar (){
+		return playerPowerBars[(int)currentPlatformType];
 	}
 	
 	public void changeToNextPlatformType(PlatformType pt){
