@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Player {
+public class Player{
 	public PlatformType currentPlatformType; //to keep history of player's platform type
 	public List <BarScript> playerPowerBarScripts = new List<BarScript>();
 	public List <GameObject> playerPowerBars = new List<GameObject>();
@@ -20,7 +20,6 @@ public class Player {
 	void Start(){
 			
 	}
-
 	//public int lives;
 
 	//ID MUST BE 1-4

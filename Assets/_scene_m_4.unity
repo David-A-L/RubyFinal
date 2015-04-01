@@ -1047,7 +1047,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 414790, guid: 4c0af4e30e571493392ec0b43195cf84, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 104288, guid: 4c0af4e30e571493392ec0b43195cf84, type: 2}
       propertyPath: m_Name
@@ -1113,7 +1113,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 414790, guid: 310b365e28ec8433e80a743cd2c9520a, type: 2}
       propertyPath: m_RootOrder
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 104288, guid: 310b365e28ec8433e80a743cd2c9520a, type: 2}
       propertyPath: m_Layer
@@ -1183,7 +1183,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 414790, guid: 310b365e28ec8433e80a743cd2c9520a, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 104288, guid: 310b365e28ec8433e80a743cd2c9520a, type: 2}
       propertyPath: m_Layer
@@ -1253,7 +1253,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 414790, guid: 4c0af4e30e571493392ec0b43195cf84, type: 2}
       propertyPath: m_RootOrder
-      value: 11
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 104288, guid: 4c0af4e30e571493392ec0b43195cf84, type: 2}
       propertyPath: m_Name
@@ -1434,7 +1434,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 414790, guid: 4c0af4e30e571493392ec0b43195cf84, type: 2}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 104288, guid: 4c0af4e30e571493392ec0b43195cf84, type: 2}
       propertyPath: m_Name
@@ -1500,7 +1500,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 414790, guid: 4c0af4e30e571493392ec0b43195cf84, type: 2}
       propertyPath: m_RootOrder
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 104288, guid: 4c0af4e30e571493392ec0b43195cf84, type: 2}
       propertyPath: m_Name
@@ -1738,7 +1738,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 414790, guid: 310b365e28ec8433e80a743cd2c9520a, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 104288, guid: 310b365e28ec8433e80a743cd2c9520a, type: 2}
       propertyPath: m_Layer

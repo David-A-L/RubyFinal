@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class platformState{
 	public GameObject platObj;
@@ -82,6 +83,7 @@ public partial class LevelManager : MonoBehaviour {
 		physicsDriver = gameObject.AddComponent<LevelPhysicsDriver> ();
 		physicsDriver.myParent = this;
 		physicsDriver.enabled = false;
+		
 	}
 
 	public PlatformType nextValidPlatformType(PlatformType curPlatType) {
@@ -150,6 +152,14 @@ public partial class LevelManager : MonoBehaviour {
 			GameManager.Instance.resetAllBars();
 			Application.LoadLevel("_scene_main_menu");
 		}
+		
+		//score hacks
+		string msg = @"Scores: ";
+		foreach(Player plyr in GameManager.Instance.players){
+			msg += plyr.ID + " " + plyr.levelScore + " ";
+		}
+		GameManager.Instance.playerScoreText.GetComponent<Text>().text = msg;
+			
 	}
 
 	void ActivateLevel(){
@@ -187,16 +197,7 @@ public partial class LevelManager : MonoBehaviour {
 
 	public void updatePlayerScore(GameObject marble) {
 		int pointsGained = (int)(marble.GetComponent<BallScript>().reward * scoreMultiplier);
-		GameManager.Instance.players [(int)mapMaterialToBuilder (marble.GetComponent<Material>())].levelScore += pointsGained;
+		GameManager.Instance.players [(int)marble.GetComponent<BallScript>().playerID].levelScore += pointsGained;
 	}
 
-	private BuilderID mapMaterialToBuilder(Material mat){
-		for (int i = 0; i < GameManager.Instance.numPlayers; ++i) {
-			if(GameManager.Instance.players[i].material == mat){
-				return (BuilderID)i;
-			}
-		}
-		Debug.Log ("Error mapping marble material to player");
-		return (BuilderID)0;
-	}
 }

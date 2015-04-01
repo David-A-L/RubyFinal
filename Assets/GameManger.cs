@@ -10,13 +10,13 @@ public class GameManager {
 	//List[playerID][playerPowerBars] to Game Objects, holds instances of UI power bars
 	public List<List<GameObject> > allPlayersPowerBars = new List<List<GameObject>>();
 
-	GameObject levelCanvas;
+	public GameObject levelCanvas;
 
-	public Material[] playerMaterials = new Material[4];
 	public int numPlayers = 2; //make sure to call set up Players with right number
 	public int completedLevels;
 	public int currentLevel;
 	public int numLevels = 20;
+	public GameObject playerScoreText;
 	
 	private static GameManager instance = new GameManager();
 
@@ -25,8 +25,11 @@ public class GameManager {
 	private GameManager() {
 		completedLevels = 0;
 		levelCanvas = UnityEngine.Object.Instantiate(Resources.Load("Prefabs/LevelCanvas", typeof(GameObject))) as GameObject;
-//		levelCanvas = (GameObject) Resources.Load ("Prefabs/LevelCanvas");
-
+		playerScoreText = UnityEngine.Object.Instantiate(Resources.Load("Prefabs/PlayerScoreText", typeof(GameObject))) as GameObject;
+		playerScoreText.transform.SetParent(levelCanvas.transform);
+		playerScoreText.transform.localPosition = new Vector3(80f,120f,0);
+		
+		
 		//HACK
 		setUpPlayers (2);
 

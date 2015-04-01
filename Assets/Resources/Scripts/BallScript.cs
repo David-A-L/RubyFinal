@@ -10,6 +10,7 @@ public class BallScript : MonoBehaviour {
 	public static float baseSphereVolume;
 	public float rewardMult;
 	public float reward;
+	public BuilderID playerID;
 	
 	// Use this for initialization
 	void Start () {
