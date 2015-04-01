@@ -24,6 +24,22 @@ public class BarScript : MonoBehaviour {
 		//displayText.text = curVal.ToString();
 	}
 
+	public void personalizeToPlayer(Player player,PlatformType pfrmType){
+
+		switch (pfrmType) {
+		case PlatformType.DEFAULT:
+			gameObject.GetComponent<Material> ().color = player.material;
+			break;
+		case PlatformType.CONVEYOR:
+			//add trail renderer with particles matching player color
+			gameObject.GetComponent<Material> ().color = Color.yellow;
+			break;
+		default:
+			Debug.LogError ("Invalid bar type");
+			break;
+		}
+	}
+
 	public void lockVal() {
 		lockedVal = curVal;
 	}

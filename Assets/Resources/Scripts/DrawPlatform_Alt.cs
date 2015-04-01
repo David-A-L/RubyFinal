@@ -2,78 +2,49 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class DrawPlatform_Alt : MonoBehaviour {
-	
-	private LevelManager levelManager;
-	public enum PlatformType{PLAYER1, PLAYER2, PLAYER3, PLAYER4, CONVEYOR};
-	public enum DrawState{NONE, DRAWING};
+public enum PlatformType{DEFAULT, CONVEYOR};
+public enum BuilderID {PLAYER1, PLAYER2, PLAYER3, PLAYER4};
 
+public class DrawPlatform_Alt : MonoBehaviour {
+
+	//HANDLES TO OTHER SCRIPTS
+	private LevelManager levelManager;
+
+	//ENUMS AND CLASSES FOR STATE INVOLVED WITH DRAWING
+	public enum DrawState{NONE, DRAWING};
+		
+		//INSTANCES FOR ENUMS
+		public static DrawState curState;
+	
+	//ENABLING FLAGS 
+	public bool conveyorEnabled;
+
+	//TWEAKING PARAMETERS
+	public static float difficulty = 5f; // Max 100;
 	public float thickness = .25f;
 
-	static Dictionary<PlatformType, GameObject> PlatPrfbDict;
-	
-	public static Dictionary<PlatformType, BarScript> PoolDict = new Dictionary<PlatformType, BarScript> ();
-	Dictionary<PlatformType, bool> EnabledDict = new Dictionary<PlatformType, bool> ();
-	
-	//flags for enabling 
-	public bool conveyorEnabled;
-	
-	PlatformType curPlatType = PlatformType.PLAYER1;
-	public static DrawState curState;
-	
-	public static float difficulty = 5f; // Max 100;
-	
-	Vector3 lastPoint = Vector3.zero;
-	
-	GameObject pfrm;
-	
+	//MATERIALS
 	public Material red;
-	//public Transform progressBar;
-	/*	public Material gray;
 
-	public Material blue;
-	public Material yellow;
-	public Material green;
-*/
-	private Vector3 newPoint;
-	//private Vector3 newSize;
-	private bool validLine = true;
-	private bool first = true;
+	//UPDATE VARIABLES (CONSTANTLY USED/CHANGED IN PROCESS OF DRAWING)
+		
+		//GAME OBJ FOR LINE
+		GameObject pfrm;
 
-	private string playerNum = "1";
+		//ENDPOINTS
+		private Vector3 newPoint;
+		Vector3 lastPoint = Vector3.zero;
 
-	/// <summary>
-	/// Raises the runtime method load event.
-	/// </summary>
-	[RuntimeInitializeOnLoadMethod]
-	static void OnRuntimeMethodLoad ()
-	{
-		PoolDict = new Dictionary<PlatformType, BarScript> ();
-		Debug.Log("Filling Platform Dictionary");
-		PlatPrfbDict = new Dictionary<PlatformType, GameObject>();
-		PlatPrfbDict.Add (PlatformType.PLAYER1, (GameObject)Resources.Load ("Prefabs/linePlayer1"));
-		PlatPrfbDict.Add (PlatformType.PLAYER2, (GameObject)Resources.Load ("Prefabs/linePlayer2"));
-		PlatPrfbDict.Add (PlatformType.PLAYER3, (GameObject)Resources.Load ("Prefabs/linePlayer3"));
-		PlatPrfbDict.Add (PlatformType.PLAYER4, (GameObject)Resources.Load ("Prefabs/linePlayer4"));
-		PlatPrfbDict.Add (PlatformType.CONVEYOR, (GameObject)Resources.Load("Prefabs/cnvrPfrm"));
-	}
+		//BOOLS
+		private bool validLine = true;
 
-	void Awake(){
-		PoolDict = new Dictionary<PlatformType, BarScript> ();
-	}
+	void Awake(){}
 
 	// Use this for initialization
 	void Start () {
-		//Adding enabled and disabled for platform types for this level
 		curState = DrawState.NONE;
 		levelManager = GameObject.Find ("Main Camera").GetComponent<LevelManager> ();
-		EnabledDict.Add (PlatformType.PLAYER1, true);
-		EnabledDict.Add (PlatformType.CONVEYOR, conveyorEnabled);
 
-		PoolDict = new Dictionary<PlatformType, BarScript> ();
-		PoolDict.Add (PlatformType.PLAYER1, GameObject.FindGameObjectWithTag ("pool_default").GetComponent<BarScript> ());
-		if (conveyorEnabled)
-			PoolDict.Add (PlatformType.CONVEYOR, GameObject.FindGameObjectWithTag ("pool_conveyor").GetComponent<BarScript> ());
 	}
 	
 	// Update is called once per frame
@@ -83,93 +54,71 @@ public class DrawPlatform_Alt : MonoBehaviour {
 			curState = DrawState.DRAWING;
 			lastPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			lastPoint.z = 0;
-			pfrm = (GameObject)Instantiate (PlatPrfbDict [curPlatType]);
+
+			switch (levelManager.getCurrentPlayer().currentPlatformType){
+				case PlatformType.CONVEYOR:
+					pfrm = Instantiate(levelManager.getCurrentPlayer().conveyorLine);
+				break;
+				case PlatformType.DEFAULT:
+					pfrm = Instantiate(levelManager.getCurrentPlayer().defaultLine);
+				break;
+				default:
+					pfrm = null;
+					Debug.LogError("Can't draw platform, invalid platform type");
+					return;
+			}
+
 			pfrm.transform.localScale = new Vector3 (0,thickness,1);
-			PoolDict[curPlatType].lockVal();
+
+			levelManager.getCurrentPlayer().getCurrentPowerBar().lockVal();
 		}
 		
 		//Press C if enabled to toggle type
-		//this could be generalized in a "Switch platform" function
-		if (Input.GetKeyUp (KeyCode.C)) {
-			TogglePlatformType(PlatformType.CONVEYOR);
+		if (Input.GetKeyUp (KeyCode.C) && curState != DrawState.DRAWING) {
+			Player curPlayer = levelManager.getCurrentPlayer();
+			PlatformType pt = levelManager.nextValidPlatformType(curPlayer.currentPlatformType);
+			curPlayer.changeToNextPlatformType(pt);
 		}
 		
-		if (curState == DrawState.DRAWING) {
-			//if right clicked (or x) while drawing a platform, cancel
-			if (Input.GetMouseButton(2)||Input.GetKeyDown(KeyCode.X)) {
-				CancelLine();
-			}
-			//else if released mouse button and valid platform
-			else if (Input.GetMouseButtonUp (0)) {
-				if (validLine)
-					drawPlatform ();
-				else 
-					CancelLine();
-			} 
-			//else you are still modifying the line
-			else {
-				transformLine ();
-			}
-			
+		if (curState == DrawState.DRAWING) { 
+			if (updateHelper_inputCancel()){return;}
+			else if (updateHelper_mouseRelease ()){return;} 
+			transformLine ();
 		}
 	}
 
-	void TogglePlatformType(PlatformType pt){
-		if (EnabledDict [pt] && curState != DrawState.DRAWING) {
-			if (curPlatType != pt) {
-				curPlatType = pt;
-			} else {
-				curPlatType = PlatformType.PLAYER1;
-			}
-		}
-	}
-	
 	void transformLine() {
 		
 		// Endpoint
 		newPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		newPoint.z = 0f;
 		
-		
 		// Put line center between endpoints
 		pfrm.transform.position = (lastPoint + newPoint) / 2;
-		
 		Vector3 dir = newPoint - lastPoint;
-		
+
 		//find change in size
 		float delta = dir.magnitude - pfrm.transform.localScale.x;
 		
 		//set pfrm scale and position
 		Vector3 tempT = pfrm.transform.localScale;
 		tempT.x = dir.magnitude;
+
 		pfrm.transform.localScale = tempT;
-		
-		
 		pfrm.transform.right = dir.normalized;
-		
-		validLine = PoolDict[curPlatType].changeSize(difficulty * -delta);
+
+		//bar script
+		validLine = levelManager.getCurrentPlayer().getCurrentPowerBar().changeSize(difficulty * -delta);
 		
 		// Set line color
-		if (!validLine) {
-			pfrm.GetComponent<Renderer> ().material = red;
-		}
-		else {
-			pfrm.GetComponent<Renderer> ().material =
-				PlatPrfbDict[curPlatType].GetComponent<Renderer> ().sharedMaterial;
-		}
-		
+		if (!validLine) {pfrm.GetComponent<Renderer>().material = red;}
+		else { pfrm.GetComponent<Renderer> ().material = levelManager.getCurrentPlayer().material;}
 	}
 	
 	void drawPlatform(){
 		pfrm.AddComponent<BoxCollider>();
-		if (curPlatType == PlatformType.PLAYER1) {
-			curPlatType = PlatformType.PLAYER2;
-		} else {
-			curPlatType = PlatformType.PLAYER1;
-		}
-		levelManager.AddPlatform (pfrm, curPlatType);
-		pfrm = null;
-		curState = DrawState.NONE;
+		levelManager.AddPlatform (pfrm);
+		endTurn ();
 	}
 
 	void CancelLine(){
@@ -177,7 +126,45 @@ public class DrawPlatform_Alt : MonoBehaviour {
 		lastPoint = Vector3.one;
 		newPoint = Vector3.zero;
 		GameObject.Destroy (pfrm);
-		PoolDict[curPlatType].revertToLocked ();
+		levelManager.getCurrentPlayer().getCurrentPowerBar().revertToLocked ();
 		curState = DrawState.NONE;
 	}
+
+	void endTurn(){//end turn logic
+		levelManager.tick ();
+		pfrm = null;
+		curState = DrawState.NONE;
+	}
+
+//HELPERS FOR INPUT: SIMPLIFY UPDATE LOGIC
+	
+	//THESE BOOLS RETURN TRUE IF USER DID PERFORM SPECIFIED INPUT (the fn name), THUS CALLER KNOWS TO RETURN IMMEDIATELY
+	bool updateHelper_mouseRelease (){	//WHEN USER RELEASES MOUSE DRAWING
+		if (Input.GetMouseButtonUp (0)) {
+			if (validLine){drawPlatform();}
+			else{CancelLine();}
+			return true;
+		}
+		return false;
+	}
+	bool updateHelper_inputCancel (){//IF (R CLK, OR X) CANCEL
+		if (Input.GetMouseButton(2)||Input.GetKeyDown(KeyCode.X)) {CancelLine(); return true;}
+		return false;
+	}
 }
+
+
+/*	
+	GARBAGE (COMMENTED OUT CODE & VARs)
+
+	public Material gray;
+	public Transform progressBar;
+
+	public Material blue;
+	public Material yellow;
+	public Material green;
+
+	private Vector3 newSize;
+
+	private bool first = true;
+*/
