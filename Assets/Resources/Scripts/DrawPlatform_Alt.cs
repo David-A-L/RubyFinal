@@ -25,7 +25,7 @@ public class DrawPlatform_Alt : MonoBehaviour {
 	
 	Vector3 lastPoint = Vector3.zero;
 	
-	GameObject pfrm;
+	public GameObject pfrm;
 	
 	public Material red;
 	//public Transform progressBar;
