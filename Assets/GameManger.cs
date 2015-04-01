@@ -28,7 +28,7 @@ public class GameManager {
 //		levelCanvas = (GameObject) Resources.Load ("Prefabs/LevelCanvas");
 
 		//HACK
-		setUpPlayers (numPlayers);
+		setUpPlayers (2);
 
 		UnityEngine.Object.DontDestroyOnLoad (levelCanvas);
 	}    
