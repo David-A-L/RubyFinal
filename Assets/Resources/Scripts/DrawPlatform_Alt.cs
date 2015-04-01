@@ -61,20 +61,23 @@ public class DrawPlatform_Alt : MonoBehaviour {
 			pfrm = getPlatformFromType(levelManager.getCurrentPlayer().currentPlatformType);
 			pfrm.transform.localScale = new Vector3 (0,thickness,1);
 
-//			levelManager.getCurrentPlayer().getCurrentPowerBarScript().lockVal();
+			levelManager.getCurrentPlayer().getCurrentPowerBarScript().lockVal();
 
 			revalidation_material = pfrm.GetComponent<Renderer> ().material;
 		}
 		
 		//Press C if enabled to toggle type
-		if (Input.GetKeyUp (KeyCode.C)) {
+		if (Input.GetKeyUp (KeyCode.C) && curState != DrawState.DRAWING) {
 
 			Player curPlayer = levelManager.getCurrentPlayer();
 			PlatformType pt = levelManager.nextValidPlatformType(curPlayer.currentPlatformType);
 			curPlayer.changeToNextPlatformType(pt);
-			if (pfrm != null){
-				changePlatformBeingDrawnToNewType();
-			}
+			GameManager.Instance.disableAllBars ();
+			curPlayer.getCurrentPowerBar ().SetActive (true);
+//			if (pfrm != null){
+//				CancelLine();
+//				changePlatformBeingDrawnToNewType();
+//			}
 		}
 		
 		if (curState == DrawState.DRAWING) { 
@@ -84,22 +87,21 @@ public class DrawPlatform_Alt : MonoBehaviour {
 		}
 	}
 
-	private void changePlatformBeingDrawnToNewType(){
-		Player curPlayer = levelManager.getCurrentPlayer();
+//	private void changePlatformBeingDrawnToNewType(){
+//		Player curPlayer = levelManager.getCurrentPlayer();
 //		levelManager.getCurrentPlayer().getCurrentPowerBarScript().revertToLocked ();
-		GameObject temp = getPlatformFromType (curPlayer.currentPlatformType);
-
-		temp.transform.position = pfrm.transform.position;
-		temp.transform.localScale = pfrm.transform.localScale;
-		temp.transform.right = pfrm.transform.right;
-		revalidation_material = temp.GetComponent<Renderer> ().material;
-
-		GameObject.Destroy (pfrm);
-		pfrm = temp;
-		GameManager.Instance.disableAllBars ();
-		curPlayer.getCurrentPowerBar ().SetActive (true);
-		transformLine ();
-	}
+//		GameObject temp = getPlatformFromType (curPlayer.currentPlatformType);
+//
+//		temp.transform.position = pfrm.transform.position;
+//		temp.transform.localScale = pfrm.transform.localScale;
+//		temp.transform.right = pfrm.transform.right;
+//		revalidation_material = temp.GetComponent<Renderer> ().material;
+//
+//		GameObject.Destroy (pfrm);
+//		pfrm = temp;
+//		GameManager.Instance.disableAllBars ();
+//		curPlayer.getCurrentPowerBar ().SetActive (true);
+//	}
 
 	GameObject getPlatformFromType (PlatformType pt){
 		GameObject platformToBuild;
