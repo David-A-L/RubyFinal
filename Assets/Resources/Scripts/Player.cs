@@ -65,6 +65,10 @@ public class Player {
 		return playerPowerBarScripts [(int)currentPlatformType];
 	}
 
+	public BarScript getPowerBarScriptForType(PlatformType pt){
+		return playerPowerBarScripts [(int)pt];
+	}
+
 	public GameObject getCurrentPowerBar (){
 		return playerPowerBars[(int)currentPlatformType];
 	}

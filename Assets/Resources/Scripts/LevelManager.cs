@@ -3,6 +3,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
+public class platformState{
+	public GameObject platObj;
+	public PlatformType platType;
+}
+
 //Player in Level corresponds to the fundamental things necessary to keep track of for a given player WITHIN a level
 //The LevelManager uses a Static List<playerInLevel> to keep instances of this class for each player in the game.
 //This way, if a player chooses to undo, redo, or any other action specific to a level, the Level Manager can update 
@@ -10,8 +15,9 @@ using System.Collections.Generic;
 //actions such as reset will require iterating through the entire allPlayers List and correctly performing the action on 
 //each instance of this class. 
 public class playerInLevel{
-	public List<GameObject> platformsLaid = new List<GameObject>();
-	public List<GameObject> platformsUndid = new List<GameObject>();
+	public List<platformState> platformsLaid = new List<platformState>();
+	public List<platformState> platformsUndid = new List<platformState>();
+
 }
 
 
@@ -93,11 +99,14 @@ public partial class LevelManager : MonoBehaviour {
 	//CALL THIS WHEN YOU'RE DONE DRAWING AND SETTING A NEW PLATFORM
 	public void AddPlatform(GameObject platform){
 		int curPlayerID = getCurrentPlayerNum ();
+		platformState platformStateToAdd = new platformState ();
+		platformStateToAdd.platType =  getCurrentPlayer().currentPlatformType;
+		platformStateToAdd.platObj = platform;
+		allPlayers[curPlayerID].platformsLaid.Add(platformStateToAdd);
 
-		allPlayers[curPlayerID].platformsLaid.Add(platform);
 
 		//Cleaning up
-		foreach (GameObject onePlatform in allPlayers[curPlayerID].platformsUndid){GameObject.Destroy(onePlatform);}
+		foreach (platformState ps in allPlayers[curPlayerID].platformsUndid){GameObject.Destroy(ps.platObj);}
 		allPlayers[curPlayerID].platformsUndid.Clear ();
 	}
 	
@@ -107,11 +116,10 @@ public partial class LevelManager : MonoBehaviour {
 		int num_platforms_laid = allPlayers[curPlayerID].platformsLaid.Count;
 		if (num_platforms_laid == 0) {return;}
 
-		GameObject platformToUndo = allPlayers[curPlayerID].platformsLaid[num_platforms_laid - 1];
-		platformToUndo.SetActive(false);
-		getCurrentPlayer().getCurrentPowerBarScript().changeSize (DrawPlatform_Alt.difficulty * platformToUndo.transform.localScale.x);
-
-		allPlayers[curPlayerID].platformsUndid.Add (platformToUndo);
+		platformState platformStateToUndo = allPlayers[curPlayerID].platformsLaid[num_platforms_laid - 1];
+		platformStateToUndo.platObj.SetActive(false);
+		getCurrentPlayer().getPowerBarScriptForType(platformStateToUndo.platType).changeSize (DrawPlatform_Alt.difficulty * platformStateToUndo.platObj.transform.localScale.x);
+		allPlayers[curPlayerID].platformsUndid.Add (platformStateToUndo);
 		allPlayers[curPlayerID].platformsLaid.RemoveAt (num_platforms_laid-1);
 	}
 	
@@ -120,11 +128,11 @@ public partial class LevelManager : MonoBehaviour {
 		int num_platforms_undid = allPlayers[curPlayerID].platformsUndid.Count;
 		if (num_platforms_undid == 0) {return;}
 
-		GameObject platformToRedo = allPlayers[curPlayerID].platformsUndid[num_platforms_undid - 1];
-		platformToRedo.SetActive (true);
-		getCurrentPlayer().getCurrentPowerBarScript().changeSize (DrawPlatform_Alt.difficulty * -platformToRedo.transform.localScale.x);
+		platformState platformStateToRedo = allPlayers[curPlayerID].platformsUndid[num_platforms_undid - 1];
+		platformStateToRedo.platObj.SetActive (true);
+		getCurrentPlayer().getPowerBarScriptForType(platformStateToRedo.platType).changeSize (DrawPlatform_Alt.difficulty * -platformStateToRedo.platObj.transform.localScale.x);
 
-		allPlayers[curPlayerID].platformsLaid.Add (platformToRedo);
+		allPlayers[curPlayerID].platformsLaid.Add (platformStateToRedo);
 		allPlayers[curPlayerID].platformsUndid.RemoveAt (num_platforms_undid - 1);
 	}
 	
@@ -156,15 +164,15 @@ public partial class LevelManager : MonoBehaviour {
 	
 	public void preservePlatforms(){
 		allPlayers.ForEach(delegate (playerInLevel individual_player){
-			individual_player.platformsLaid.ForEach(delegate(GameObject platform){UnityEngine.Object.DontDestroyOnLoad(platform);});
-			individual_player.platformsUndid.ForEach(delegate(GameObject platform){UnityEngine.Object.DontDestroyOnLoad(platform);});
+			individual_player.platformsLaid.ForEach(delegate(platformState ps){UnityEngine.Object.DontDestroyOnLoad(ps.platObj);});
+			individual_player.platformsUndid.ForEach(delegate(platformState ps){UnityEngine.Object.DontDestroyOnLoad(ps.platObj);});
 		});
 	}
 
 	static public void deleteAllPlatforms(){
 		allPlayers.ForEach(delegate (playerInLevel individual_player){
-			individual_player.platformsLaid.ForEach(delegate(GameObject platform){UnityEngine.Object.Destroy(platform);});
-			individual_player.platformsUndid.ForEach(delegate(GameObject platform){UnityEngine.Object.Destroy(platform);});
+			individual_player.platformsLaid.ForEach(delegate(platformState ps){UnityEngine.Object.Destroy(ps.platObj);});
+			individual_player.platformsUndid.ForEach(delegate(platformState ps){UnityEngine.Object.Destroy(ps.platObj);});
 		});
 	}
 	
