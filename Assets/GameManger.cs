@@ -5,8 +5,8 @@ using System.Collections.Generic;
 
 public class GameManager {
 	
-	public List<Player> players;
-	public List<List<GameObject> > allPlayersPowerBars;
+	public List<Player> players = new List<Player> ();
+	public List<List<GameObject> > allPlayersPowerBars = new List<List<GameObject>>();
 
 	GameObject levelCanvas;
 
@@ -22,7 +22,10 @@ public class GameManager {
 	// because the game manager will be created before the objects
 	private GameManager() {
 		completedLevels = 0;
-		levelCanvas = Resources.Load ("Prefabs/LevelCanvas");
+		levelCanvas = UnityEngine.Object.Instantiate(Resources.Load("Prefabs/LevelCanvas", typeof(GameObject))) as GameObject;
+//		levelCanvas = (GameObject) Resources.Load ("Prefabs/LevelCanvas");
+		//HACK
+		setUpPlayers (2);
 		UnityEngine.Object.DontDestroyOnLoad (levelCanvas);
 	}    
 
@@ -38,11 +41,18 @@ public class GameManager {
 			List<GameObject> listForPlayer = new List<GameObject> ();//for each player, make a new list to hold each power bar
 
 			for (int j = 0; j < Enum.GetValues (typeof(PlatformType)).Length; ++j){	//for each type of power bar
-				GameObject powBar = Resources.Load ("Prefabs/PowerBar");	//instantiate the power bar
-				BarScript barScript = powBar.GetComponent<BarScript>();	//get the barScript handle for it
+				GameObject powBar = UnityEngine.Object.Instantiate(Resources.Load("Prefabs/PowerBar", typeof(GameObject))) as GameObject;
+//				powBar = (GameObject) Resources.Load ("Prefabs/PowerBar");	//instantiate the power bar
+				if (powBar == null){ Debug.Log("clara poops");}
+				BarScript[] barScriptArr = powBar.gameObject.GetComponentsInChildren<BarScript>();//get the barScript handle for it
+				if (barScriptArr.Length == 0){ Debug.Log("poop1");}
+				if (barScriptArr[0] == null){ Debug.Log("poop2");}
+
+				BarScript barScript = barScriptArr[0];
 				barScript.personalizeToPlayer(playerToAdd,(PlatformType)j);	//personalize it for the player
-				playerToAdd.playerPowerBars[j] = barScript;	//give the player a handle to the script
+				playerToAdd.playerPowerBars.Add(barScript);	//give the player a handle to the script
 				listForPlayer.Add(powBar);	//keep a handle to the actual power bar in the list of power bars for the player
+				powBar.transform.SetParent(levelCanvas.transform);
 			}
 
 			allPlayersPowerBars.Add(listForPlayer);//add this list for each player
@@ -50,6 +60,12 @@ public class GameManager {
 		}
 	}
 
+	public void disableAllBars(){
+		allPlayersPowerBars.ForEach(delegate (List<GameObject> onePlayersPowerBars){
+			onePlayersPowerBars.ForEach(delegate (GameObject powerBar) {powerBar.SetActive(false);});
+		});
+	}
+	
 	//Call this when you finish a level
 	public void finishLevel(){
 		++completedLevels;
@@ -64,7 +80,6 @@ public class GameManager {
 	
 	//This could probably be a private function, I believe the gameManager will be the only one calling it
 	public void resetGame(){
-		numDeaths = 0;
 		completedLevels = 0;
 	}
 

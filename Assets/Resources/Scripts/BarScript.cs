@@ -28,11 +28,11 @@ public class BarScript : MonoBehaviour {
 
 		switch (pfrmType) {
 		case PlatformType.DEFAULT:
-			gameObject.GetComponent<Material> ().color = player.material;
+			gameObject.GetComponent<Image>().color = player.material.color;
 			break;
 		case PlatformType.CONVEYOR:
 			//add trail renderer with particles matching player color
-			gameObject.GetComponent<Material> ().color = Color.yellow;
+			gameObject.GetComponent<Image> ().color = Color.yellow;
 			break;
 		default:
 			Debug.LogError ("Invalid bar type");

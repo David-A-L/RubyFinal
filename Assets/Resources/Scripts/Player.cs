@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class Player {
 	public PlatformType currentPlatformType; //to keep history of player's platform type
-	public List <BarScript> playerPowerBars;
+	public List <BarScript> playerPowerBars = new List<BarScript>();
 	public Material material;
 	public GameObject defaultLine;
 	public GameObject conveyorLine;

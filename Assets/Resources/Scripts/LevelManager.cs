@@ -24,7 +24,14 @@ public partial class LevelManager : MonoBehaviour {
 
 	//PLAYER MANAGEMENT VARIABLES AND FUNCTIONS
 	static private int currentTurn = 0;
-	public void tick(){++currentTurn;}
+	public void tick(){
+		++currentTurn;
+		GameManager.Instance.disableAllBars ();
+		GameManager.Instance.allPlayersPowerBars[getCurrentPlayerNum()][(int) getCurrentPlayer().currentPlatformType].SetActive(true);
+	}
+
+
+
 	public Player getCurrentPlayer(){return GameManager.Instance.players [getCurrentPlayerNum ()];}
 	public int getCurrentPlayerNum(){return (currentTurn % GameManager.Instance.numPlayers);}
 	static private List<playerInLevel> allPlayers;
