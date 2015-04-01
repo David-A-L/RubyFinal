@@ -8,12 +8,15 @@ public class BallScript : MonoBehaviour {
 	public string gravityGroup = "grav_dir_red";
 	public bool isMeldable;
 	public static float baseSphereVolume;
-	public int playerID;
+	public float rewardMult;
+	public float reward;
 	
 	// Use this for initialization
 	void Start () {
 		baseSphereVolume = volumeSphere(0.5f);
-		ballGravDir = GameObject.FindGameObjectWithTag (gravityGroup).transform.up;
+		//ballGravDir = GameObject.FindGameObjectWithTag (gravityGroup).transform.up;
+		rewardMult = 1.5f;
+		reward = 1f;
 	}
 	
 	// Update is called once per frame
@@ -39,7 +42,7 @@ public class BallScript : MonoBehaviour {
 				float volBallCold = volumeSphere(colidingBall);
 				float newBallRadius = radiusSphere(volBallThis + volBallCold);
 				
-				bool samePlayer = playerID == colBallScpt.playerID;
+				bool samePlayer = thisBall.GetComponent<Renderer>().material.color == coll.gameObject.GetComponent<Renderer>().material.color;
 				bool sameVol = volBallThis == volBallCold;
 				bool lowerInstanceID = GetInstanceID() < colBallScpt.GetInstanceID();
 				bool largerVol = volBallThis > volBallCold;
@@ -47,6 +50,9 @@ public class BallScript : MonoBehaviour {
 				if(largerVol || (samePlayer && sameVol && lowerInstanceID)) {
 					
 					gameObject.transform.localScale = new Vector3(newBallRadius,newBallRadius,newBallRadius);	
+					
+					reward = (reward + colBallScpt.reward)*rewardMult;
+					
 					SphereCollider[] sColls = GetComponents<SphereCollider>();
 					foreach(SphereCollider nxt in sColls) {
 						nxt.radius = newBallRadius;
@@ -69,8 +75,10 @@ public class BallScript : MonoBehaviour {
 	static float radiusSphere(float volume) {
 		return Mathf.Pow ((3f*volume)/(4f*Mathf.PI),1f/3f);
 	}
-	public static int multipleMeldedSphere(SphereCollider ball) {
-		return (int)(volumeSphere(ball) / baseSphereVolume);
-	}
+
+	//public static int multipleMeldedSphere(GameObject marble) {
+	//	SphereCollider sColl = marble.GetComponent<SphereCollider> ();
+	//	return (int)(volumeSphere (sColl) / baseSphereVolume);
+	//}
 	
 }

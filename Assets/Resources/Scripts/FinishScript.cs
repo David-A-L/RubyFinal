@@ -11,39 +11,28 @@ public class FinishScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		levelManager = GameObject.Find ("Main Camera").GetComponent<LevelManager> ();
-		GameObject[] marbles = GameObject.FindGameObjectsWithTag("marble");
-		foreach (GameObject marble in marbles) {
-			if (marble.GetComponent<Renderer> ().material.color == GetComponent<Renderer> ().material.color) {
-				marbleCount++;
-			}
-		}
-		if (marbleCount == 0) {
-			marbleCount = 1;
+	}
+
+	void Update() {
+		Object[] marbles = GameObject.FindGameObjectsWithTag ("marble");
+
+		//If no marbles left restart level.
+		if (marbles.Length == 0) {
+			levelManager.endLevel ();
+			//Destroy(gameObject);
 		}
 	}
+
 
 	void OnCollisionEnter(Collision coll){
 		if (coll.collider.gameObject.tag == "marble") {
-			print ("Collision");
-			if(coll.collider.GetComponent<Renderer>().material.color == GetComponent<Renderer>().material.color) {
-				Object[] marbles = GameObject.FindGameObjectsWithTag("marble");
-				marbleCount--;
-				if(marbleCount == 0) Destroy(gameObject);
-				levelManager.ballList.Remove(coll.collider.gameObject);
-				Destroy (coll.collider.gameObject);
-				if(marbles.Length <= 1) {
-					print ("Done");
-					levelManager.endLevel();
-				}
-				else {
-					print("Not done yet");
-				}
-			}
-		}
-	}
 
-	// Update is called once per frame
-	void Update () {
-	
+			//Add points to player's score
+			levelManager.updatePlayerScore(coll.collider.gameObject);
+
+			//Remove traces of marble
+			levelManager.ballList.Remove(coll.collider.gameObject);
+			Destroy (coll.collider.gameObject);
+		}
 	}
 }
