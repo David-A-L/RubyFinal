@@ -108,6 +108,8 @@ public class DrawPlatform_Alt : MonoBehaviour {
 		switch (pt) {
 			case PlatformType.CONVEYOR:
 				platformToBuild = Instantiate (levelManager.getCurrentPlayer ().conveyorLine);
+//				Material m = levelManager.getCurrentPlayer().particleMaterial;
+//				platformToBuild.GetComponent<ConveyorPlatform>().SetParticleMaterial(m);
 				break;
 			case PlatformType.DEFAULT:
 				platformToBuild = Instantiate (levelManager.getCurrentPlayer ().defaultLine);

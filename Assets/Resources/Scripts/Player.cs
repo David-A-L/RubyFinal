@@ -8,6 +8,7 @@ public class Player{
 	public List <GameObject> playerPowerBars = new List<GameObject>();
 
 	public Material material;
+	public Material particleMaterial;
 	public GameObject defaultLine;
 	public GameObject conveyorLine;
 	public BuilderID ID;
@@ -40,22 +41,25 @@ public class Player{
 			case BuilderID.PLAYER1: 
 				material = (Material)Resources.Load ("UX/SimpleMaterials/player1");
 				defaultLine = (GameObject)Resources.Load ("Prefabs/linePlayer1");
-				break;
+				particleMaterial = (Material)Resources.Load ("UX/ParticleMaterials/p1_particles");
+			break;
 
 				case BuilderID.PLAYER2:
 				material = (Material)Resources.Load ("UX/SimpleMaterials/player2");
 				defaultLine = (GameObject)Resources.Load ("Prefabs/linePlayer2");
-				break;
+				particleMaterial = (Material)Resources.Load ("UX/ParticleMaterials/p2_particles");
+			break;
 
 				case BuilderID.PLAYER3: 
 				material = (Material)Resources.Load ("UX/SimpleMaterials/player3");
 				defaultLine = (GameObject)Resources.Load ("Prefabs/linePlayer3");
-				break;
-
+				particleMaterial = (Material)Resources.Load ("UX/ParticleMaterials/p3_particles");
+			break;
 				case BuilderID.PLAYER4:
 				material = (Material)Resources.Load ("UX/SimpleMaterials/player4");
 				defaultLine = (GameObject)Resources.Load ("Prefabs/linePlayer4");
-				break;
+				particleMaterial = (Material)Resources.Load ("UX/ParticleMaterials/p4_particles");
+			break;
 		}
 	}
 	

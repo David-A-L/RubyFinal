@@ -6,6 +6,29 @@ public class ConveyorPlatform : MonoBehaviour {
 	public float slideVel;
 	public float exitVelFraction;
 	private bool facingRight;
+	private ParticleRenderer rend;
+	private Vector3 startPoint;
+	private LevelManager levelManager;
+
+	void Start(){
+		rend = GetComponentInChildren<ParticleRenderer> ();
+		rend.material = GameObject.Find ("Main Camera").GetComponent<LevelManager> ().getCurrentPlayer().particleMaterial;
+		startPoint = transform.position;
+	}
+
+//	public void SetParticleMaterial(Material m){
+//		rend.materials[0] = m;
+//	}
+
+	void Update(){
+		Vector3 difference = transform.position - startPoint;
+		Vector3 Vel = GetComponentInChildren<EllipsoidParticleEmitter>().worldVelocity;
+		bool higherNow = transform.position.y > startPoint.y;
+		Vel = higherNow ? difference : -difference;
+		Vel = Vel.normalized;
+		GetComponentInChildren<EllipsoidParticleEmitter>().worldVelocity = Vel;
+	}
+	
 	//TODO CHANGE CLASS TO WORK W/ MULTIPLE BALLS/GRAVITY
 	//SHOULD THE CONVEYOR ADD A FORCE IN THE DIRECTION IT IS CREATED (transform.right?)?
 	
