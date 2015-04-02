@@ -15,6 +15,7 @@ public class Player{
 	public int gameScore;
 	public int levelScore;
 	public DrawPlatform_Alt platformDrawer;
+	private string PhysicsLayerName;
 
 	public LevelManager levelManager;
 
@@ -42,27 +43,34 @@ public class Player{
 				material = (Material)Resources.Load ("UX/SimpleMaterials/player1");
 				defaultLine = (GameObject)Resources.Load ("Prefabs/linePlayer1");
 				particleMaterial = (Material)Resources.Load ("UX/ParticleMaterials/p1_particles");
+				PhysicsLayerName = "player1platform";
 			break;
 
 				case BuilderID.PLAYER2:
 				material = (Material)Resources.Load ("UX/SimpleMaterials/player2");
 				defaultLine = (GameObject)Resources.Load ("Prefabs/linePlayer2");
 				particleMaterial = (Material)Resources.Load ("UX/ParticleMaterials/p2_particles");
+				PhysicsLayerName = "player2platform";
 			break;
 
 				case BuilderID.PLAYER3: 
 				material = (Material)Resources.Load ("UX/SimpleMaterials/player3");
 				defaultLine = (GameObject)Resources.Load ("Prefabs/linePlayer3");
 				particleMaterial = (Material)Resources.Load ("UX/ParticleMaterials/p3_particles");
+				PhysicsLayerName = "player3platform";
 			break;
 				case BuilderID.PLAYER4:
 				material = (Material)Resources.Load ("UX/SimpleMaterials/player4");
 				defaultLine = (GameObject)Resources.Load ("Prefabs/linePlayer4");
 				particleMaterial = (Material)Resources.Load ("UX/ParticleMaterials/p4_particles");
+				PhysicsLayerName = "player4platform";
 			break;
 		}
 	}
-	
+
+	public string getPhysicsLayerName (){
+		return PhysicsLayerName;
+	}
 
 	public BarScript getCurrentPowerBarScript (){
 		return playerPowerBarScripts [(int)currentPlatformType];
