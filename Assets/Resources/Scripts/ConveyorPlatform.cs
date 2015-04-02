@@ -9,10 +9,12 @@ public class ConveyorPlatform : MonoBehaviour {
 	private ParticleRenderer rend;
 	private Vector3 startPoint;
 	private LevelManager levelManager;
+	private Color userSpecificParticleColor;
 
 	void Start(){
 		rend = GetComponentInChildren<ParticleRenderer> ();
-		rend.material = GameObject.Find ("Main Camera").GetComponent<LevelManager> ().getCurrentPlayer().particleMaterial;
+		userSpecificParticleColor = GameObject.Find ("Main Camera").GetComponent<LevelManager> ().getCurrentPlayer().material.color;
+		rend.material.SetColor("_TintColor", userSpecificParticleColor);
 		startPoint = transform.position;
 	}
 
