@@ -181,6 +181,9 @@ public partial class LevelManager : MonoBehaviour {
 			GameManager.Instance.disableAllBars();
 			Application.LoadLevel("_scene_main_menu");
 		}
+
+		//ignore, for a testing feature
+		//if (Input.GetKeyUp (KeyCode.B)) {physicsDriver.boggle();}
 		
 		//score hacks
 		string msg = @"Scores: ";
@@ -214,7 +217,9 @@ public partial class LevelManager : MonoBehaviour {
 	static public void deleteAllPlatforms(){
 		allPlayers.ForEach(delegate (playerInLevel individual_player){
 			individual_player.platformsLaid.ForEach(delegate(platformState ps){UnityEngine.Object.Destroy(ps.platObj);});
+			individual_player.platformsLaid.Clear();
 			individual_player.platformsUndid.ForEach(delegate(platformState ps){UnityEngine.Object.Destroy(ps.platObj);});
+			individual_player.platformsUndid.Clear();
 		});
 	}
 	private void resetPlayerScores() {
