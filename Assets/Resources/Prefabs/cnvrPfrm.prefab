@@ -11,7 +11,7 @@ GameObject:
   - 26: {fileID: 2683086}
   - 15: {fileID: 1576938}
   - 12: {fileID: 1277632}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: rendSrc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
