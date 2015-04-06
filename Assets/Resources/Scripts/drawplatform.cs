@@ -41,7 +41,7 @@ public class drawplatform : MonoBehaviour {
 			newPoint = Vector3.zero;
 			newSize = Vector3.zero;
 			GameObject.Destroy(pfrm.gameObject);
-			progressBar.GetComponent<BarScript>().revertToLocked();
+//			progressBar.GetComponent<BarScript>().revertToLocked();
 		}
 		bool inputFlag = false;
 		if(Input.GetMouseButtonUp(0)) {
@@ -87,7 +87,7 @@ public class drawplatform : MonoBehaviour {
 
 		// Change the progress bar based on the the change in line size
 		bool oldValidStatus = validLine;
-		validLine = progressBar.GetComponent<BarScript>().changeSize(-1f * difficulty * deltaSize);
+//		validLine = progressBar.GetComponent<BarScript>().changeSize(-1f * difficulty * deltaSize);
 
 		// Set line color
 		if(oldValidStatus != validLine) {
@@ -137,6 +137,6 @@ public class drawplatform : MonoBehaviour {
 		}
 		transformLine(lastPfrmType);
 		lastPoint = newPoint;
-		progressBar.GetComponent<BarScript>().lockVal();
+//		progressBar.GetComponent<BarScript>().lockVal();
 	}
 }

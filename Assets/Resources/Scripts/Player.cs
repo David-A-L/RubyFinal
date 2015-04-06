@@ -84,7 +84,7 @@ public class Player{
 		return playerPowerBars[(int)currentPlatformType];
 	}
 	
-	public void changeToNextPlatformType(PlatformType pt){
+	public void changeToPlatformType(PlatformType pt){
 		currentPlatformType = pt;
 	}
 

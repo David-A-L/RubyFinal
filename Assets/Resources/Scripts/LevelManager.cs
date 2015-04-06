@@ -9,6 +9,18 @@ public class platformState{
 	public PlatformType platType;
 }
 
+public class Toolbox{
+	static public float defaultAmt = 25;
+	static public float conveyorAmt = 10;
+	public List<float> baseAmounts;
+
+	public Toolbox(){
+		baseAmounts = new List<float>();
+		baseAmounts.Add (defaultAmt);
+		baseAmounts.Add (conveyorAmt);
+	}
+
+}
 //Player in Level corresponds to the fundamental things necessary to keep track of for a given player WITHIN a level
 //The LevelManager uses a Static List<playerInLevel> to keep instances of this class for each player in the game.
 //This way, if a player chooses to undo, redo, or any other action specific to a level, the Level Manager can update 
@@ -33,8 +45,7 @@ public partial class LevelManager : MonoBehaviour {
 	static private int currentTurn = 0;
 	public void tick(){
 		++currentTurn;
-		GameManager.Instance.disableAllBars ();
-		getCurrentPlayer().getCurrentPowerBar ().SetActive (true);
+		refreshShowingBar ();
 		//Query Gm Mngr, get list of all power bars, index on curPlayNum, index further on platType (player history for plat type), and activate
 	}
 
@@ -46,6 +57,7 @@ public partial class LevelManager : MonoBehaviour {
 	Dictionary<PlatformType, bool> EnabledDict = new Dictionary<PlatformType, bool> ();//ASSOCIATE CORRECT ENABLING ?
 
 	//LEVEL STATE FUNCTIONS	
+	Toolbox toolbox;
 	public enum LevelState{PAUSED, PLANNING, RUNNING};
 	public static LevelState curLevelState = LevelState.PLANNING;
 
@@ -64,9 +76,11 @@ public partial class LevelManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		//Add each ball to the ball list. 
-		getCurrentPlayer().getCurrentPowerBar ().SetActive (true);
 
+		toolbox = new Toolbox ();
+		refreshShowingBar ();
+		Instantiate ((GameObject)Resources.Load ("Prefabs/Indicator"));
+		//Add each ball to the ball list. 
 		GameObject[] ballArr = GameObject.FindGameObjectsWithTag("marble");
 		foreach (GameObject b in ballArr) {ballList.Add(b);}
 
@@ -101,11 +115,16 @@ public partial class LevelManager : MonoBehaviour {
 	//CALL THIS WHEN YOU'RE DONE DRAWING AND SETTING A NEW PLATFORM
 	public void AddPlatform(GameObject platform){
 		int curPlayerID = getCurrentPlayerNum ();
+		Player curPlayer = getCurrentPlayer();
+		PlatformType curPlatType = curPlayer.currentPlatformType;
+
 		platformState platformStateToAdd = new platformState ();
-		platformStateToAdd.platType =  getCurrentPlayer().currentPlatformType;
+		platformStateToAdd.platType = curPlatType;
 		platformStateToAdd.platObj = platform;
 		allPlayers[curPlayerID].platformsLaid.Add(platformStateToAdd);
 
+		float sizeToSet = calculateBarSizeForPlayerAndType (curPlayerID, curPlatType);
+		curPlayer.getCurrentPowerBarScript ().setSize (sizeToSet);
 
 		//Cleaning up
 		foreach (platformState ps in allPlayers[curPlayerID].platformsUndid){GameObject.Destroy(ps.platObj);}
@@ -120,9 +139,15 @@ public partial class LevelManager : MonoBehaviour {
 
 		platformState platformStateToUndo = allPlayers[curPlayerID].platformsLaid[num_platforms_laid - 1];
 		platformStateToUndo.platObj.SetActive(false);
-		getCurrentPlayer().getPowerBarScriptForType(platformStateToUndo.platType).changeSize (DrawPlatform_Alt.difficulty * platformStateToUndo.platObj.transform.localScale.x);
 		allPlayers[curPlayerID].platformsUndid.Add (platformStateToUndo);
 		allPlayers[curPlayerID].platformsLaid.RemoveAt (num_platforms_laid-1);
+
+		getCurrentPlayer ().changeToPlatformType (platformStateToUndo.platType);
+
+		float sizeToSet = calculateBarSizeForPlayerAndType (curPlayerID, platformStateToUndo.platType);
+		getCurrentPlayer().getCurrentPowerBarScript ().setSize (sizeToSet);
+
+		refreshShowingBar ();
 	}
 	
 	public void RedoDrawPlatform (){
@@ -132,10 +157,15 @@ public partial class LevelManager : MonoBehaviour {
 
 		platformState platformStateToRedo = allPlayers[curPlayerID].platformsUndid[num_platforms_undid - 1];
 		platformStateToRedo.platObj.SetActive (true);
-		getCurrentPlayer().getPowerBarScriptForType(platformStateToRedo.platType).changeSize (DrawPlatform_Alt.difficulty * -platformStateToRedo.platObj.transform.localScale.x);
 
 		allPlayers[curPlayerID].platformsLaid.Add (platformStateToRedo);
+
 		allPlayers[curPlayerID].platformsUndid.RemoveAt (num_platforms_undid - 1);
+		getCurrentPlayer ().changeToPlatformType (platformStateToRedo.platType);
+
+		float sizeToSet = calculateBarSizeForPlayerAndType (curPlayerID, platformStateToRedo.platType);
+		getCurrentPlayer().getCurrentPowerBarScript ().setSize (sizeToSet);
+		refreshShowingBar ();
 	}
 	
 	
@@ -149,7 +179,6 @@ public partial class LevelManager : MonoBehaviour {
 		if (Input.GetKeyUp(KeyCode.A)){ActivateLevel();}
 		if (Input.GetKey (KeyCode.Backspace)) {
 			GameManager.Instance.disableAllBars();
-			GameManager.Instance.resetAllBars();
 			Application.LoadLevel("_scene_main_menu");
 		}
 		
@@ -167,10 +196,12 @@ public partial class LevelManager : MonoBehaviour {
 	}
 	
 	public void ResetLevel(){ //this will generally be used in a single player context, consider a separate multi-player reset
+		GameManager.Instance.disableAllBars ();
 		currentTurn = 0;
 		resetPlayerScores();
 		preservePlatforms ();
 		Application.LoadLevel (Application.loadedLevel);
+		updateShowingBar ();
 	}
 	
 	public void preservePlatforms(){
@@ -191,17 +222,47 @@ public partial class LevelManager : MonoBehaviour {
 			GameManager.Instance.players[i].levelScore = 0;
 		}
 	}
-	
+
+	//Disable all power bars and then activate the current one
+	public void refreshShowingBar(){
+		GameManager.Instance.disableAllBars ();
+		getCurrentPlayer().getCurrentPowerBar ().SetActive (true);
+	}
+
+	//update the current(/should be showing) power bar with the correct value to show
+	public void updateShowingBar(){
+		Player curPlayer = getCurrentPlayer ();
+		PlatformType pt = curPlayer.currentPlatformType;
+		BarScript showingBarScript = curPlayer.getCurrentPowerBarScript ();
+		showingBarScript.setSize (	calculateBarSizeForPlayerAndType (getCurrentPlayerNum(), pt)	);
+	}
+
 	public void endLevel(){
 		currentTurn = 0;
 		deleteAllPlatforms();
 		GameManager.Instance.disableAllBars ();
-		GameManager.Instance.resetAllBars ();
 		resetPlayerScores();
 		
 		if (Application.loadedLevel == GameManager.Instance.numLevels-1) {Application.LoadLevel(0);}
 		Application.LoadLevel(Application.loadedLevel + 1);
 	}
+
+	public float calculateBarSizeForPlayerAndType(int playerNum, PlatformType pt){
+		float curAmountUsed = 0f;
+		allPlayers [playerNum].platformsLaid.ForEach (delegate (platformState ps) {
+			if (ps.platType == pt) {curAmountUsed += ps.platObj.transform.localScale.x;}
+		});
+		return 1f - (curAmountUsed / toolbox.baseAmounts[(int) pt]);
+	}
+
+	public float calculateBarSizeForCurrentEverything_plus_PlatformP(GameObject p){
+		PlatformType pt = getCurrentPlayer ().currentPlatformType;
+
+		float currentUsed = calculateBarSizeForPlayerAndType (getCurrentPlayerNum(), pt);
+		currentUsed -= (p.transform.localScale.x / toolbox.baseAmounts [(int)pt]);
+		return currentUsed;
+	}
+
 
 	public void updatePlayerScore(GameObject marble) {
 		int pointsGained = (int)(marble.GetComponent<BallScript>().reward * scoreMultiplier);

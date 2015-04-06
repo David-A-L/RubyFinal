@@ -70,13 +70,6 @@ public class GameManager {
 				});
 		});
 	}
-
-	public void resetAllBars(){
-		players.ForEach (delegate (Player player) {
-			player.playerPowerBarScripts.ForEach (delegate (BarScript bs) {bs.ResetBar ();});
-		});
-	}
-	
 	
 	//Call this when you finish a level
 	public void finishLevel(){
@@ -96,28 +89,3 @@ public class GameManager {
 	}
 
 }
-
-//GARBAGE:
-
-//	public bool seedRand;
-
-//	private List<Vector3> obstaclePos;
-
-//	//Call this when the player dies, followed by resetLevel
-//	//If the player has no lives left, then the call to resetLevel
-//	//never actually go through and so there's nothing to worry about
-//	public void die(List<Vector3> obstPositions){
-//		++numDeaths; 
-//		if (numDeaths == numLives) {
-//			resetGame ();
-//			return;
-//		}
-//		//else, load scene, with completedLevels as seed for how level should be set up
-//	}
-
-
-//	//Call this when the player wishes to restart the level
-//	public void resetLevel(List<Vector3> obstPositions){
-//		obstaclePos = obstPositions;
-//		seedRand = false;
-//	}
