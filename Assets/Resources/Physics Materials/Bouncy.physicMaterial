@@ -5,12 +5,12 @@ PhysicMaterial:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: BallPM
-  dynamicFriction: .0500000007
-  staticFriction: .150000006
-  bounciness: .5
+  m_Name: Bouncy
+  dynamicFriction: .300000012
+  staticFriction: .300000012
+  bounciness: .850000024
   frictionCombine: 0
-  bounceCombine: 0
+  bounceCombine: 3
   frictionDirection2: {x: 0, y: 0, z: 0}
   dynamicFriction2: 0
   staticFriction2: 0

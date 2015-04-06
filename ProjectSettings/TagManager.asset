@@ -10,6 +10,7 @@ TagManager:
   - pool_default
   - pool_conveyor
   - grav_dir_red
+  - noDraw
   layers:
   - Default
   - TransparentFX
