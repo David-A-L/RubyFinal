@@ -14,5 +14,6 @@ public class Indicator : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		rend.material = levelManager.getCurrentPlayer ().material;
+		transform.Rotate (Vector3.up, Time.deltaTime * 45);
 	}
 }
