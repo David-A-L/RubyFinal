@@ -175,7 +175,8 @@ public partial class LevelManager : MonoBehaviour {
 			if (Input.GetButton ("ctrl") && Input.GetButton ("shift") && Input.GetKeyDown (KeyCode.Z)) {RedoDrawPlatform ();} 
 			else if ((Input.GetButton ("ctrl") && Input.GetKeyDown (KeyCode.Z))|| Input.GetKeyDown (KeyCode.U)) {undoDrawPlatform ();}
 		}
-		if (Input.GetKeyUp (KeyCode.S)) {ResetLevel();}
+		if (Input.GetKeyUp (KeyCode.S)) {ResetLevel(false);}
+		else if (Input.GetKeyUp (KeyCode.R)) {ResetLevel(true);}
 		if (Input.GetKeyUp(KeyCode.A)){ActivateLevel();}
 		if (Input.GetKey (KeyCode.Backspace)) {
 			GameManager.Instance.disableAllBars();
@@ -197,12 +198,15 @@ public partial class LevelManager : MonoBehaviour {
 	void ActivateLevel(){
 		physicsDriver.enabled = true;
 	}
-	
-	public void ResetLevel(){ //this will generally be used in a single player context, consider a separate multi-player reset
+
+	//this will generally be used in a single player context, consider a separate multi-player reset
+	//pass in true to reset everything, false to reset the balls only
+	public void ResetLevel(bool hardReset){ 
 		GameManager.Instance.disableAllBars ();
 		currentTurn = 0;
 		resetPlayerScores();
-		preservePlatforms ();
+		if (hardReset){deleteAllPlatforms();}
+		else {preservePlatforms ();}
 		Application.LoadLevel (Application.loadedLevel);
 		updateShowingBar ();
 	}
