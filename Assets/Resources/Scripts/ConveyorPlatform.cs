@@ -28,12 +28,15 @@ public class ConveyorPlatform : MonoBehaviour {
 //	}
 
 	void Update(){
+		/*
 		Vector3 difference = transform.position - startPoint;
 		Vector3 Vel = GetComponentInChildren<EllipsoidParticleEmitter>().worldVelocity;
 		bool higherNow = transform.position.y > startPoint.y;
 		Vel = higherNow ? difference : -difference;
 		Vel = Vel.normalized;
 		GetComponentInChildren<EllipsoidParticleEmitter>().worldVelocity = Vel;
+		*/
+		GetComponentInChildren<EllipsoidParticleEmitter> ().worldVelocity = transform.right;
 	}
 
 
