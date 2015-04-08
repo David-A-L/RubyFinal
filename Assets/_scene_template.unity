@@ -416,6 +416,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 840733183f9dcf848a6036faf2a2466e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allPossibleLines: []
   conveyorEnabled: 1
   thickness: .25
   red: {fileID: 0}

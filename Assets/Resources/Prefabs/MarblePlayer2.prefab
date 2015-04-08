@@ -123,7 +123,7 @@ TrailRenderer:
       serializedVersion: 2
       rgba: 16777215
   m_MinVertexDistance: .00999999978
-  m_Autodestruct: 1
+  m_Autodestruct: 0
 --- !u!114 &11453576
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -139,6 +139,9 @@ MonoBehaviour:
   gravStr: 9.80000019
   gravityGroup: grav_dir_red
   isMeldable: 0
+  rewardMult: 0
+  reward: 0
+  playerID: 1
 --- !u!135 &13554898
 SphereCollider:
   m_ObjectHideFlags: 1

@@ -10,13 +10,13 @@ public class GameManager {
 	//List[playerID][playerPowerBars] to Game Objects, holds instances of UI power bars
 	public List<List<GameObject> > allPlayersPowerBars = new List<List<GameObject>>();
 
-	GameObject levelCanvas;
+	public GameObject levelCanvas;
 
-	public Material[] playerMaterials = new Material[4];
-	public int numPlayers = 3; //make sure to call set up Players with right number
+	public int numPlayers = 2; //make sure to call set up Players with right number
 	public int completedLevels;
 	public int currentLevel;
 	public int numLevels = 20;
+	public GameObject playerScoreText;
 	
 	private static GameManager instance = new GameManager();
 
@@ -25,8 +25,11 @@ public class GameManager {
 	private GameManager() {
 		completedLevels = 0;
 		levelCanvas = UnityEngine.Object.Instantiate(Resources.Load("Prefabs/LevelCanvas", typeof(GameObject))) as GameObject;
-//		levelCanvas = (GameObject) Resources.Load ("Prefabs/LevelCanvas");
-
+		playerScoreText = UnityEngine.Object.Instantiate(Resources.Load("Prefabs/PlayerScoreText", typeof(GameObject))) as GameObject;
+		playerScoreText.transform.SetParent(levelCanvas.transform);
+		playerScoreText.transform.localPosition = new Vector3(80f,120f,0);
+		
+		
 		//HACK
 		setUpPlayers (2);
 
@@ -62,11 +65,12 @@ public class GameManager {
 
 	public void disableAllBars(){
 		players.ForEach(delegate (Player player){
-				player.playerPowerBars.ForEach(delegate (GameObject powerBar) {powerBar.SetActive(false);});
+				player.playerPowerBars.ForEach(delegate (GameObject powerBar) {
+					powerBar.SetActive(false);
+				});
 		});
 	}
 	
-
 	//Call this when you finish a level
 	public void finishLevel(){
 		++completedLevels;
@@ -85,28 +89,3 @@ public class GameManager {
 	}
 
 }
-
-//GARBAGE:
-
-//	public bool seedRand;
-
-//	private List<Vector3> obstaclePos;
-
-//	//Call this when the player dies, followed by resetLevel
-//	//If the player has no lives left, then the call to resetLevel
-//	//never actually go through and so there's nothing to worry about
-//	public void die(List<Vector3> obstPositions){
-//		++numDeaths; 
-//		if (numDeaths == numLives) {
-//			resetGame ();
-//			return;
-//		}
-//		//else, load scene, with completedLevels as seed for how level should be set up
-//	}
-
-
-//	//Call this when the player wishes to restart the level
-//	public void resetLevel(List<Vector3> obstPositions){
-//		obstaclePos = obstPositions;
-//		seedRand = false;
-//	}

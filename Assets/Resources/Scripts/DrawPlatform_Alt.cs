@@ -61,23 +61,25 @@ public class DrawPlatform_Alt : MonoBehaviour {
 			pfrm = getPlatformFromType(levelManager.getCurrentPlayer().currentPlatformType);
 			pfrm.transform.localScale = new Vector3 (0,thickness,1);
 
-			levelManager.getCurrentPlayer().getCurrentPowerBarScript().lockVal();
-
 			revalidation_material = pfrm.GetComponent<Renderer> ().material;
 		}
 		
 		//Press C if enabled to toggle type
-		if (Input.GetKeyUp (KeyCode.C) && curState != DrawState.DRAWING) {
+		if (Input.GetKeyUp (KeyCode.C)) {
 
 			Player curPlayer = levelManager.getCurrentPlayer();
 			PlatformType pt = levelManager.nextValidPlatformType(curPlayer.currentPlatformType);
-			curPlayer.changeToNextPlatformType(pt);
-			GameManager.Instance.disableAllBars ();
-			curPlayer.getCurrentPowerBar ().SetActive (true);
-//			if (pfrm != null){
-//				CancelLine();
-//				changePlatformBeingDrawnToNewType();
-//			}
+			curPlayer.changeToPlatformType(pt);
+
+			if (curState == DrawState.DRAWING){
+				Vector3 tempLocalScale = pfrm.transform.localScale;
+				GameObject.Destroy(pfrm);
+				pfrm = getPlatformFromType(pt);
+				pfrm.transform.localScale = tempLocalScale;
+				revalidation_material = pfrm.GetComponent<Renderer>().material;
+			}
+
+			levelManager.refreshShowingBar();
 		}
 		
 		if (curState == DrawState.DRAWING) { 
@@ -86,22 +88,6 @@ public class DrawPlatform_Alt : MonoBehaviour {
 			transformLine ();
 		}
 	}
-
-//	private void changePlatformBeingDrawnToNewType(){
-//		Player curPlayer = levelManager.getCurrentPlayer();
-//		levelManager.getCurrentPlayer().getCurrentPowerBarScript().revertToLocked ();
-//		GameObject temp = getPlatformFromType (curPlayer.currentPlatformType);
-//
-//		temp.transform.position = pfrm.transform.position;
-//		temp.transform.localScale = pfrm.transform.localScale;
-//		temp.transform.right = pfrm.transform.right;
-//		revalidation_material = temp.GetComponent<Renderer> ().material;
-//
-//		GameObject.Destroy (pfrm);
-//		pfrm = temp;
-//		GameManager.Instance.disableAllBars ();
-//		curPlayer.getCurrentPowerBar ().SetActive (true);
-//	}
 
 	GameObject getPlatformFromType (PlatformType pt){
 		GameObject platformToBuild;
@@ -141,9 +127,13 @@ public class DrawPlatform_Alt : MonoBehaviour {
 		pfrm.transform.right = dir.normalized;
 
 		//bar script
-		validLine = levelManager.getCurrentPlayer().getCurrentPowerBarScript().changeSize(difficulty * -delta);
+		float curBarSize = levelManager.calculateBarSizeForCurrentEverything_plus_PlatformP (pfrm);
+		validLine = (curBarSize >= 0);
+		if (!validLine) {
+			curBarSize = 0f;
+		}
 
-
+		levelManager.getCurrentPlayer ().getCurrentPowerBarScript ().setSize (curBarSize);
 
 		// Set line color
 		if (!validLine) {pfrm.GetComponent<Renderer>().material = red;}
@@ -164,8 +154,8 @@ public class DrawPlatform_Alt : MonoBehaviour {
 
 		newPoint = Vector3.zero;
 		GameObject.Destroy (pfrm);
-		levelManager.getCurrentPlayer().getCurrentPowerBarScript().revertToLocked ();
 		curState = DrawState.NONE;
+		levelManager.updateShowingBar ();
 	}
 
 	void endTurn(){//end turn logic
@@ -173,6 +163,7 @@ public class DrawPlatform_Alt : MonoBehaviour {
 		pfrm = null;
 		curState = DrawState.NONE;
 	}
+	
 
 //HELPERS FOR INPUT: SIMPLIFY UPDATE LOGIC
 	
