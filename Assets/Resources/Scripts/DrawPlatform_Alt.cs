@@ -65,6 +65,7 @@ public class DrawPlatform_Alt : MonoBehaviour {
 				if (hit.transform.tag == "movable"){
 					Debug.Log("Now in move mode");
 					selectedTrans = hit.transform;
+					Debug.Log("Moving " + hit.collider.name);
 					curState = DrawState.MOVING;
 				}
 			}
@@ -115,6 +116,7 @@ public class DrawPlatform_Alt : MonoBehaviour {
 			mouse.z = 0;
 			selectedTrans.position = mouse;
 			if (Input.GetMouseButtonDown(1)){
+				Debug.Log("Out of move mode");
 				selectedTrans = null;
 				curState = DrawState.NONE;
 			}
