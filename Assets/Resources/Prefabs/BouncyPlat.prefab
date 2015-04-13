@@ -49,7 +49,7 @@ GameObject:
   - 23: {fileID: 2373654}
   m_Layer: 0
   m_Name: BouncyPlat
-  m_TagString: Untagged
+  m_TagString: movable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -105,18 +105,20 @@ public class DrawPlatform_Alt : MonoBehaviour {
 			transformLine ();
 		}
 
+	}
+
+	void FixedUpdate(){
 		//Bit of a HACK, probably could be handled more cleanly
 		//could add more functionality like rotate, delete, etc...
 		if (curState == DrawState.MOVING) {
-			Vector3 temp = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-			temp.z = 0;
-			selectedTrans.position = temp;
+			Vector3 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+			mouse.z = 0;
+			selectedTrans.position = mouse;
 			if (Input.GetMouseButtonDown(1)){
 				selectedTrans = null;
 				curState = DrawState.NONE;
 			}
 		}
-
 	}
 
 	GameObject getPlatformFromType (PlatformType pt){
