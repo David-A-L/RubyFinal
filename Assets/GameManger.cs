@@ -31,7 +31,7 @@ public class GameManager {
 		
 		
 		//HACK
-		setUpPlayers (2);
+		setUpPlayers (1);
 
 		UnityEngine.Object.DontDestroyOnLoad (levelCanvas);
 	}    
