@@ -39,6 +39,8 @@ public class BallScript : MonoBehaviour {
 		BallScript colBallScpt = coll.gameObject.GetComponent<BallScript>();
 		if(!colBallScpt.isMeldable) {return;}
 
+		Jukebox.Instance.playASound ("meld");
+
 		float volBallThis = gameObject.transform.localScale.x;
 		float volBallCold = coll.gameObject.transform.localScale.x;
 

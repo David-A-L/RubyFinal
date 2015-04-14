@@ -232,7 +232,7 @@ Transform:
   m_LocalScale: {x: .25, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 23
+  m_RootOrder: 24
 --- !u!1001 &128846759
 Prefab:
   m_ObjectHideFlags: 0
@@ -733,7 +733,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53dc37067687d7b40883c8aa30679754, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controlGrav: 1
+  controlGrav: 0
   ballList: []
 --- !u!114 &788772597
 MonoBehaviour:
@@ -892,7 +892,7 @@ Transform:
   m_LocalScale: {x: .25, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 20
+  m_RootOrder: 21
 --- !u!1001 &1037961742
 Prefab:
   m_ObjectHideFlags: 0

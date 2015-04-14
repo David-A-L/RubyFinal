@@ -40,7 +40,7 @@ public partial class LevelManager : MonoBehaviour {
 
 	//PHYSICS
 	LevelPhysicsDriver physicsDriver;
-	public bool controlGrav = true;
+	public bool controlGrav = false;
 	Transform gravTransform_1;
 	Transform gravTransform_2;
 

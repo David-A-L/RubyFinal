@@ -14,6 +14,7 @@ TagManager:
   - movable
   - grav_dir_green
   - static_marble
+  - jukebox
   layers:
   - Default
   - TransparentFX
