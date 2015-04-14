@@ -23,6 +23,7 @@ public class DrawPlatform_Alt : MonoBehaviour {
 	//TWEAKING PARAMETERS
 	public static float difficulty = 5f; // Max 100;
 	public float thickness = .25f;
+	public static float minPlatLen = .5f;
 
 	//MATERIALS
 	public Material red;
@@ -163,7 +164,7 @@ public class DrawPlatform_Alt : MonoBehaviour {
 
 		//bar script
 		float curBarSize = levelManager.calculateBarSizeForCurrentEverything_plus_PlatformP (pfrm);
-		validLine = (curBarSize >= 0);
+		validLine = (curBarSize >= 0 && pfrm.transform.localScale.x >= minPlatLen);
 		if (!validLine) {
 			curBarSize = 0f;
 		}
