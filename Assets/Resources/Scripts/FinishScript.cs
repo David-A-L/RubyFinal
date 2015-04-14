@@ -14,6 +14,7 @@ public class FinishScript : MonoBehaviour {
 	//TODO MOVE FINISH/LIFE CONTROL TO THE LEVEL MANAGER
 	// Use this for initialization
 	void Start () {
+		levelFinished = false;
 		levelManager = GameObject.Find ("Main Camera").GetComponent<LevelManager> ();
 		platformStartSize = transform.localScale;
 	}
