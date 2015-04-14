@@ -192,6 +192,7 @@ public partial class LevelManager : MonoBehaviour {
 			GameManager.Instance.disableAllBars();
 			Application.LoadLevel("_scene_main_menu");
 		}
+		if (Input.GetKeyUp (KeyCode.X)) {tick();}
 
 		//ignore, for a testing feature
 		//if (Input.GetKeyUp (KeyCode.B)) {physicsDriver.boggle();}

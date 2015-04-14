@@ -192,7 +192,7 @@ public class DrawPlatform_Alt : MonoBehaviour {
 	}
 
 	void endTurn(){//end turn logic
-		levelManager.tick ();
+		//levelManager.tick ();
 		pfrm = null;
 		curState = DrawState.NONE;
 	}
