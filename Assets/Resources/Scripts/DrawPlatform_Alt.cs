@@ -8,7 +8,7 @@ public enum BuilderID {PLAYER1, PLAYER2, PLAYER3, PLAYER4};
 public class DrawPlatform_Alt : MonoBehaviour {
 
 
-	public static float rotateSpeed = .01f;
+	public static float rotateSpeed = .005f;
 
 	//HANDLES TO OTHER SCRIPTS
 	private LevelManager levelManager;

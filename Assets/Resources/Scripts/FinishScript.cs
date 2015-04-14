@@ -57,9 +57,9 @@ public class FinishScript : MonoBehaviour {
 			Destroy (coll.collider.gameObject);
 
 			marbleCount--;
-			GameObject thing = (GameObject)Instantiate(Resources.Load ("Prefabs/plus"));
-			thing.transform.Translate(new Vector3(0,100,0));
-			print(thing.transform.position);
+			//GameObject thing = (GameObject)Instantiate(Resources.Load ("Prefabs/plus"));
+			//thing.transform.Translate(new Vector3(0,100,0));
+			//print(thing.transform.position);
 			if(shrinkablePlatform) {
 				shrinkPlatform();
 			}
