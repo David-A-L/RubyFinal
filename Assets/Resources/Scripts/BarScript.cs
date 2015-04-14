@@ -18,7 +18,7 @@ public class BarScript : MonoBehaviour {
 
 		switch (pfrmType) {
 		case PlatformType.DEFAULT:
-			gameObject.GetComponent<Image>().color = player.material.color;
+			gameObject.GetComponent<Image>().color = player.material.color*0.25f + Color.black*0.75f;
 			break;
 		case PlatformType.CONVEYOR:
 			//add trail renderer with particles matching player color
