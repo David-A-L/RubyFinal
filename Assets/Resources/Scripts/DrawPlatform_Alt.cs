@@ -7,6 +7,9 @@ public enum BuilderID {PLAYER1, PLAYER2, PLAYER3, PLAYER4};
 
 public class DrawPlatform_Alt : MonoBehaviour {
 
+
+	public static float rotateSpeed = .01f;
+
 	//HANDLES TO OTHER SCRIPTS
 	private LevelManager levelManager;
 
@@ -121,6 +124,15 @@ public class DrawPlatform_Alt : MonoBehaviour {
 			Vector3 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			mouse.z = 0;
 			selectedTrans.position = mouse;
+			float rotDir = Input.GetAxis("Mouse ScrollWheel");
+
+			/*Debug.Log("before:" + selectedTrans.up);
+			Vector3.RotateTowards(selectedTrans.up,selectedTrans.right,0.261799f * rotDir,1f);
+			Debug.Log("After:" + selectedTrans.up);*/
+			Vector3 curRot = selectedTrans.eulerAngles;
+			curRot.z +=  rotDir * rotateSpeed;
+			selectedTrans.eulerAngles = curRot;
+
 			if (Input.GetMouseButtonDown(1)){
 				Debug.Log("Out of move mode");
 				selectedTrans = null;
