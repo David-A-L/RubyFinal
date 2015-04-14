@@ -4,6 +4,7 @@ using System.Collections;
 public class BallScript : MonoBehaviour {
 	
 	public Vector3 ballGravDir;
+	Transform gravArrow;
 	public float gravStr = 9.8f;
 	public string gravityGroup = "grav_dir_red";
 	public bool isMeldable;
@@ -13,16 +14,17 @@ public class BallScript : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-
+		gravArrow = GameObject.FindGameObjectWithTag (gravityGroup).transform;
 		//not sure what's this ballGravDir being used for, have to confer w/David
-		//ballGravDir = GameObject.FindGameObjectWithTag (gravityGroup).transform.up;
-		ballGravDir = Vector3.down;
+		ballGravDir = gravArrow.up;
+		//ballGravDir = Vector3.down;
 		rewardMult = 1.5f;
 		reward = 1f;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		ballGravDir = gravArrow.up;
 		Debug.DrawRay (transform.position, ballGravDir);
 	}
 	

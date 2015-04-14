@@ -11,6 +11,8 @@ TagManager:
   - pool_conveyor
   - grav_dir_red
   - noDraw
+  - movable
+  - grav_dir_green
   layers:
   - Default
   - TransparentFX

@@ -40,6 +40,9 @@ public partial class LevelManager : MonoBehaviour {
 
 	//PHYSICS
 	LevelPhysicsDriver physicsDriver;
+	public bool controlGrav = true;
+	Transform gravTransform_1;
+	Transform gravTransform_2;
 
 	//PLAYER MANAGEMENT VARIABLES AND FUNCTIONS
 	static private int currentTurn = 0;
@@ -76,6 +79,9 @@ public partial class LevelManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+		gravTransform_1 = GameObject.FindWithTag ("grav_dir_red").transform;
+		gravTransform_2 = GameObject.FindWithTag ("grav_dir_green").transform;
 
 		toolbox = new Toolbox ();
 		refreshShowingBar ();
@@ -149,7 +155,7 @@ public partial class LevelManager : MonoBehaviour {
 
 		refreshShowingBar ();
 	}
-	
+
 	public void RedoDrawPlatform (){
 		int curPlayerID = getCurrentPlayerNum ();
 		int num_platforms_undid = allPlayers[curPlayerID].platformsUndid.Count;
@@ -192,6 +198,15 @@ public partial class LevelManager : MonoBehaviour {
 			msg += plyr.ID + " " + plyr.levelScore + " ";
 		}
 		GameManager.Instance.playerScoreText.GetComponent<Text>().text = msg;
+
+		//Handle gravity control
+		if (controlGrav) {
+			//might want to slow the rate at which the gravtransform rotates to prevent juggling
+			Vector3 mousePos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
+			mousePos.z = gravTransform_1.position.z;
+			gravTransform_1.up = mousePos - gravTransform_1.position;
+			gravTransform_2.up = mousePos - gravTransform_2.position;
+		}
 			
 	}
 
