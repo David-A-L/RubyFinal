@@ -10,4 +10,10 @@ public class ButtonHelper : MonoBehaviour {
 	public void CallReset(bool hardReset){
 		Camera.main.GetComponent<LevelManager> ().ResetLevel (hardReset);
 	}
+
+	public void CallEndLevel(){
+		Camera.main.GetComponent<LevelManager> ().endLevel ();
+	}
 }
+
+

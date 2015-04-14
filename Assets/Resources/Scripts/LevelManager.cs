@@ -44,6 +44,9 @@ public partial class LevelManager : MonoBehaviour {
 	Transform gravTransform_1;
 	Transform gravTransform_2;
 
+	//Canvas management
+	GameObject finishCanvas;
+
 	//PLAYER MANAGEMENT VARIABLES AND FUNCTIONS
 	static private int currentTurn = 0;
 	public void tick(){
@@ -86,8 +89,9 @@ public partial class LevelManager : MonoBehaviour {
 		toolbox = new Toolbox ();
 		refreshShowingBar ();
 		Instantiate ((GameObject)Resources.Load ("Prefabs/Indicator"));
+		//Instantiate ((GameObject)Resources.Load ("Prefabs/FinishCanvas"));
 		//Add each ball to the ball list. 
-		GameObject[] ballArr = GameObject.FindGameObjectsWithTag("marble");
+		GameObject[] ballArr = GameObject.FindGameObjectsWithTag("static_marble");
 		foreach (GameObject b in ballArr) {ballList.Add(b);}
 
 		for (int i = 0; i < GameManager.Instance.numPlayers; ++i) {
@@ -211,6 +215,9 @@ public partial class LevelManager : MonoBehaviour {
 	}
 
 	void ActivateLevel(){
+		foreach (GameObject ball in ballList) {
+			ball.tag = "marble";
+		}
 		physicsDriver.enabled = true;
 	}
 
@@ -259,6 +266,10 @@ public partial class LevelManager : MonoBehaviour {
 		PlatformType pt = curPlayer.currentPlatformType;
 		BarScript showingBarScript = curPlayer.getCurrentPowerBarScript ();
 		showingBarScript.setSize (	calculateBarSizeForPlayerAndType (getCurrentPlayerNum(), pt)	);
+	}
+
+	public void showFinishCanvas(){
+		Instantiate ((GameObject)Resources.Load ("Prefabs/FinishCanvas"));
 	}
 
 	public void endLevel(){

@@ -13,6 +13,7 @@ TagManager:
   - noDraw
   - movable
   - grav_dir_green
+  - static_marble
   layers:
   - Default
   - TransparentFX

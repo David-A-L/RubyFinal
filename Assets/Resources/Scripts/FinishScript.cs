@@ -10,6 +10,7 @@ public class FinishScript : MonoBehaviour {
 	public int marbleCount = -1; // Number of marbles to hit the platform before it disappears
 	// Set in inspector, otherwise default behavior is never to disappear
 	private Vector3 platformStartSize;
+	static bool levelFinished = false;
 	//TODO MOVE FINISH/LIFE CONTROL TO THE LEVEL MANAGER
 	// Use this for initialization
 	void Start () {
@@ -18,12 +19,19 @@ public class FinishScript : MonoBehaviour {
 	}
 
 	void Update() {
-		Object[] marbles = GameObject.FindGameObjectsWithTag ("marble");
+		if (!levelFinished) {
+			Object[] marbles = GameObject.FindGameObjectsWithTag ("marble");
 
-		//If no marbles left restart level.
-		if (marbles.Length == 0) {
-			levelManager.endLevel ();
-			//Destroy(gameObject);
+			if (marbles.Length == 0) {
+				marbles = GameObject.FindGameObjectsWithTag ("static_marble");
+			}
+
+			//If no marbles left restart level.
+			if (marbles.Length == 0) {
+				levelManager.showFinishCanvas ();
+				levelFinished = true;
+				//Destroy(gameObject);
+			}
 		}
 	}
 	void shrinkPlatform() {
