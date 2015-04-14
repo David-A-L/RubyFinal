@@ -67,23 +67,30 @@ public class DrawPlatform_Alt : MonoBehaviour {
 				RaycastHit hit;
 				Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 				ray.direction *= 1000f;
+
 				if (Physics.Raycast (ray, out hit) && hit.transform.tag == "movable") {
-					Debug.Log ("Now in move mode");
-					selectedTrans = hit.transform;
-					Debug.Log ("Moving " + hit.collider.name);
-					curState = DrawState.MOVING;
+					if (curState == DrawState.MOVING){
+						selectedTrans = null;
+						curState = DrawState.NONE;
+					}
+					else {
+						Debug.Log ("Now in move mode");
+						selectedTrans = hit.transform;
+						Debug.Log ("Moving " + hit.collider.name);
+						curState = DrawState.MOVING;
+					}
 				}
 			//Else, drawing a new line
-			else {
-					curState = DrawState.DRAWING;
-					lastPoint = Camera.main.ScreenToWorldPoint (Input.mousePosition);
-					lastPoint.z = 0; //bring to forefront
+				else {
+						curState = DrawState.DRAWING;
+						lastPoint = Camera.main.ScreenToWorldPoint (Input.mousePosition);
+						lastPoint.z = 0; //bring to forefront
 
-					pfrm = getPlatformFromType (levelManager.getCurrentPlayer ().currentPlatformType);
-					pfrm.transform.localScale = new Vector3 (0, thickness, 1);
+						pfrm = getPlatformFromType (levelManager.getCurrentPlayer ().currentPlatformType);
+						pfrm.transform.localScale = new Vector3 (0, thickness, 1);
 
-					revalidation_material = pfrm.GetComponent<Renderer> ().material;
-				}
+						revalidation_material = pfrm.GetComponent<Renderer> ().material;
+					}
 			}
 		
 			//Press C if enabled to toggle type
@@ -117,6 +124,8 @@ public class DrawPlatform_Alt : MonoBehaviour {
 
 	}
 
+
+	//MOVE CONTROLS
 	void FixedUpdate(){
 		//Bit of a HACK, probably could be handled more cleanly
 		//could add more functionality like rotate, delete, etc...
@@ -132,12 +141,6 @@ public class DrawPlatform_Alt : MonoBehaviour {
 			Vector3 curRot = selectedTrans.eulerAngles;
 			curRot.z +=  rotDir * rotateSpeed;
 			selectedTrans.eulerAngles = curRot;
-
-			if (Input.GetMouseButtonDown(1)){
-				Debug.Log("Out of move mode");
-				selectedTrans = null;
-				curState = DrawState.NONE;
-			}
 		}
 	}
 
