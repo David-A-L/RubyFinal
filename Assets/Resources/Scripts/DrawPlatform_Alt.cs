@@ -62,6 +62,7 @@ public class DrawPlatform_Alt : MonoBehaviour {
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			ray.direction *= 1000f;
 			if(Physics.Raycast(ray, out hit)){
+				Debug.Log("Clicked on something");
 				if (hit.transform.tag == "movable"){
 					Debug.Log("Now in move mode");
 					selectedTrans = hit.transform;
