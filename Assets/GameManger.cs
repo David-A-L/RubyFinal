@@ -12,7 +12,7 @@ public class GameManager {
 
 	public GameObject levelCanvas;
 
-	public int numPlayers = 2; //make sure to call set up Players with right number
+	public int numPlayers = 4; //make sure to call set up Players with right number
 	public int completedLevels;
 	public int currentLevel;
 	public int numLevels = 20;
@@ -31,7 +31,7 @@ public class GameManager {
 		
 		
 		//HACK
-		setUpPlayers (2);
+		setUpPlayers (4);
 
 		UnityEngine.Object.DontDestroyOnLoad (levelCanvas);
 	}    

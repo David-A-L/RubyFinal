@@ -48,6 +48,8 @@ public partial class LevelManager : MonoBehaviour {
 	GameObject finishCanvas;
 
 	//PLAYER MANAGEMENT VARIABLES AND FUNCTIONS
+	public int playablePlayers = 2;
+
 	static private int currentTurn = 0;
 	public void tick(){
 		++currentTurn;
@@ -108,7 +110,9 @@ public partial class LevelManager : MonoBehaviour {
 		physicsDriver.myParent = this;
 		physicsDriver.enabled = false;
 		curLevelState = LevelState.PLANNING;
-		
+
+		GameManager.Instance.numPlayers = playablePlayers;
+
 	}
 
 	public PlatformType nextValidPlatformType(PlatformType curPlatType) {
