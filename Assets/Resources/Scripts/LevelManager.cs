@@ -107,6 +107,7 @@ public partial class LevelManager : MonoBehaviour {
 		physicsDriver = gameObject.AddComponent<LevelPhysicsDriver> ();
 		physicsDriver.myParent = this;
 		physicsDriver.enabled = false;
+		curLevelState = LevelState.PLANNING;
 		
 	}
 
@@ -220,6 +221,7 @@ public partial class LevelManager : MonoBehaviour {
 			ball.tag = "marble";
 		}
 		physicsDriver.enabled = true;
+		curLevelState = LevelState.RUNNING;
 	}
 
 	//this will generally be used in a single player context, consider a separate multi-player reset

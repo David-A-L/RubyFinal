@@ -57,52 +57,59 @@ public class DrawPlatform_Alt : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if (Input.GetMouseButtonDown(0)) {
-			//Check if you clicked on an object
-			RaycastHit hit;
-			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-			ray.direction *= 1000f;
-			if(Physics.Raycast(ray, out hit) && hit.transform.tag == "movable"){
-				Debug.Log("Now in move mode");
-				selectedTrans = hit.transform;
-				Debug.Log("Moving " + hit.collider.name);
-				curState = DrawState.MOVING;
-			}
+		if (LevelManager.curLevelState != LevelManager.LevelState.RUNNING) {
+
+			if (Input.GetMouseButtonDown (0)) {
+				//Check if you clicked on an object
+				RaycastHit hit;
+				Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+				ray.direction *= 1000f;
+				if (Physics.Raycast (ray, out hit) && hit.transform.tag == "movable") {
+					Debug.Log ("Now in move mode");
+					selectedTrans = hit.transform;
+					Debug.Log ("Moving " + hit.collider.name);
+					curState = DrawState.MOVING;
+				}
 			//Else, drawing a new line
-			else{
-				curState = DrawState.DRAWING;
-				lastPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-				lastPoint.z = 0; //bring to forefront
+			else {
+					curState = DrawState.DRAWING;
+					lastPoint = Camera.main.ScreenToWorldPoint (Input.mousePosition);
+					lastPoint.z = 0; //bring to forefront
 
-				pfrm = getPlatformFromType(levelManager.getCurrentPlayer().currentPlatformType);
-				pfrm.transform.localScale = new Vector3 (0,thickness,1);
+					pfrm = getPlatformFromType (levelManager.getCurrentPlayer ().currentPlatformType);
+					pfrm.transform.localScale = new Vector3 (0, thickness, 1);
 
-				revalidation_material = pfrm.GetComponent<Renderer> ().material;
+					revalidation_material = pfrm.GetComponent<Renderer> ().material;
+				}
 			}
-		}
 		
-		//Press C if enabled to toggle type
-		if (Input.GetKeyUp (KeyCode.C)) {
+			//Press C if enabled to toggle type
+			if (Input.GetKeyUp (KeyCode.C)) {
 
-			Player curPlayer = levelManager.getCurrentPlayer();
-			PlatformType pt = levelManager.nextValidPlatformType(curPlayer.currentPlatformType);
-			curPlayer.changeToPlatformType(pt);
+				Player curPlayer = levelManager.getCurrentPlayer ();
+				PlatformType pt = levelManager.nextValidPlatformType (curPlayer.currentPlatformType);
+				curPlayer.changeToPlatformType (pt);
 
-			if (curState == DrawState.DRAWING){
-				Vector3 tempLocalScale = pfrm.transform.localScale;
-				GameObject.Destroy(pfrm);
-				pfrm = getPlatformFromType(pt);
-				pfrm.transform.localScale = tempLocalScale;
-				revalidation_material = pfrm.GetComponent<Renderer>().material;
+				if (curState == DrawState.DRAWING) {
+					Vector3 tempLocalScale = pfrm.transform.localScale;
+					GameObject.Destroy (pfrm);
+					pfrm = getPlatformFromType (pt);
+					pfrm.transform.localScale = tempLocalScale;
+					revalidation_material = pfrm.GetComponent<Renderer> ().material;
+				}
+
+				levelManager.refreshShowingBar ();
+			}
+		
+			if (curState == DrawState.DRAWING) { 
+				if (updateHelper_inputCancel ()) {
+					return;
+				} else if (updateHelper_mouseRelease ()) {
+					return;
+				} 
+				transformLine ();
 			}
 
-			levelManager.refreshShowingBar();
-		}
-		
-		if (curState == DrawState.DRAWING) { 
-			if (updateHelper_inputCancel()){return;}
-			else if (updateHelper_mouseRelease ()){return;} 
-			transformLine ();
 		}
 
 	}
