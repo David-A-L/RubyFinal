@@ -62,14 +62,11 @@ public class DrawPlatform_Alt : MonoBehaviour {
 			RaycastHit hit;
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			ray.direction *= 1000f;
-			if(Physics.Raycast(ray, out hit)){
-				Debug.Log("Clicked on something");
-				if (hit.transform.tag == "movable"){
-					Debug.Log("Now in move mode");
-					selectedTrans = hit.transform;
-					Debug.Log("Moving " + hit.collider.name);
-					curState = DrawState.MOVING;
-				}
+			if(Physics.Raycast(ray, out hit) && hit.transform.tag == "movable"){
+				Debug.Log("Now in move mode");
+				selectedTrans = hit.transform;
+				Debug.Log("Moving " + hit.collider.name);
+				curState = DrawState.MOVING;
 			}
 			//Else, drawing a new line
 			else{
