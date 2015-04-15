@@ -5,11 +5,12 @@ public class MainMenuScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+		Jukebox.Instance.playMainMenu ();
+
 	}
-	
-	// Update is called once per frame
+
 	public void SelectLevel(string scene_name){
+		Jukebox.Instance.playLevel ();
 		LevelManager.deleteAllPlatforms ();
 		Application.LoadLevel (scene_name);
 	}

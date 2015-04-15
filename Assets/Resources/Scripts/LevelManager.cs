@@ -40,7 +40,7 @@ public partial class LevelManager : MonoBehaviour {
 
 	//PHYSICS
 	LevelPhysicsDriver physicsDriver;
-	public bool controlGrav = true;
+	public bool controlGrav = false;
 	Transform gravTransform_1;
 	Transform gravTransform_2;
 
@@ -202,12 +202,8 @@ public partial class LevelManager : MonoBehaviour {
 		//ignore, for a testing feature
 		//if (Input.GetKeyUp (KeyCode.B)) {physicsDriver.boggle();}
 		
-		//score hacks
-		string msg = @"Scores: ";
-		foreach(Player plyr in GameManager.Instance.players){
-			msg += plyr.ID + " " + plyr.levelScore + " ";
-		}
-		GameManager.Instance.playerScoreText.GetComponent<Text>().text = msg;
+		//Show/Update score on UI
+		DisplayScore();
 
 		//Handle gravity control
 		if (controlGrav) {
@@ -219,10 +215,20 @@ public partial class LevelManager : MonoBehaviour {
 		}
 			
 	}
+	
+	void DisplayScore() {
+		int totScore = 0;
+		foreach(Player plyr in GameManager.Instance.players){
+			totScore += plyr.levelScore;
+		}
+		string msg = "Score: "+totScore.ToString();
+		GameManager.Instance.playerScoreText.GetComponent<Text>().text = msg;
+	}
 
 	void ActivateLevel(){
 		foreach (GameObject ball in ballList) {
 			ball.tag = "marble";
+			ball.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
 		}
 		physicsDriver.enabled = true;
 		curLevelState = LevelState.RUNNING;

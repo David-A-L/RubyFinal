@@ -10,13 +10,13 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Old Scenes/_scene_0.unity
   - enabled: 0
-    path: Assets/_scene_cn.unity
+    path: Assets/Old Scenes/_scene_cn.unity
   - enabled: 0
-    path: Assets/_scene_Nick_tutorial.unity
+    path: Assets/Old Scenes/_scene_Nick_tutorial.unity
   - enabled: 0
-    path: Assets/_scene_Nick_full.unity
+    path: Assets/Old Scenes/_scene_Nick_full.unity
   - enabled: 0
-    path: Assets/_scene_david_full.unity
+    path: Assets/Old Scenes/_scene_david_full.unity
   - enabled: 1
     path: Assets/_scene_m_1.unity
   - enabled: 1

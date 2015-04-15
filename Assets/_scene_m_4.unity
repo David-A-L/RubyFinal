@@ -518,7 +518,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53dc37067687d7b40883c8aa30679754, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controlGrav: 1
+  controlGrav: 0
+  playablePlayers: 2
   ballList: []
 --- !u!114 &788772597
 MonoBehaviour:

@@ -48,7 +48,6 @@ public class FinishScript : MonoBehaviour {
 
 	void OnCollisionEnter(Collision coll){
 		if (coll.collider.gameObject.tag == "marble") {
-
 			//Add points to player's score
 			levelManager.updatePlayerScore(coll.collider.gameObject);
 
@@ -63,6 +62,8 @@ public class FinishScript : MonoBehaviour {
 			if(shrinkablePlatform) {
 				shrinkPlatform();
 			}
+			
+			Jukebox.Instance.playASound ("finish");
 			if(marbleCount == 0) {
 				Destroy(gameObject);
 			}
