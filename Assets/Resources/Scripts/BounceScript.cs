@@ -21,12 +21,8 @@ public class BounceScript : MonoBehaviour {
 	
 	void OnTriggerEnter (Collider coll){
 		if (coll.gameObject.tag == "marble") {
-			//TODO: FIX? 
-			//(SHOULD THIS ADD ONLY UPWARD FORCE?
-			//"transform.up" FORCE?
-			//BALL-RELATIVE UP?)
-			coll.attachedRigidbody.AddForce (Vector3.up * 700f);
-//			rend = this.gameObject.GetComponent<ParticleRenderer> ();
+			Jukebox.Instance.playASound("BOUNCE");
+			coll.attachedRigidbody.AddForce (Vector3.up * 400f);
 			rend.enabled = true;
 			particlesDisplayed = true;
 		}
