@@ -19,19 +19,29 @@ public class FinishScript : MonoBehaviour {
 		platformStartSize = transform.localScale;
 	}
 
-	void Update() {
+	void FixedUpdate() {
 		if (!levelFinished) {
-			Object[] marbles = GameObject.FindGameObjectsWithTag ("marble");
+			if (LevelManager.curLevelState == LevelManager.LevelState.RUNNING){
+				Object[] marbles = GameObject.FindGameObjectsWithTag ("marble");
 
-			if (marbles.Length == 0) {
-				marbles = GameObject.FindGameObjectsWithTag ("static_marble");
-			}
+				if (marbles.Length == 0) {
+					marbles = GameObject.FindGameObjectsWithTag ("static_marble");
+				}
 
-			//If no marbles left restart level.
-			if (marbles.Length == 0) {
-				levelManager.showFinishCanvas ();
-				levelFinished = true;
-				//Destroy(gameObject);
+				//If no marbles left restart level.
+				if (marbles.Length == 0) {
+					levelManager.showFinishCanvas ();
+					levelFinished = true;
+					//Destroy(gameObject);
+				}
+				else {
+					foreach (GameObject ball in marbles){
+						if (ball.GetComponent<Rigidbody>().IsSleeping()){
+							levelManager.showFinishCanvas ();
+							levelFinished = true;
+						}
+					}
+				}
 			}
 		}
 	}
