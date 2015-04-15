@@ -51,6 +51,12 @@ public class Jukebox{
 		AudioSource gameAudioSource = gameAudioPlayer.GetComponent<AudioSource> ();
 		gameAudioSource.PlayOneShot (ac);
 	}
+	
+	public void setVolume(string songToSet,int volume){
+		
+	}
+	
+	
 }
 
 
