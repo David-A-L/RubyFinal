@@ -28,10 +28,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_scene_m_10.unity
   - enabled: 1
+    path: Assets/_scene_m_13.unity
+  - enabled: 1
     path: Assets/_scene_m_11.unity
   - enabled: 1
     path: Assets/_scene_m_12.unity
-  - enabled: 1
-    path: Assets/_scene_m_13.unity
-  - enabled: 1
-    path: Assets/_scene_m_14.unity
