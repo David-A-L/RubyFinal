@@ -15,6 +15,7 @@ public class BounceScript : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
+		rend = transform.gameObject.GetComponent<ParticleRenderer> ();
 		rend.enabled = false;
 	}
 	
