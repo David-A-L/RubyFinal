@@ -33,15 +33,16 @@ public class FinishScript : MonoBehaviour {
 					levelManager.showFinishCanvas ();
 					levelFinished = true;
 					//Destroy(gameObject);
-				}
+				}/*
 				else {
 					foreach (GameObject ball in marbles){
 						if (ball.GetComponent<Rigidbody>().IsSleeping()){
 							levelManager.showFinishCanvas ();
 							levelFinished = true;
+							break;
 						}
 					}
-				}
+				}*/
 			}
 		}
 	}
