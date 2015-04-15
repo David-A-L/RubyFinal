@@ -202,12 +202,8 @@ public partial class LevelManager : MonoBehaviour {
 		//ignore, for a testing feature
 		//if (Input.GetKeyUp (KeyCode.B)) {physicsDriver.boggle();}
 		
-		//score hacks
-		string msg = @"Scores: ";
-		foreach(Player plyr in GameManager.Instance.players){
-			msg += plyr.ID + " " + plyr.levelScore + " ";
-		}
-		GameManager.Instance.playerScoreText.GetComponent<Text>().text = msg;
+		//Show/Update score on UI
+		DisplayScore();
 
 		//Handle gravity control
 		if (controlGrav) {
@@ -218,6 +214,15 @@ public partial class LevelManager : MonoBehaviour {
 			gravTransform_2.up = mousePos - gravTransform_2.position;
 		}
 			
+	}
+	
+	void DisplayScore() {
+		int totScore = 0;
+		foreach(Player plyr in GameManager.Instance.players){
+			totScore += plyr.levelScore;
+		}
+		string msg = "Score: "+totScore.ToString();
+		GameManager.Instance.playerScoreText.GetComponent<Text>().text = msg;
 	}
 
 	void ActivateLevel(){
