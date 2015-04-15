@@ -515,6 +515,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controlGrav: 1
+  playablePlayers: 2
   ballList: []
 --- !u!114 &788772597
 MonoBehaviour:

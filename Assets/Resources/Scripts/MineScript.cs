@@ -25,6 +25,8 @@ public class MineScript : MonoBehaviour {
 				vel = hit.attachedRigidbody.velocity;
 				vel.x += ex;
 				hit.attachedRigidbody.velocity = vel;
+				
+				Jukebox.Instance.playASound ("EXPLOSION");
 				print ("added force to marble");
 			}
 		}

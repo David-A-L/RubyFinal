@@ -63,6 +63,8 @@ public class FinishScript : MonoBehaviour {
 			if(shrinkablePlatform) {
 				shrinkPlatform();
 			}
+			
+			Jukebox.Instance.playASound ("FINISH_PFRM_COLLIDE");
 			if(marbleCount == 0) {
 				Destroy(gameObject);
 			}
