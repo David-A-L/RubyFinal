@@ -16,6 +16,7 @@ public class WHScript : MonoBehaviour {
 		if (child != "Enter")
 			return;
 		if (collided.tag == "marble") {
+			Jukebox.Instance.playASound("WORMHOLE");
 			collided.transform.position = exit.position;
 		}
 	}

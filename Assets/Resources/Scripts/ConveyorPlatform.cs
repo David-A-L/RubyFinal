@@ -42,6 +42,7 @@ public class ConveyorPlatform : MonoBehaviour {
 
 	void OnTriggerStay(Collider coll) {
 		if(coll.gameObject.tag == "marble") {
+			Jukebox.Instance.playASound("conveyor");
 			Rigidbody cRigid = coll.attachedRigidbody;
 			Vector3 vec = transform.right * power * (maxSpeed - cRigid.velocity.magnitude)/maxSpeed;
 			cRigid.AddForce(vec);
