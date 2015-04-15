@@ -95,9 +95,14 @@ public class DrawPlatform_Alt : MonoBehaviour {
 		
 			//Press C if enabled to toggle type
 			if (Input.GetKeyUp (KeyCode.C)) {
-
 				Player curPlayer = levelManager.getCurrentPlayer ();
-				PlatformType pt = levelManager.nextValidPlatformType (curPlayer.currentPlatformType);
+				PlatformType pt = curPlayer.currentPlatformType;
+
+				if (Input.GetButton("shift")){
+					levelManager.tick(); 
+					curPlayer = levelManager.getCurrentPlayer ();//update this since changed
+				}
+				else{pt = levelManager.nextValidPlatformType (curPlayer.currentPlatformType);}//if player unchanged, switch to next type
 				curPlayer.changeToPlatformType (pt);
 
 				if (curState == DrawState.DRAWING) {
