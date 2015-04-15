@@ -21,6 +21,10 @@ public class Jukebox{
 		} 
 	}
 
+	public bool firstMenuVisit = true;
+	public bool firstLevelVisit = true;
+
+
 	//CODE FOR BACKGROUND AUDIO MANAGEMENT
 	private static GameObject backgroundPlayer;
 
