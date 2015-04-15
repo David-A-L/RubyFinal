@@ -29,12 +29,14 @@ public class BallScript : MonoBehaviour {
 	}
 	
 	//maybe switch to on collision?
-	void OnTriggerEnter(Collider ballColl) {
-		handleMeld(ballColl);
+	void OnCollisionEnter(Collision ballColl) {
+		print ("Enterred collision");
+		handleMeld(ballColl.collider);
 	}
 	
 	void handleMeld(Collider coll) {
-		if (coll.tag != "marble" || !coll.isTrigger || !coll.gameObject.activeInHierarchy) {return;}
+		print ("Melding");
+		if (coll.tag != "marble" || !coll.gameObject.activeInHierarchy) {return;}
 
 		BallScript colBallScpt = coll.gameObject.GetComponent<BallScript>();
 		if(!colBallScpt.isMeldable) {return;}
