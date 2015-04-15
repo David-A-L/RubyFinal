@@ -223,6 +223,7 @@ public partial class LevelManager : MonoBehaviour {
 	void ActivateLevel(){
 		foreach (GameObject ball in ballList) {
 			ball.tag = "marble";
+			ball.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
 		}
 		physicsDriver.enabled = true;
 		curLevelState = LevelState.RUNNING;

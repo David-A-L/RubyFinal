@@ -1136,6 +1136,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controlGrav: 1
+  playablePlayers: 2
   ballList: []
 --- !u!81 &700976062
 AudioListener:
