@@ -22,7 +22,7 @@ public class BounceScript : MonoBehaviour {
 	void OnTriggerEnter (Collider coll){
 		if (coll.gameObject.tag == "marble") {
 			Jukebox.Instance.playASound("BOUNCE");
-			coll.attachedRigidbody.AddForce (Vector3.up * 400f);
+			coll.attachedRigidbody.AddForce (transform.up * 400f);
 			rend.enabled = true;
 			particlesDisplayed = true;
 		}
@@ -34,7 +34,7 @@ public class BounceScript : MonoBehaviour {
 		rotTimer -= Time.deltaTime;
 
 		if (particlesDisplayed) {
-			transform.Rotate (Vector3.up, 10f);
+			transform.Rotate (transform.up, 10f);
 			totalRotY += 10f;
 			onBouncetimer -= Time.deltaTime;
 			if (onBouncetimer <= 0){
@@ -43,7 +43,7 @@ public class BounceScript : MonoBehaviour {
 				onBouncetimer = 1f;
 
 				float rotOffset = rotAngle - totalRotY;
-				transform.Rotate (Vector3.up, rotOffset);
+				transform.Rotate (transform.up, rotOffset);
 				totalRotY = 0;
 				rotTimer = 3f;
 				blink = false;
@@ -55,7 +55,7 @@ public class BounceScript : MonoBehaviour {
 		if (rotTimer <= 0 && !particlesDisplayed) {
 			if (blink){
 				float rotOffset = rotAngle - totalRotY;
-				transform.Rotate (Vector3.up, rotOffset);
+				transform.Rotate (transform.up, rotOffset);
 				totalRotY = 0;
 			}
 			blink = !blink;
@@ -66,7 +66,7 @@ public class BounceScript : MonoBehaviour {
 		if (blink && !particlesDisplayed){
 			float rotThisFrame = Time.deltaTime * rotAngle / rotPeriod;
 			totalRotY += rotThisFrame;
-			transform.Rotate (Vector3.up, rotThisFrame);
+			transform.Rotate (transform.up, rotThisFrame);
 		}
 	}
 }

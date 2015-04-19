@@ -190,9 +190,12 @@ public partial class LevelManager : MonoBehaviour {
 			if (Input.GetButton ("ctrl") && Input.GetButton ("shift") && Input.GetKeyDown (KeyCode.Z)) {RedoDrawPlatform ();} 
 			else if ((Input.GetButton ("ctrl") && Input.GetKeyDown (KeyCode.Z))|| Input.GetKeyDown (KeyCode.U)) {undoDrawPlatform ();}
 		}
-		if (Input.GetKeyUp (KeyCode.S)) {ResetLevel(false);}
-		else if (Input.GetKeyUp (KeyCode.R)) {ResetLevel(true);}
-		if (Input.GetKeyUp(KeyCode.A)){ActivateLevel();}
+
+
+		bool hardReset = (curLevelState == LevelState.RUNNING) ? false : true;
+		if (Input.GetKeyUp (KeyCode.R)) {ResetLevel(hardReset);}
+		//else if (Input.GetKeyUp (KeyCode.R)) {ResetLevel(true);}
+		if (Input.GetKeyUp(KeyCode.Space)){ActivateLevel();}
 		if (Input.GetKey (KeyCode.Backspace)) {
 			GameManager.Instance.disableAllBars();
 			Application.LoadLevel("_scene_main_menu");
