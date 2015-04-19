@@ -36,7 +36,7 @@ public class Player{
 
 	private void resourceHelper(){
 
-		conveyorLine = (GameObject)Resources.Load ("Prefabs/cnvrPfrm");
+		conveyorLine = (GameObject)Resources.Load ("Prefabs/lineCnvrPfrm");
 
 		switch (ID) {
 			case BuilderID.PLAYER1: 

@@ -32,7 +32,7 @@ GameObject:
   - 65: {fileID: 6592560}
   - 114: {fileID: 11476014}
   m_Layer: 0
-  m_Name: cnvrPfrm
+  m_Name: lineCnvrPfrm
   m_TagString: movable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

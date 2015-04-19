@@ -145,6 +145,25 @@ public partial class LevelManager : MonoBehaviour {
 		foreach (platformState ps in allPlayers[curPlayerID].platformsUndid){GameObject.Destroy(ps.platObj);}
 		allPlayers[curPlayerID].platformsUndid.Clear ();
 	}
+
+	public void DeletePlatform(GameObject target){
+		int targetID = target.GetInstanceID();
+
+		for (int i = 0; i < playablePlayers; i++) {
+			foreach( platformState ps in allPlayers[i].platformsLaid ){
+				if (targetID == ps.platObj.GetInstanceID()){
+
+					allPlayers[i].platformsLaid.Remove(ps);
+					GameObject.Destroy(target);
+
+					float sizeToSet = calculateBarSizeForPlayerAndType (i, ps.platType);
+					GameManager.Instance.players[i].getCurrentPowerBarScript().setSize(sizeToSet);
+					return;
+				}
+			}
+		}
+		throw new Exception ();
+	}
 	
 	//CALL THIS WHEN YOU WISH TO UNDO PLATFORMS PREVIOUSLY DRAWN
 	public void undoDrawPlatform (){
@@ -228,12 +247,14 @@ public partial class LevelManager : MonoBehaviour {
 	}
 
 	void ActivateLevel(){
-		foreach (GameObject ball in ballList) {
-			ball.tag = "marble";
-			ball.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+		if (DrawPlatform_Alt.curState == DrawPlatform_Alt.DrawState.NONE){
+			foreach (GameObject ball in ballList) {
+				ball.tag = "marble";
+				ball.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+			}
+			physicsDriver.enabled = true;
+			curLevelState = LevelState.RUNNING;
 		}
-		physicsDriver.enabled = true;
-		curLevelState = LevelState.RUNNING;
 	}
 
 	//this will generally be used in a single player context, consider a separate multi-player reset

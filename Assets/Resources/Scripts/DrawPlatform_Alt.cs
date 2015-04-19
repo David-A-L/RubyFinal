@@ -125,6 +125,23 @@ public class DrawPlatform_Alt : MonoBehaviour {
 				transformLine ();
 			}
 
+			//if you are moving a line you want to delete
+			if (curState == DrawState.MOVING && Input.GetKeyUp(KeyCode.Delete)){
+				//HACK...not very pretty
+				if(selectedTrans.name.Contains("line")){
+					//try catch just in case...
+					try {
+						levelManager.DeletePlatform(selectedTrans.gameObject);
+					} catch (UnityException ex){
+						Debug.Log("Unable to delete platform");
+						return;
+					}
+
+					selectedTrans = null;
+					curState = DrawState.NONE;
+				}
+			}
+
 		}
 
 	}
