@@ -65,6 +65,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 450668}
   - 114: {fileID: 11434300}
+  - 120: {fileID: 12088614}
+  - 114: {fileID: 11469974}
   m_Layer: 0
   m_Name: WormHole
   m_TagString: Untagged
@@ -104,7 +106,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 198650}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.980000019, y: -.180000007, z: 0}
+  m_LocalPosition: {x: -.980000019, y: 9.27000046, z: 0}
   m_LocalScale: {x: .5, y: .5, z: .5}
   m_Children:
   - {fileID: 410264}
@@ -238,6 +240,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93250c7d84600514da1f782fceb569fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11469974
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 198650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5935062bf1dd146439f710fd09d5f933, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11483580
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -250,6 +263,43 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   power: 30
+--- !u!120 &12088614
+LineRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 198650}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_Materials:
+  - {fileID: 2100000, guid: 379ffb684ce1edd4eb278fb3ec38a9a3, type: 2}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 1
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_Positions:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 1}
+  m_Parameters:
+    startWidth: 1
+    endWidth: .5
+    m_StartColor:
+      serializedVersion: 2
+      rgba: 4294967295
+    m_EndColor:
+      serializedVersion: 2
+      rgba: 4294967295
+  m_UseWorldSpace: 1
 --- !u!136 &13649850
 CapsuleCollider:
   m_ObjectHideFlags: 1
