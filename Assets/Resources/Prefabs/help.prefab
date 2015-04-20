@@ -94,21 +94,21 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Click and drag do draw.
+  m_Text: 'Click and drag to draw, x to cancel
 
-    a: action
+    Click to select an object, scroll to rotate and delete to erase
 
-    s: start level again
+    Spacebar: activate level
 
     r: reset level
 
     c: conveyor
 
-    C: change color
+    Shift-C: change color
 
     h: toggle help
 
-    delete: menu'
+    Backspace: menu'
 --- !u!114 &11469828
 MonoBehaviour:
   m_ObjectHideFlags: 1
