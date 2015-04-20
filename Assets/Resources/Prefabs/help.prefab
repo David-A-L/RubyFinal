@@ -94,21 +94,21 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Click and drag to draw, x to cancel
+  m_Text: '-Click and drag to draw, x to cancel
 
-    Click to select an object, scroll to rotate and delete to erase
+    -Click to select an object, scroll to rotate and delete to erase
 
-    Spacebar: activate level
+    -Spacebar: activate level
 
-    r: reset level
+    -r: reset level
 
-    c: conveyor
+    -c: conveyor
 
-    Shift-C: change color
+    -Shift-C: change color
 
-    h: toggle help
+    -h: toggle help
 
-    Backspace: menu'
+    -Backspace: menu'
 --- !u!114 &11469828
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -155,21 +155,21 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Click and drag do draw.
+  m_Text: '-Click and drag to draw, x to cancel
 
-    a: action
+    -Click to select an object, scroll to rotate and delete to erase
 
-    s: start level again
+    -Spacebar: activate level
 
-    r: reset level
+    -r: reset level
 
-    c: conveyor
+    -c: conveyor
 
-    C: change color
+    -Shift-C: change color
 
-    h: toggle help
+    -h: toggle help
 
-    delete: menu'
+    -Backspace: menu'
 --- !u!114 &11496068
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -226,7 +226,7 @@ RectTransform:
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
   m_AnchoredPosition: {x: -1, y: -1}
-  m_SizeDelta: {x: 379, y: 253}
+  m_SizeDelta: {x: 400, y: 400}
   m_Pivot: {x: .5, y: .5}
 --- !u!224 &22462230
 RectTransform:
@@ -262,7 +262,7 @@ RectTransform:
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 379, y: 253}
+  m_SizeDelta: {x: 400, y: 400}
   m_Pivot: {x: .5, y: .5}
 --- !u!1001 &100100000
 Prefab:

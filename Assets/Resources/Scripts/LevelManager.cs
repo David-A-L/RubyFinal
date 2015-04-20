@@ -74,6 +74,7 @@ public partial class LevelManager : MonoBehaviour {
 
 	//Scoring
 	static int scoreMultiplier = 10; 
+	public int parScore = 0;
 
 
 	//ONCE, ADD MANAGEMENT INSTANCES FOR EACH PLAYER
@@ -242,7 +243,7 @@ public partial class LevelManager : MonoBehaviour {
 		foreach(Player plyr in GameManager.Instance.players){
 			totScore += plyr.levelScore;
 		}
-		string msg = "Score: "+totScore.ToString();
+		string msg = "Score: "+totScore.ToString() + "\nPar Score: " + parScore.ToString();
 		GameManager.Instance.playerScoreText.GetComponent<Text>().text = msg;
 	}
 
@@ -305,7 +306,15 @@ public partial class LevelManager : MonoBehaviour {
 	}
 
 	public void showFinishCanvas(){
-		Instantiate ((GameObject)Resources.Load ("Prefabs/FinishCanvas"));
+		int totScore = 0;
+		foreach(Player plyr in GameManager.Instance.players){
+			totScore += plyr.levelScore;
+		}
+		if (totScore <= parScore) {
+			Instantiate ((GameObject)Resources.Load ("Prefabs/FailedCanvas"));
+		} else {
+			Instantiate ((GameObject)Resources.Load ("Prefabs/FinishCanvas"));
+		}
 	}
 
 	public void endLevel(){
