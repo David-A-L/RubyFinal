@@ -14,7 +14,6 @@ public class DrawPlatform_Alt : MonoBehaviour {
 	private LevelManager levelManager;
 
 	//ENUMS AND CLASSES FOR STATE INVOLVED WITH DRAWING
-	public List <GameObject> allPossibleLines = new List<GameObject> ();
 	public enum DrawState{NONE, DRAWING, MOVING};
 		
 	//INSTANCES FOR ENUMS
@@ -258,19 +257,3 @@ public class DrawPlatform_Alt : MonoBehaviour {
 		return false;
 	}
 }
-
-
-/*	
-	GARBAGE (COMMENTED OUT CODE & VARs)
-
-	public Material gray;
-	public Transform progressBar;
-
-	public Material blue;
-	public Material yellow;
-	public Material green;
-
-	private Vector3 newSize;
-
-	private bool first = true;
-*/
