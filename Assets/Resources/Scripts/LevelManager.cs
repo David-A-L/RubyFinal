@@ -9,17 +9,22 @@ public class platformState{
 	public PlatformType platType;
 }
 
+
 public class Toolbox{
-	static public float defaultAmt = 25;
-	static public float conveyorAmt = 10;
-	public List<float> baseAmounts;
+	public List <List<float>> player_BaseAmounts;
+	public Toolbox(float in_def_1, float in_conv_1, float in_def_2, float in_conv_2){
+		player_BaseAmounts = new List<List<float>>();
+		player_BaseAmounts.Add( new List<float> ());
+		player_BaseAmounts [0].Add (in_def_1);
+		player_BaseAmounts [0].Add (in_conv_1);
 
-	public Toolbox(){
-		baseAmounts = new List<float>();
-		baseAmounts.Add (defaultAmt);
-		baseAmounts.Add (conveyorAmt);
+		player_BaseAmounts.Add( new List<float> ());
+		player_BaseAmounts [1].Add (in_def_2);
+		player_BaseAmounts [1].Add (in_conv_2);
 	}
-
+	public float GetBaseAmt(int playerNum, int index){
+		return player_BaseAmounts [playerNum] [index];
+	}
 }
 //Player in Level corresponds to the fundamental things necessary to keep track of for a given player WITHIN a level
 //The LevelManager uses a Static List<playerInLevel> to keep instances of this class for each player in the game.
@@ -49,6 +54,11 @@ public partial class LevelManager : MonoBehaviour {
 
 	//PLAYER MANAGEMENT VARIABLES AND FUNCTIONS
 	public int playablePlayers = 2;
+	
+	public float defaultAmt_p1 = 25;
+	public float conveyorAmt_p1 = 10;
+	public float defaultAmt_p2 = 25;
+	public float conveyorAmt_p2 = 10;
 
 	static private int currentTurn = 0;
 	public void tick(){
@@ -77,6 +87,7 @@ public partial class LevelManager : MonoBehaviour {
 	public int parScore = 0;
 
 
+
 	//ONCE, ADD MANAGEMENT INSTANCES FOR EACH PLAYER
 	[RuntimeInitializeOnLoadMethod]
 	static void OnRuntimeMethodLoad (){
@@ -89,7 +100,7 @@ public partial class LevelManager : MonoBehaviour {
 		gravTransform_1 = GameObject.FindWithTag ("grav_dir_red").transform;
 		gravTransform_2 = GameObject.FindWithTag ("grav_dir_green").transform;
 
-		toolbox = new Toolbox ();
+		toolbox = new Toolbox (defaultAmt_p1,conveyorAmt_p1,defaultAmt_p2,conveyorAmt_p2);
 		refreshShowingBar ();
 		Instantiate ((GameObject)Resources.Load ("Prefabs/Indicator"));
 		//Instantiate ((GameObject)Resources.Load ("Prefabs/FinishCanvas"));
@@ -318,14 +329,15 @@ public partial class LevelManager : MonoBehaviour {
 		allPlayers [playerNum].platformsLaid.ForEach (delegate (platformState ps) {
 			if (ps.platType == pt) {curAmountUsed += ps.platObj.transform.localScale.x;}
 		});
-		return 1f - (curAmountUsed / toolbox.baseAmounts[(int) pt]);
+		return 1f - (curAmountUsed / toolbox.GetBaseAmt(playerNum,(int) pt));
 	}
 
 	public float calculateBarSizeForCurrentEverything_plus_PlatformP(GameObject p){
 		PlatformType pt = getCurrentPlayer ().currentPlatformType;
 
 		float currentUsed = calculateBarSizeForPlayerAndType (getCurrentPlayerNum(), pt);
-		currentUsed -= (p.transform.localScale.x / toolbox.baseAmounts [(int)pt]);
+		Debug.Log (getCurrentPlayerNum ());
+		currentUsed -= (p.transform.localScale.x / toolbox.GetBaseAmt(getCurrentPlayerNum(),(int)pt));
 		return currentUsed;
 	}
 

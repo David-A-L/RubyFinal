@@ -14,7 +14,7 @@ GameObject:
   - 96: {fileID: 9617336}
   - 54: {fileID: 5427084}
   - 114: {fileID: 11453576}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: MarblePlayer4
   m_TagString: static_marble
   m_Icon: {fileID: 0}

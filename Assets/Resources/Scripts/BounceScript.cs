@@ -7,7 +7,9 @@ public class BounceScript : MonoBehaviour {
 	private bool particlesDisplayed = false;
 	private bool blink = true;
 	private float onBouncetimer = 0.35f;
-	
+
+
+	public float power = 600f;
 	private float rotTimer = 1.5f;
 	private float rotAngle = 90f;
 	private float rotPeriod = 1.5f;
@@ -22,7 +24,7 @@ public class BounceScript : MonoBehaviour {
 	void OnTriggerEnter (Collider coll){
 		if (coll.gameObject.tag == "marble") {
 			Jukebox.Instance.playASound("BOUNCE");
-			coll.attachedRigidbody.AddForce (transform.up * 400f);
+			coll.attachedRigidbody.AddForce (transform.up * power);
 			rend.enabled = true;
 			particlesDisplayed = true;
 		}
