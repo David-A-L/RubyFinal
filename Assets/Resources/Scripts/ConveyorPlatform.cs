@@ -7,7 +7,6 @@ public class ConveyorPlatform : MonoBehaviour {
 	public float exitVelFraction;
 	private bool facingRight;
 	private ParticleRenderer rend;
-	private Vector3 startPoint;
 	private LevelManager levelManager;
 	private Color userSpecificParticleColor;
 
@@ -20,12 +19,7 @@ public class ConveyorPlatform : MonoBehaviour {
 		rend = GetComponentInChildren<ParticleRenderer> ();
 		userSpecificParticleColor = curPlayer.material.color;
 		rend.material.SetColor("_TintColor", userSpecificParticleColor);
-		startPoint = transform.position;
 	}
-
-//	public void SetParticleMaterial(Material m){
-//		rend.materials[0] = m;
-//	}
 
 	void Update(){
 		/*

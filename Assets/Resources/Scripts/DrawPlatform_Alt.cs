@@ -127,7 +127,7 @@ public class DrawPlatform_Alt : MonoBehaviour {
 	public void togglePlatforms(bool shiftHeld){
 		Player curPlayer = levelManager.getCurrentPlayer ();
 		PlatformType pt = curPlayer.currentPlatformType;
-			
+		
 		//Switch color
 		if (shiftHeld){
 			levelManager.tick();
@@ -228,18 +228,13 @@ public class DrawPlatform_Alt : MonoBehaviour {
 	}
 
 	void CancelLine(){
-		Debug.Log("Cancel Placement");
-
-		//lastPoint = Vector3.one; //problem, forget lastPoint
-
 		newPoint = Vector3.zero;
 		GameObject.Destroy (pfrm);
 		curState = DrawState.NONE;
 		levelManager.updateShowingBar ();
 	}
 
-	void endTurn(){//end turn logic
-		//levelManager.tick ();
+	public void endTurn(){//end turn logic
 		pfrm = null;
 		curState = DrawState.NONE;
 	}

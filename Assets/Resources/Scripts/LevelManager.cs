@@ -85,6 +85,9 @@ public partial class LevelManager : MonoBehaviour {
 	//Scoring
 	static int scoreMultiplier = 10; 
 	public int parScore = 0;
+	
+	//Input Manager
+	public static KeyCommandList keyCommandList;
 
 
 
@@ -123,6 +126,9 @@ public partial class LevelManager : MonoBehaviour {
 		curLevelState = LevelState.PLANNING;
 
 		GameManager.Instance.numPlayers = playablePlayers;
+		
+		//Initialize the InputManager
+		keyCommandList = gameObject.AddComponent<KeyCommandList>();
 
 	}
 
@@ -243,8 +249,8 @@ public partial class LevelManager : MonoBehaviour {
 		GameManager.Instance.playerScoreText.GetComponent<Text>().text = msg;
 	}
 
-	public void ActivateLevel(){
-		if (DrawPlatform_Alt.curState == DrawPlatform_Alt.DrawState.NONE){
+	public void ActivateLevel(bool isFromGUI){
+		if (DrawPlatform_Alt.curState == DrawPlatform_Alt.DrawState.NONE || isFromGUI){
 			foreach (GameObject ball in ballList) {
 				ball.tag = "marble";
 				ball.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
@@ -336,7 +342,6 @@ public partial class LevelManager : MonoBehaviour {
 		PlatformType pt = getCurrentPlayer ().currentPlatformType;
 
 		float currentUsed = calculateBarSizeForPlayerAndType (getCurrentPlayerNum(), pt);
-		Debug.Log (getCurrentPlayerNum ());
 		currentUsed -= (p.transform.localScale.x / toolbox.GetBaseAmt(getCurrentPlayerNum(),(int)pt));
 		return currentUsed;
 	}
