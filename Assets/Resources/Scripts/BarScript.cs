@@ -15,7 +15,6 @@ public class BarScript : MonoBehaviour {
 	void FixedUpdate(){}
 
 	public void personalizeToPlayer(Player player,PlatformType pfrmType){
-
 		switch (pfrmType) {
 		case PlatformType.DEFAULT:
 			gameObject.GetComponent<Image>().color = player.material.color;
