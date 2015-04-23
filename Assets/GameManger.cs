@@ -34,6 +34,9 @@ public class GameManager {
 		setUpPlayers (4);
 
 		UnityEngine.Object.DontDestroyOnLoad (levelCanvas);
+		
+		//Initialize the InputManager
+		KeyCommandList.Instance.init();
 	}    
 
 	//call GameManager.Instance.<Function to Call>() to communicate with game mngr

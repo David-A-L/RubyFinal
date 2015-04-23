@@ -79,7 +79,7 @@ public class DrawPlatform_Alt : MonoBehaviour {
 						curState = DrawState.MOVING;
 					}
 				}
-			//Else, drawing a new line
+				//Else, drawing a new line
 				else {
 						curState = DrawState.DRAWING;
 						lastPoint = Camera.main.ScreenToWorldPoint (Input.mousePosition);
@@ -91,29 +91,8 @@ public class DrawPlatform_Alt : MonoBehaviour {
 						revalidation_material = pfrm.GetComponent<Renderer> ().material;
 					}
 			}
-		
-			//Press C if enabled to toggle type
-			if (Input.GetKeyUp (KeyCode.C)) {
-				Player curPlayer = levelManager.getCurrentPlayer ();
-				PlatformType pt = curPlayer.currentPlatformType;
-
-				if (Input.GetButton("shift")){
-					levelManager.tick(); 
-					curPlayer = levelManager.getCurrentPlayer ();//update this since changed
-				}
-				else{pt = levelManager.nextValidPlatformType (curPlayer.currentPlatformType);}//if player unchanged, switch to next type
-				curPlayer.changeToPlatformType (pt);
-
-				if (curState == DrawState.DRAWING) {
-					Vector3 tempLocalScale = pfrm.transform.localScale;
-					GameObject.Destroy (pfrm);
-					pfrm = getPlatformFromType (pt);
-					pfrm.transform.localScale = tempLocalScale;
-					revalidation_material = pfrm.GetComponent<Renderer> ().material;
-				}
-
-				levelManager.refreshShowingBar ();
-			}
+			
+			//Toggling platforms handled by KeyCommandList
 		
 			if (curState == DrawState.DRAWING) { 
 				if (updateHelper_inputCancel ()) {
@@ -144,7 +123,32 @@ public class DrawPlatform_Alt : MonoBehaviour {
 		}
 
 	}
-
+	
+	public void togglePlatforms(bool shiftHeld){
+		Player curPlayer = levelManager.getCurrentPlayer ();
+		PlatformType pt = curPlayer.currentPlatformType;
+			
+		//Switch color
+		if (shiftHeld){
+			levelManager.tick();
+			curPlayer = levelManager.getCurrentPlayer ();//update this since changed
+		}
+		//Switch platform type
+		else{
+			pt = levelManager.nextValidPlatformType (curPlayer.currentPlatformType);
+		}
+		curPlayer.changeToPlatformType (pt);
+			
+		if (curState == DrawState.DRAWING) {
+			Vector3 tempLocalScale = pfrm.transform.localScale;
+			GameObject.Destroy(pfrm);
+			pfrm = getPlatformFromType(pt);
+			pfrm.transform.localScale = tempLocalScale;
+			revalidation_material = pfrm.GetComponent<Renderer>().material;
+		}
+		
+		levelManager.refreshShowingBar ();
+	}
 
 	//MOVE CONTROLS
 	void FixedUpdate(){

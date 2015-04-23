@@ -203,26 +203,12 @@ public partial class LevelManager : MonoBehaviour {
 		refreshShowingBar ();
 	}
 	
-	
 	// Update is called once per frame
 	void Update () {
 		if (DrawPlatform_Alt.curState == DrawPlatform_Alt.DrawState.NONE) {
 			if (Input.GetButton ("ctrl") && Input.GetButton ("shift") && Input.GetKeyDown (KeyCode.Z)) {RedoDrawPlatform ();} 
 			else if ((Input.GetButton ("ctrl") && Input.GetKeyDown (KeyCode.Z))|| Input.GetKeyDown (KeyCode.U)) {undoDrawPlatform ();}
 		}
-
-
-		bool hardReset = (curLevelState == LevelState.RUNNING) ? false : true;
-		if (Input.GetKeyUp (KeyCode.R)) {ResetLevel(hardReset);}
-		//else if (Input.GetKeyUp (KeyCode.R)) {ResetLevel(true);}
-		
-		if (Input.GetKey (KeyCode.Backspace)) {
-			GameManager.Instance.disableAllBars();
-			Application.LoadLevel("_scene_main_menu");
-		}
-
-		//ignore, for a testing feature
-		//if (Input.GetKeyUp (KeyCode.B)) {physicsDriver.boggle();}
 		
 		//Show/Update score on UI
 		DisplayScore();
@@ -247,7 +233,7 @@ public partial class LevelManager : MonoBehaviour {
 		GameManager.Instance.playerScoreText.GetComponent<Text>().text = msg;
 	}
 
-	void ActivateLevel(){
+	public void ActivateLevel(){
 		if (DrawPlatform_Alt.curState == DrawPlatform_Alt.DrawState.NONE){
 			foreach (GameObject ball in ballList) {
 				ball.tag = "marble";
@@ -260,7 +246,8 @@ public partial class LevelManager : MonoBehaviour {
 
 	//this will generally be used in a single player context, consider a separate multi-player reset
 	//pass in true to reset everything, false to reset the balls only
-	public void ResetLevel(bool hardReset){ 
+	public void ResetLevel(){ 
+		bool hardReset = (curLevelState == LevelState.RUNNING) ? false : true;
 		GameManager.Instance.disableAllBars ();
 		currentTurn = 0;
 		resetPlayerScores();

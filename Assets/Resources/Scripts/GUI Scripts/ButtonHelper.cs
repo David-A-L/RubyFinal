@@ -8,7 +8,8 @@ using System.Collections;
 public class ButtonHelper : MonoBehaviour {
 
 	public void CallReset(bool hardReset){
-		Camera.main.GetComponent<LevelManager> ().ResetLevel (hardReset);
+		//TODO: call hard reset
+		Camera.main.GetComponent<LevelManager> ().ResetLevel ();
 	}
 
 	public void CallEndLevel(){
