@@ -62,7 +62,7 @@ public partial class LevelManager : MonoBehaviour {
 	static private List<playerInLevel> allPlayers;
 
 	//DICTIONARIES	
-	Dictionary<PlatformType, bool> EnabledDict = new Dictionary<PlatformType, bool> ();//ASSOCIATE CORRECT ENABLING ?
+	public Dictionary<PlatformType, bool> EnabledDict = new Dictionary<PlatformType, bool> ();//ASSOCIATE CORRECT ENABLING ?
 
 	//LEVEL STATE FUNCTIONS	
 	Toolbox toolbox;
@@ -105,7 +105,6 @@ public partial class LevelManager : MonoBehaviour {
 		//Have to add the script as a Component to the current gameObject (unity sucks)
 		//Hack
 		EnabledDict [PlatformType.DEFAULT] = true;
-		EnabledDict [PlatformType.CONVEYOR] = true;
 
 		physicsDriver = gameObject.AddComponent<LevelPhysicsDriver> ();
 		physicsDriver.myParent = this;

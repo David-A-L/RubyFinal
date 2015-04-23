@@ -53,7 +53,7 @@ public class DrawPlatform_Alt : MonoBehaviour {
 	void Start () {
 		curState = DrawState.NONE;
 		levelManager = GameObject.Find ("Main Camera").GetComponent<LevelManager> ();
-
+		levelManager.EnabledDict [PlatformType.CONVEYOR] = conveyorEnabled;
 	}
 	
 	// Update is called once per frame
