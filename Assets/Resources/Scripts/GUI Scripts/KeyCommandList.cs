@@ -3,67 +3,49 @@ using System.Collections;
 
 public class KeyCommandList : MonoBehaviour {
 
-	public GameObject helpText;
+	private GameObject helpText;
 	
 	private static KeyCommandList instance;
-	
-	private bool enabled = false;
 	private LevelManager levelManager;
 	private DrawPlatform_Alt drawPlatform_Alt;
 	
-	public static KeyCommandList Instance { 
-		get {
-			if (instance == null){
-				instance = new KeyCommandList();
-			}
-			return instance; 
-		} 
-	}
+	public KeyCommandList(){}
 	
-	//***Game Manager must call this to init this class***
-	public void init(){
-	}
-	public void Start()
-	{
-		helpText.SetActive(false);
-	}
-	public void changeColor(){
-		if(Input.GetKeyUp(KeyCode.C) && Input.GetButton("shift")){
+	public void changeColor(bool isFromGUI){
+		if((Input.GetKeyUp(KeyCode.C) && Input.GetButton("shift")) || isFromGUI){
 			drawPlatform_Alt.togglePlatforms(true);
 		}
 	}
-	public void changePlatformType(){
-		if(Input.GetKeyUp(KeyCode.C) && !Input.GetButton("shift")){
+	public void changePlatformType(bool isFromGUI){
+		if((Input.GetKeyUp(KeyCode.C) && !Input.GetButton("shift")) || isFromGUI){
 			drawPlatform_Alt.togglePlatforms(false);
 		}
 	}
-	public void activateLevel(){
-		if (Input.GetKeyUp(KeyCode.Space)){
+	public void activateLevel(bool isFromGUI){
+		if (Input.GetKeyUp(KeyCode.Space)|| isFromGUI){
 			levelManager.ActivateLevel();
 		}
 	}
-	public void resetLevel(){
-		if (Input.GetKeyUp (KeyCode.R)) {
+	public void resetLevel(bool isFromGUI){
+		if (Input.GetKeyUp (KeyCode.R)|| isFromGUI) {
 			levelManager.ResetLevel();
 		}
 	}
-	public void gotoMainMenu(){
-		if (Input.GetKey (KeyCode.Backspace)) {
+	public void gotoMainMenu(bool isFromGUI){
+		if (Input.GetKey (KeyCode.Backspace)|| isFromGUI) {
 			GameManager.Instance.disableAllBars();
 			Application.LoadLevel("_scene_main_menu");
 		}
 	}
-	public void toggleHelpText(){
-		if(Input.GetKeyDown(KeyCode.H)) {
-			enabled = !enabled;
-			helpText.SetActive (enabled);
+	public void toggleHelpText(bool isFromGUI){
+		if(Input.GetKeyDown(KeyCode.H)|| isFromGUI) {
+			helpText.SetActive(!helpText.activeInHierarchy);
 		}
-		if(Input.GetKeyDown(KeyCode.Escape)) {
-			if(enabled) {
-				enabled = false;
-				helpText.SetActive (false);
-			}
-		}
+	}
+	
+	void Start(){
+		helpText = GameObject.Find("help");
+		helpText.SetActive(true);
 	}
 
 	void Update() {
@@ -71,12 +53,12 @@ public class KeyCommandList : MonoBehaviour {
 		drawPlatform_Alt = GameObject.Find ("Main Camera").GetComponent<DrawPlatform_Alt>();
 		
 		//All conditional on keyboard or GUI inputs. Implemented as small functions so GUI can directly call them.
-		activateLevel();
-		resetLevel();
-		gotoMainMenu();
-		toggleHelpText();
-		changeColor();
-		changePlatformType();
+		activateLevel(false);
+		resetLevel(false);
+		gotoMainMenu(false);
+		toggleHelpText(false);
+		changeColor(false);
+		changePlatformType(false);
 	}
 }
 

@@ -35,8 +35,6 @@ public class GameManager {
 
 		UnityEngine.Object.DontDestroyOnLoad (levelCanvas);
 		
-		//Initialize the InputManager
-		KeyCommandList.Instance.init();
 	}    
 
 	//call GameManager.Instance.<Function to Call>() to communicate with game mngr

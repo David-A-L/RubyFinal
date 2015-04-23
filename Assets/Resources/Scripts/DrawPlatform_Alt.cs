@@ -228,10 +228,6 @@ public class DrawPlatform_Alt : MonoBehaviour {
 	}
 
 	void CancelLine(){
-		Debug.Log("Cancel Placement");
-
-		//lastPoint = Vector3.one; //problem, forget lastPoint
-
 		newPoint = Vector3.zero;
 		GameObject.Destroy (pfrm);
 		curState = DrawState.NONE;
@@ -239,7 +235,6 @@ public class DrawPlatform_Alt : MonoBehaviour {
 	}
 
 	void endTurn(){//end turn logic
-		//levelManager.tick ();
 		pfrm = null;
 		curState = DrawState.NONE;
 	}

@@ -7,15 +7,29 @@ public class LevelCanvasManager : MonoBehaviour {
 	 * 
 	 * 
 	 */ 
-
-
-	// Use this for initialization
-	void Start () {
-	
+	 
+	public void changeColor(){
+		LevelManager.keyCommandList.changeColor(true);
+		
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+	public void changePlatformType(){
+		LevelManager.keyCommandList.changePlatformType(true);
+		
 	}
+	public void activateLevel(){
+		LevelManager.keyCommandList.activateLevel(true);
+		
+	}
+	public void resetLevel(){
+		LevelManager.keyCommandList.resetLevel(true);
+		
+	}
+	public void gotoMainMenu(){
+		LevelManager.keyCommandList.gotoMainMenu(true);
+		
+	}
+	public void toggleHelpText(){
+		LevelManager.keyCommandList.toggleHelpText(true);
+	}
+
 }
