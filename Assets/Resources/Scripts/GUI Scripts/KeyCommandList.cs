@@ -7,9 +7,16 @@ public class KeyCommandList : MonoBehaviour {
 	void Start() {
 		helpText.SetActive (false);
 	}
-
+	
 	void Update() {
-		print ("running");
+		
+		/*----------ACTIVATE LEVEL----------*/
+		if (Input.GetKeyUp(KeyCode.Space)){
+			LevelManger.ActivateLevel();
+		}
+		/*----------RESET LEVEL----------*/
+		/*----------GOTO MAIN MENU----------*/
+		/*----------HELP TEXT----------*/
 		if(Input.GetKeyDown(KeyCode.H)) {
 			print ("H");
 			enabled = !enabled;
@@ -22,6 +29,9 @@ public class KeyCommandList : MonoBehaviour {
 				helpText.SetActive (false);
 			}
 		}
+		/*----------CHANGE COLOR----------*/
+		/*----------CHANGE PLATFORM TYPE----------*/
+		
 	}
 }
 

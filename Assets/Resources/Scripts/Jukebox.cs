@@ -78,39 +78,4 @@ public class Jukebox{
 		gameAudioSource.PlayOneShot (ac);
 	}
 	
-	public void setVolume(string songToSet,int volume){
-		
-	}
-	
-	
 }
-
-
-
-//	private Dictionary<soundTrackType,AudioClip> soundBank; 
-//	private AudioClip inLevelMusic;
-
-
-//public enum soundTrackType {BACKGROUND,MAIN_MENU,MELD,STD_PFRM,CNV_PFRM,GLUE,BOMB,BLACKHOLE,PORTAL};
-
-
-//		//Constructors
-//		soundBank = new Dictionary<soundTrackType,AudioClip>();
-//		
-//		//Load audio files into soundBank
-//		string[] audioFiles = Directory.GetFiles("Resources/AudioFiles");
-//		foreach(string soundByte in audioFiles) {
-//			//convert file name into soundTrackTypeEnum
-//			soundTrackType sType = (soundTrackType)Enum.Parse(typeof(soundTrackType),soundByte);
-//			soundBank.Add(sType,(AudioClip)Resources.Load(soundByte));
-//		}
-
-//public void playSong(soundTrackType sRequest){
-//	
-//	if(Enum.IsDefined(typeof(soundTrackType),sRequest)){
-//		backgroundAudioSource.clip = soundBank[sRequest];
-//		backgroundAudioSource.Play();
-//	} else {
-//		Debug.LogWarning(sRequest + " song type not in SoundBank");
-//	}
-//}
