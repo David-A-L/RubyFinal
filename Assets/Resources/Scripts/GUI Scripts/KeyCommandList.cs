@@ -23,7 +23,7 @@ public class KeyCommandList : MonoBehaviour {
 	}
 	public void activateLevel(bool isFromGUI){
 		if (Input.GetKeyUp(KeyCode.Space)|| isFromGUI){
-			levelManager.ActivateLevel();
+			levelManager.ActivateLevel(isFromGUI);
 		}
 	}
 	public void resetLevel(bool isFromGUI){

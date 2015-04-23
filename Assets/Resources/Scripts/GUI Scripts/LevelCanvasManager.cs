@@ -13,6 +13,7 @@ public class LevelCanvasManager : MonoBehaviour {
 		
 	}
 	public void changePlatformType(){
+		print ("Got change platform msg");
 		LevelManager.keyCommandList.changePlatformType(true);
 		
 	}

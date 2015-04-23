@@ -249,8 +249,8 @@ public partial class LevelManager : MonoBehaviour {
 		GameManager.Instance.playerScoreText.GetComponent<Text>().text = msg;
 	}
 
-	public void ActivateLevel(){
-		if (DrawPlatform_Alt.curState == DrawPlatform_Alt.DrawState.NONE){
+	public void ActivateLevel(bool isFromGUI){
+		if (DrawPlatform_Alt.curState == DrawPlatform_Alt.DrawState.NONE || isFromGUI){
 			foreach (GameObject ball in ballList) {
 				ball.tag = "marble";
 				ball.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
