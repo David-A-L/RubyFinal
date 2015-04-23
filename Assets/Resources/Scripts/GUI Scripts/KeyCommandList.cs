@@ -19,6 +19,7 @@ public class KeyCommandList : MonoBehaviour {
 			return instance; 
 		} 
 	}
+	
 	//***Game Manager must call this to init this class***
 	public void init(){
 	}

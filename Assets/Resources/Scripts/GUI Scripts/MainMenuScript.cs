@@ -10,13 +10,11 @@ public class MainMenuScript : MonoBehaviour {
 			Jukebox.Instance.playMainMenu ();
 			Jukebox.Instance.firstMenuVisit = false;
 		}
-
-
 	}
 
 	public void SelectLevel(string scene_name){
 		if (Jukebox.Instance.firstLevelVisit) {
-			Jukebox.Instance.playLevel ();;
+			Jukebox.Instance.playLevel ();
 			Jukebox.Instance.firstLevelVisit = false;
 		}
 		LevelManager.deleteAllPlatforms ();
