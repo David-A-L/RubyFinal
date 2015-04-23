@@ -21,7 +21,10 @@ public class KeyCommandList : MonoBehaviour {
 	}
 	//***Game Manager must call this to init this class***
 	public void init(){
-		helpText.SetActive (false);
+	}
+	public void Start()
+	{
+		helpText.SetActive(false);
 	}
 	public void changeColor(){
 		if(Input.GetKeyUp(KeyCode.C) && Input.GetButton("shift")){
@@ -51,12 +54,10 @@ public class KeyCommandList : MonoBehaviour {
 	}
 	public void toggleHelpText(){
 		if(Input.GetKeyDown(KeyCode.H)) {
-			print ("H");
 			enabled = !enabled;
 			helpText.SetActive (enabled);
 		}
 		if(Input.GetKeyDown(KeyCode.Escape)) {
-			print ("Esc");
 			if(enabled) {
 				enabled = false;
 				helpText.SetActive (false);
