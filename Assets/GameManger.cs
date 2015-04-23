@@ -57,7 +57,7 @@ public class GameManager {
 				playerToAdd.playerPowerBarScripts.Add(barScript);	//give the player a handle to the script
 				listForPlayer.Add(powBar);	//keep a handle to the actual power bar in the list of power bars for the player
 				powBar.transform.SetParent(levelCanvas.transform);
-				Vector2 newPos = new Vector2(0f, -180f);
+				Vector2 newPos = new Vector2(0f, -194f);
 				powBar.transform.localPosition = newPos;
 			}
 

@@ -4,7 +4,7 @@ using System.Collections;
 public class KeyCommandList : MonoBehaviour {
 
 	private GameObject helpText;
-	
+	private bool onFirstFrame = true;
 	private static KeyCommandList instance;
 	private LevelManager levelManager;
 	private DrawPlatform_Alt drawPlatform_Alt;
@@ -45,13 +45,15 @@ public class KeyCommandList : MonoBehaviour {
 	
 	void Start(){
 		helpText = GameObject.Find("help");
-		helpText.SetActive(true);
 	}
 
 	void Update() {
 		levelManager = GameObject.Find ("Main Camera").GetComponent<LevelManager>();
 		drawPlatform_Alt = GameObject.Find ("Main Camera").GetComponent<DrawPlatform_Alt>();
-		
+		if (onFirstFrame) {
+			helpText.SetActive(false);
+			onFirstFrame = false;
+		}
 		//All conditional on keyboard or GUI inputs. Implemented as small functions so GUI can directly call them.
 		activateLevel(false);
 		resetLevel(false);
