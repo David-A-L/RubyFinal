@@ -35,6 +35,7 @@ public class KeyCommandList : MonoBehaviour {
 		if (Input.GetKey (KeyCode.Backspace)|| isFromGUI) {
 			GameManager.Instance.disableAllBars();
 			Application.LoadLevel("_scene_main_menu");
+			GameObject.FindGameObjectWithTag("level_canvas").GetComponent<Canvas>().enabled = false;
 		}
 	}
 	public void toggleHelpText(bool isFromGUI){

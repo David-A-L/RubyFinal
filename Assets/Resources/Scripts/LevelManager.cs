@@ -129,6 +129,9 @@ public partial class LevelManager : MonoBehaviour {
 		
 		//Initialize the InputManager
 		keyCommandList = gameObject.AddComponent<KeyCommandList>();
+		
+		//Renable Level Canvas
+		GameObject.FindGameObjectWithTag("level_canvas").GetComponent<Canvas>().enabled = true;
 
 	}
 

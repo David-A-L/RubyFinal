@@ -15,6 +15,7 @@ TagManager:
   - grav_dir_green
   - static_marble
   - jukebox
+  - level_canvas
   layers:
   - Default
   - TransparentFX
