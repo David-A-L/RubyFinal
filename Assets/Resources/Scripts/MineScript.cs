@@ -5,7 +5,7 @@ public class MineScript : MonoBehaviour {
 
 	float explodeRadius;
 	public float power = 1000f;
-	int flip = 0;
+	//int flip = 0;
 
 	public GameObject effectZone;
 
@@ -16,14 +16,14 @@ public class MineScript : MonoBehaviour {
 	}
 
 	public void Update(){
-		if (flip == 0){
+	/*	if (flip == 0){
 				effectZone.transform.Rotate (Vector3.forward, 180f * Time.deltaTime);
 				effectZone.transform.Rotate (Vector3.up, -90f * Time.deltaTime);
 		}
 		else if (flip == 1) {effectZone.transform.Rotate (Vector3.forward, -60f * Time.deltaTime);}
 		else if (flip == 2){effectZone.transform.Rotate (Vector3.right, 90f * Time.deltaTime);}
 		else{effectZone.transform.Rotate (Vector3.up, 30f * Time.deltaTime);}
-		if (Time.frameCount % 15 == 0){flip = ++flip % 3;}
+		if (Time.frameCount % 15 == 0){flip = ++flip % 3;}*/
 	}
 
 	//pretty much stole this from unity api
