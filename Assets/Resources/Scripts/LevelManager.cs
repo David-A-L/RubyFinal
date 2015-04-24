@@ -105,7 +105,7 @@ public partial class LevelManager : MonoBehaviour {
 
 		toolbox = new Toolbox (defaultAmt_p1,conveyorAmt_p1,defaultAmt_p2,conveyorAmt_p2);
 		refreshShowingBar ();
-		Instantiate ((GameObject)Resources.Load ("Prefabs/Indicator"));
+		//Instantiate ((GameObject)Resources.Load ("Prefabs/Indicator"));
 		//Instantiate ((GameObject)Resources.Load ("Prefabs/FinishCanvas"));
 		//Add each ball to the ball list. 
 		GameObject[] ballArr = GameObject.FindGameObjectsWithTag("static_marble");

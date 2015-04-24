@@ -4,16 +4,16 @@ using System.Collections;
 public class Indicator : MonoBehaviour {
 
 	private LevelManager levelManager;
-	private Renderer rend;
+	private CanvasRenderer rend;
 	// Use this for initialization
 	void Start () {
 		levelManager = GameObject.Find ("Main Camera").GetComponent<LevelManager> ();
-		rend = gameObject.GetComponent<Renderer> ();
+		rend = transform.GetComponent<CanvasRenderer> ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		rend.material = levelManager.getCurrentPlayer ().material;
-		transform.Rotate (Vector3.up, Time.deltaTime * 45);
+		rend.SetMaterial(levelManager.getCurrentPlayer ().material, null);
+		//transform.Rotate (Vector3.up, Time.deltaTime * 45);
 	}
 }
