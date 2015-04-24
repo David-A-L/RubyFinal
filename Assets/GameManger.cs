@@ -17,6 +17,7 @@ public class GameManager {
 	public int currentLevel;
 	public int numLevels = 20;
 	public GameObject playerScoreText;
+	public GameObject resourceAmtText;
 	
 	private static GameManager instance = new GameManager();
 
@@ -28,6 +29,11 @@ public class GameManager {
 		playerScoreText = UnityEngine.Object.Instantiate(Resources.Load("Prefabs/PlayerScoreText", typeof(GameObject))) as GameObject;
 		playerScoreText.transform.SetParent(levelCanvas.transform);
 		playerScoreText.transform.localPosition = new Vector3(80f,120f,0);
+		
+		//Text to display to user amt of resource left of a bar.
+		resourceAmtText = UnityEngine.Object.Instantiate(Resources.Load("Prefabs/ResourceAmtText", typeof(GameObject))) as GameObject;
+		resourceAmtText.transform.SetParent(levelCanvas.transform);
+		resourceAmtText.transform.localPosition = new Vector3(40f,120f,0);
 		
 		
 		//HACK
