@@ -56,14 +56,13 @@ public class GameManager {
 
 			for (int j = 0; j < Enum.GetValues (typeof(PlatformType)).Length; ++j){	//for each type of power bar
 				GameObject powBar = UnityEngine.Object.Instantiate(Resources.Load("Prefabs/PowerBar", typeof(GameObject))) as GameObject;
-
 				BarScript barScript = powBar.gameObject.GetComponentsInChildren<BarScript>()[0];//get the barScript handle for it
 
 				barScript.personalizeToPlayer(playerToAdd,(PlatformType)j);	//personalize it for the player
 				playerToAdd.playerPowerBarScripts.Add(barScript);	//give the player a handle to the script
 				listForPlayer.Add(powBar);	//keep a handle to the actual power bar in the list of power bars for the player
 				powBar.transform.SetParent(levelCanvas.transform);
-				Vector2 newPos = new Vector2(0, -155f);
+				Vector2 newPos = new Vector2(0, 130f);
 				powBar.transform.localPosition = newPos;
 
 
