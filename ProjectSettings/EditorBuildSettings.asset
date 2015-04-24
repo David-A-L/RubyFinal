@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/_scene_main_menu.unity
+    path: Assets/Final Scenes/_scene_main_menu.unity
   - enabled: 1
     path: Assets/Final Scenes/_1_DrawPlatforms.unity
   - enabled: 1

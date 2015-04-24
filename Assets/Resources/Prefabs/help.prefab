@@ -94,21 +94,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '-Click and drag to draw, x to cancel
-
-    -Click to select an object, scroll to rotate and delete to erase
-
-    -Spacebar: activate level
-
-    -r: reset level
-
-    -c: conveyor
-
-    -Shift-C: change color
-
-    -h: toggle help
-
-    -Backspace: menu'
+  m_Text: 
 --- !u!114 &11469828
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -144,28 +130,24 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 30
-    m_FontStyle: 1
+    m_Font: {fileID: 12800000, guid: 60af9432ac51d4934aa44fb315c16bce, type: 3}
+    m_FontSize: 20
+    m_FontStyle: 2
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
     m_Alignment: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
+    m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: '-Click and drag to draw, x to cancel
 
-    -Click to select an object, scroll to rotate and delete to erase
+    -Click to select + scroll to rotate/delete to erase
 
     -Spacebar: activate level
 
     -r: reset level
-
-    -c: conveyor
-
-    -Shift-C: change color
 
     -h: toggle help
 
@@ -181,7 +163,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bc99d02b03334d3b838b103f78edd8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  helpText: {fileID: 197358}
 --- !u!222 &22234626
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -225,7 +206,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: -1, y: -1}
+  m_AnchoredPosition: {x: -239, y: -234}
   m_SizeDelta: {x: 400, y: 400}
   m_Pivot: {x: .5, y: .5}
 --- !u!224 &22462230

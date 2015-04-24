@@ -262,49 +262,11 @@ Prefab:
       propertyPath: m_Text
       value: '-Click and drag to draw, x to cancel
 
-        -Click to select an object, scroll to rotate and delete to erase
+        -Click to select + scroll to rotate/delete to erase
 
         -Spacebar: activate level
 
         -r: reset level
-
-        -c: conveyor
-
-        -Shift-C: change color
-
-        -h: toggle help
-
-        -Backspace: menu'
-      objectReference: {fileID: 0}
-    - target: {fileID: 22483438, guid: 0049c52bb44f442fd80da7fc19ff4ed0, type: 2}
-      propertyPath: m_SizeDelta.x
-      value: 400
-      objectReference: {fileID: 0}
-    - target: {fileID: 22407176, guid: 0049c52bb44f442fd80da7fc19ff4ed0, type: 2}
-      propertyPath: m_SizeDelta.x
-      value: 400
-      objectReference: {fileID: 0}
-    - target: {fileID: 22407176, guid: 0049c52bb44f442fd80da7fc19ff4ed0, type: 2}
-      propertyPath: m_SizeDelta.y
-      value: 400
-      objectReference: {fileID: 0}
-    - target: {fileID: 22483438, guid: 0049c52bb44f442fd80da7fc19ff4ed0, type: 2}
-      propertyPath: m_SizeDelta.y
-      value: 400
-      objectReference: {fileID: 0}
-    - target: {fileID: 11465086, guid: 0049c52bb44f442fd80da7fc19ff4ed0, type: 2}
-      propertyPath: m_Text
-      value: '-Click and drag to draw, x to cancel
-
-        -Click to select an object, scroll to rotate and delete to erase
-
-        -Spacebar: activate level
-
-        -r: reset level
-
-        -c: conveyor
-
-        -Shift-C: change color
 
         -h: toggle help
 
@@ -835,7 +797,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 6
 --- !u!1 &1861047525
 GameObject:
   m_ObjectHideFlags: 0

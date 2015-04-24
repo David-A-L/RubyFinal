@@ -12,7 +12,7 @@ public class KeyCommandList : MonoBehaviour {
 	public KeyCommandList(){}
 	
 	public void changeColor(bool isFromGUI){
-		if((Input.GetKeyUp(KeyCode.C) && Input.GetButton("shift")) || isFromGUI){
+		if((Input.GetMouseButtonUp(1) || isFromGUI)){
 			drawPlatform_Alt.togglePlatforms(true);
 		}
 	}
