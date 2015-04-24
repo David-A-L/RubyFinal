@@ -8,6 +8,26 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_scene_main_menu.unity
   - enabled: 1
+    path: Assets/Final Scenes/_1_DrawPlatforms.unity
+  - enabled: 1
+    path: Assets/Final Scenes/_2_Multiball.unity
+  - enabled: 1
+    path: Assets/Final Scenes/_3_Merge101.unity
+  - enabled: 1
+    path: Assets/Final Scenes/_4_GravityIsNegotiable.unity
+  - enabled: 1
+    path: Assets/Final Scenes/_5_HelloConveyors.unity
+  - enabled: 1
+    path: Assets/Final Scenes/_6_MoveIt.unity
+  - enabled: 1
+    path: Assets/Final Scenes/_7_Detour.unity
+  - enabled: 1
+    path: Assets/Final Scenes/_8_Accuracy.unity
+  - enabled: 1
+    path: Assets/Final Scenes/_9_Holes&Holes.unity
+  - enabled: 1
+    path: Assets/Final Scenes/_10_StickyBombs.unity
+  - enabled: 1
     path: Assets/_scene_m_1.unity
   - enabled: 1
     path: Assets/_scene_m_2.unity
@@ -33,25 +53,5 @@ EditorBuildSettings:
     path: Assets/_scene_m_11.unity
   - enabled: 1
     path: Assets/_scene_m_12.unity
-  - enabled: 1
-    path: Assets/Final Scenes/_1_DrawPlatforms.unity
-  - enabled: 1
-    path: Assets/Final Scenes/_2_Multiball.unity
-  - enabled: 1
-    path: Assets/Final Scenes/_3_Merge101.unity
-  - enabled: 1
-    path: Assets/Final Scenes/_4_GravityIsNegotiable.unity
-  - enabled: 1
-    path: Assets/Final Scenes/_5_HelloConveyors.unity
-  - enabled: 1
-    path: Assets/Final Scenes/_6_MoveIt.unity
-  - enabled: 1
-    path: Assets/Final Scenes/_7_Detour.unity
-  - enabled: 1
-    path: Assets/Final Scenes/_8_Accuracy.unity
-  - enabled: 1
-    path: Assets/Final Scenes/_9_Holes&Holes.unity
-  - enabled: 1
-    path: Assets/Final Scenes/_10_StickyBombs.unity
   - enabled: 1
     path: Assets/_scene_m_15.unity

@@ -40,8 +40,7 @@ public class BallScript : MonoBehaviour {
 
 		BallScript colBallScpt = coll.gameObject.GetComponent<BallScript>();
 		if(!colBallScpt.isMeldable) {return;}
-
-		Jukebox.Instance.playASound ("MELD");
+		
 
 		float volBallThis = gameObject.transform.localScale.x;
 		float volBallCold = coll.gameObject.transform.localScale.x;
@@ -53,7 +52,6 @@ public class BallScript : MonoBehaviour {
 			(1f/3f) // and take cube root.
 		);
 
-
 		bool sameVol = volBallThis == volBallCold;
 		bool largerVol = volBallThis > volBallCold;
 
@@ -61,13 +59,18 @@ public class BallScript : MonoBehaviour {
 		bool lowerInstanceID = GetInstanceID() < colBallScpt.GetInstanceID();
 
 		if(largerVol || (samePlayer && sameVol && lowerInstanceID)) {
+		
+			//Increase volume of marble
+			gameObject.transform.localScale = new Vector3(newBallScale,newBallScale,newBallScale);
 			
-			gameObject.transform.localScale = new Vector3(newBallScale,newBallScale,newBallScale);	
+			//Increase mass of marble, more realistic collisions
+			gameObject.GetComponent<Rigidbody>().mass = newBallScale;	
 			
 			reward = (reward + colBallScpt.reward)*rewardMult;
 
 			colBallScpt.gameObject.SetActive(false);
 			Destroy(colBallScpt.gameObject);
+			Jukebox.Instance.playASound ("MELD");
 		}
 	}
 
