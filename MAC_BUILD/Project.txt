@@ -1,0 +1,5 @@
+Process.txt
+
+You can download a tagged final version of the project at github: https://github.com/David-A-L/RubyFinal/releases.
+There is only one release, simply download either the tarball or the zip. There is a build for Mac and PC in their 
+respective top-level folders.
