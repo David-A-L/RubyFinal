@@ -28,10 +28,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Final Scenes/_10_StickyBombs.unity
   - enabled: 1
-    path: Assets/_scene_m_1.unity
-  - enabled: 1
-    path: Assets/_scene_m_2.unity
-  - enabled: 1
     path: Assets/Final Scenes/_scene_m_3.unity
   - enabled: 1
     path: Assets/Final Scenes/_scene_m_4.unity
@@ -40,15 +36,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Final Scenes/_scene_m_6.unity
   - enabled: 1
-    path: Assets/_scene_m_7.unity
-  - enabled: 1
     path: Assets/Final Scenes/_scene_m_8.unity
   - enabled: 1
     path: Assets/Final Scenes/_scene_m_9.unity
-  - enabled: 1
-    path: Assets/_scene_m_10.unity
-  - enabled: 1
-    path: Assets/_scene_m_13.unity
   - enabled: 1
     path: Assets/Final Scenes/_scene_m_11.unity
   - enabled: 1
