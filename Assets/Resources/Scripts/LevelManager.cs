@@ -228,6 +228,9 @@ public partial class LevelManager : MonoBehaviour {
 		
 		//Show/Update score on UI
 		DisplayScore();
+		
+		//Show/Update resource amt left on UI
+		DisplayBarResource();
 
 		//Handle gravity control
 		if (controlGrav) {
@@ -236,8 +239,7 @@ public partial class LevelManager : MonoBehaviour {
 			mousePos.z = gravTransform_1.position.z;
 			gravTransform_1.up = mousePos - gravTransform_1.position;
 			gravTransform_2.up = mousePos - gravTransform_2.position;
-		}
-			
+		}	
 	}
 	
 	void DisplayScore() {
@@ -247,6 +249,11 @@ public partial class LevelManager : MonoBehaviour {
 		}
 		string msg = "Score: "+totScore.ToString() + "\nPar Score: " + parScore.ToString();
 		GameManager.Instance.playerScoreText.GetComponent<Text>().text = msg;
+	}
+	
+	void DisplayBarResource(){
+		string msg = "Resource Left: "+getCurrentResourceLeft().ToString("F3");
+		GameManager.Instance.resourceAmtText.GetComponent<Text>().text = msg;
 	}
 
 	public void ActivateLevel(bool isFromGUI){
@@ -338,7 +345,18 @@ public partial class LevelManager : MonoBehaviour {
 			if (ps.platType == pt) {curAmountUsed += ps.platObj.transform.localScale.x;}
 		});
 		return 1f - (curAmountUsed / toolbox.GetBaseAmt(playerNum,(int) pt));
+		//return curAmountUsed;
 	}
+	public float calculateBarSizeForPlayerAndType(){
+		PlatformType pt = getCurrentPlayer().currentPlatformType;
+		int playerNum = getCurrentPlayerNum();
+		float curAmountUsed = 0f;
+		allPlayers [playerNum].platformsLaid.ForEach (delegate (platformState ps) {
+			if (ps.platType == pt) {curAmountUsed += ps.platObj.transform.localScale.x;}
+		});
+		return curAmountUsed;
+	}
+	
 
 	public float calculateBarSizeForCurrentEverything_plus_PlatformP(GameObject p){
 		PlatformType pt = getCurrentPlayer ().currentPlatformType;
@@ -346,6 +364,11 @@ public partial class LevelManager : MonoBehaviour {
 		float currentUsed = calculateBarSizeForPlayerAndType (getCurrentPlayerNum(), pt);
 		currentUsed -= (p.transform.localScale.x / toolbox.GetBaseAmt(getCurrentPlayerNum(),(int)pt));
 		return currentUsed;
+	}
+	public float getCurrentResourceLeft(){
+		float startingVal = toolbox.GetBaseAmt(getCurrentPlayerNum(),(int)getCurrentPlayer().currentPlatformType);
+		float resourceUsed = calculateBarSizeForPlayerAndType();
+		return startingVal - resourceUsed;
 	}
 
 

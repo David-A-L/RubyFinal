@@ -58,7 +58,6 @@ public class KeyCommandList : MonoBehaviour {
 	}
 	
 	void OnLevelWasLoaded(){
-		print ("New level loaded");
 		helpText = GameObject.Find("help");
 		isHelpTextEnabled = false;
 		helpText.GetComponent<Canvas>().enabled = isHelpTextEnabled;
