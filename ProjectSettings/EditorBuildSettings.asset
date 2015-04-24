@@ -53,3 +53,5 @@ EditorBuildSettings:
     path: Assets/Final Scenes/_9_Holes&Holes.unity
   - enabled: 1
     path: Assets/Final Scenes/_10_StickyBombs.unity
+  - enabled: 1
+    path: Assets/_scene_m_15.unity
