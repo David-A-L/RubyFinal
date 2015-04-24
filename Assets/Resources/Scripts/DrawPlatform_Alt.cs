@@ -173,6 +173,7 @@ public class DrawPlatform_Alt : MonoBehaviour {
 	GameObject getPlatformFromType (PlatformType pt){
 		GameObject platformToBuild;
 		switch (pt) {
+			//HACK this is uuuuugly
 			case PlatformType.CONVEYOR:
 				platformToBuild = Instantiate (levelManager.getCurrentPlayer ().conveyorLine);
 				break;
@@ -184,6 +185,9 @@ public class DrawPlatform_Alt : MonoBehaviour {
 				Debug.LogError ("Can't draw platform, invalid platform type");
 				break;
 			}
+		if (platformToBuild != null) {
+			platformToBuild.transform.position = new Vector3 (0, 0, -100);
+		}
 		return platformToBuild;
 	}
 	

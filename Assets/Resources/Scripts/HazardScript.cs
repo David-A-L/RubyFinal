@@ -9,6 +9,8 @@ public class HazardScript : MonoBehaviour {
 	void OnTriggerEnter(Collider coll){
 		if (coll.tag == "marble") {
 			//TODO let level manager know that I have destroyed a ball so it can do the bookkeeping
+			Jukebox.Instance.playASound("BALL_EXPLOSION");
+			print ("hit hazard");
 			GameObject.Destroy(coll.gameObject);
 			Debug.Log("A Hazard Destroyed a ball");
 		}

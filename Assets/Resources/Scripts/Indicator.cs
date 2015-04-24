@@ -1,19 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Indicator : MonoBehaviour {
 
 	private LevelManager levelManager;
-	private Renderer rend;
+	private Image rend;
 	// Use this for initialization
 	void Start () {
 		levelManager = GameObject.Find ("Main Camera").GetComponent<LevelManager> ();
-		rend = gameObject.GetComponent<Renderer> ();
+		rend = transform.GetComponent<Image>();
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		rend.material = levelManager.getCurrentPlayer ().material;
-		transform.Rotate (Vector3.up, Time.deltaTime * 45);
+	void FixedUpdate () {
+		rend.color = levelManager.getCurrentPlayer ().material.color;
+		//transform.Rotate (Vector3.up, Time.deltaTime * 45);
 	}
 }

@@ -60,6 +60,10 @@ public class Jukebox{
 		case "EXPLOSION":
 			gameAudioSource.volume = .4f;
 			break;
+		case "BALL_EXPLOSION":
+			Debug.Log("Ball explosion");
+			gameAudioSource.volume = .3f;
+			break;
 		case "BOUNCE":
 			gameAudioSource.volume = .75f;
 			break;
@@ -71,6 +75,7 @@ public class Jukebox{
 			finishAudioPlayer.GetComponent<AudioSource> ().volume = 1f;
 			finishAudioPlayer.GetComponent<AudioSource> ().PlayOneShot(ac);
 			return;
+		
 		default:
 			break;
 		}

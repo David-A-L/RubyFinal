@@ -21,7 +21,7 @@ public class BarScript : MonoBehaviour {
 			break;
 		case PlatformType.CONVEYOR:
 			//add trail renderer with particles matching player color
-			gameObject.GetComponent<Image> ().color = Color.yellow;
+			gameObject.GetComponent<Image> ().color = new Color(255f,0f,255f);
 			break;
 		default:
 			Debug.LogError ("Invalid bar type");
