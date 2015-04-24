@@ -112,6 +112,7 @@ public class DrawPlatform_Alt : MonoBehaviour {
 						levelManager.DeletePlatform(selectedTrans.gameObject);
 					} catch (UnityException ex){
 						Debug.Log("Unable to delete platform");
+						Debug.Log (ex.ToString());
 						return;
 					}
 
@@ -196,9 +197,6 @@ public class DrawPlatform_Alt : MonoBehaviour {
 		pfrm.transform.position = (lastPoint + newPoint) / 2;
 		Vector3 dir = newPoint - lastPoint;
 
-		//find change in size
-		float delta = dir.magnitude - pfrm.transform.localScale.x;
-		
 		//set pfrm scale and position
 		Vector3 tempT = pfrm.transform.localScale;
 		tempT.x = dir.magnitude;

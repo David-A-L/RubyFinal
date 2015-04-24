@@ -252,8 +252,10 @@ public partial class LevelManager : MonoBehaviour {
 	public void ActivateLevel(bool isFromGUI){
 		if (DrawPlatform_Alt.curState == DrawPlatform_Alt.DrawState.NONE || isFromGUI){
 			foreach (GameObject ball in ballList) {
-				ball.tag = "marble";
-				ball.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+				if(ball.gameObject.activeInHierarchy){
+					ball.tag = "marble";
+					ball.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+				}
 			}
 			physicsDriver.enabled = true;
 			curLevelState = LevelState.RUNNING;

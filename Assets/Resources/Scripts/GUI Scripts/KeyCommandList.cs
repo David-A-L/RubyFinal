@@ -4,10 +4,10 @@ using System.Collections;
 public class KeyCommandList : MonoBehaviour {
 
 	private GameObject helpText;
-	private bool onFirstFrame = true;
 	private static KeyCommandList instance;
 	private LevelManager levelManager;
 	private DrawPlatform_Alt drawPlatform_Alt;
+	private bool isHelpTextEnabled;
 	
 	public KeyCommandList(){}
 	
@@ -39,21 +39,15 @@ public class KeyCommandList : MonoBehaviour {
 	}
 	public void toggleHelpText(bool isFromGUI){
 		if(Input.GetKeyDown(KeyCode.H)|| isFromGUI) {
-			helpText.SetActive(!helpText.activeInHierarchy);
+			isHelpTextEnabled = !isHelpTextEnabled;
+			helpText = GameObject.Find("help");
+			helpText.GetComponent<Canvas>().enabled = isHelpTextEnabled;		
 		}
-	}
-	
-	void Start(){
-		helpText = GameObject.Find("help");
 	}
 
 	void Update() {
 		levelManager = GameObject.Find ("Main Camera").GetComponent<LevelManager>();
 		drawPlatform_Alt = GameObject.Find ("Main Camera").GetComponent<DrawPlatform_Alt>();
-		if (onFirstFrame) {
-			helpText.SetActive(false);
-			onFirstFrame = false;
-		}
 		//All conditional on keyboard or GUI inputs. Implemented as small functions so GUI can directly call them.
 		activateLevel(false);
 		resetLevel(false);
@@ -61,6 +55,13 @@ public class KeyCommandList : MonoBehaviour {
 		toggleHelpText(false);
 		changeColor(false);
 		changePlatformType(false);
+	}
+	
+	void OnLevelWasLoaded(){
+		print ("New level loaded");
+		helpText = GameObject.Find("help");
+		isHelpTextEnabled = false;
+		helpText.GetComponent<Canvas>().enabled = isHelpTextEnabled;
 	}
 }
 
